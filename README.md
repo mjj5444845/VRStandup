@@ -4,7 +4,13 @@
 
 ## 本地开发
 
-要求 Node.js 22.13 或更高版本。
+要求 Node.js 22.13 或更高版本。仓库中的 MP4 使用 Git LFS；首次克隆前请先安装 Git LFS，并在本机执行一次：
+
+```bash
+git lfs install
+```
+
+然后安装依赖并启动开发服务器：
 
 ```bash
 npm install
