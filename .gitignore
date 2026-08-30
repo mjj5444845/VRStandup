@@ -25,6 +25,8 @@
 *.pem
 .env*
 !.env.example
+/standup_video/
+/videoshortcutpic/
 
 # logs
 npm-debug.log*
