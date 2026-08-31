@@ -27,6 +27,7 @@
 !.env.example
 /standup_video/
 /videoshortcutpic/
+/*.zip
 
 # logs
 npm-debug.log*

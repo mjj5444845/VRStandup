@@ -1,6 +1,7 @@
 # Raw local media is intentionally excluded from Vercel uploads.
 standup_video
 videoshortcutpic
+*.zip
 
 # Local development and alternate-platform output.
 .wrangler

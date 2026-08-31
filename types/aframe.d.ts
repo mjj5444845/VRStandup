@@ -9,12 +9,15 @@ type AFrameElement = DetailedHTMLProps<
 declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
+      'a-asset-item': AFrameElement;
       'a-assets': AFrameElement;
       'a-box': AFrameElement;
       'a-camera': AFrameElement;
       'a-circle': AFrameElement;
       'a-cylinder': AFrameElement;
+      'a-cursor': AFrameElement;
       'a-entity': AFrameElement;
+      'a-obj-model': AFrameElement;
       'a-plane': AFrameElement;
       'a-ring': AFrameElement;
       'a-scene': AFrameElement;
