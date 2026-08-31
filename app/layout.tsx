@@ -14,29 +14,20 @@ const siteUrl = configuredSiteUrl
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'VR Standup — Open-Air WebXR Comedy',
+  title: 'VR Standup — Indoor WebXR Comedy Theater',
   description:
-    'Choose a performer and step into a bright open-air comedy stage built for browsers and VR headsets.',
+    'Choose a performer and step into a softly lit indoor comedy theater built for browsers and VR headsets.',
   openGraph: {
-    title: 'VR Standup — Open-Air WebXR Comedy',
+    title: 'VR Standup — Indoor WebXR Comedy Theater',
     description:
-      'Choose a performer and step into a bright open-air comedy stage built for browsers and VR headsets.',
+      'Choose a performer and step into a softly lit indoor comedy theater built for browsers and VR headsets.',
     type: 'website',
-    images: [
-      {
-        url: '/og.png',
-        width: 1731,
-        height: 909,
-        alt: 'VR Standup sunny open-air WebXR comedy stage',
-      },
-    ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'VR Standup — Open-Air WebXR Comedy',
+    card: 'summary',
+    title: 'VR Standup — Indoor WebXR Comedy Theater',
     description:
-      'Choose a performer and step into a bright open-air comedy stage built for browsers and VR headsets.',
-    images: ['/og.png'],
+      'Choose a performer and step into a softly lit indoor comedy theater built for browsers and VR headsets.',
   },
 };
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import {
   AUDIENCE_AVATARS,
-  AVATARS,
   getAvatar,
+  type AudienceClip,
   type AvatarId,
 } from '../data/avatars';
 
@@ -14,25 +14,30 @@ type VRStageProps = {
   sceneReady: boolean;
   sceneError: boolean;
   selectedId: AvatarId;
-  onSelect: (id: AvatarId) => void;
   onSceneElement: (scene: VRSceneElement | null) => void;
 };
 
 const chairPositions = [
-  '-3.2 0 1.8', '-1.6 0 1.8', '0 0 1.8', '1.6 0 1.8', '3.2 0 1.8',
-  '-3.6 0 3.25', '-1.8 0 3.25', '0 0 3.25', '1.8 0 3.25', '3.6 0 3.25',
-  '-4 0 4.7', '-2 0 4.7', '0 0 4.7', '2 0 4.7', '4 0 4.7',
+  '-2.5 0 1.35', '-1.25 0 1.35', '0 0 1.35', '1.25 0 1.35', '2.5 0 1.35',
+  '-2.75 0 2.75', '-1.38 0 2.75', '0 0 2.75', '1.38 0 2.75', '2.75 0 2.75',
+  '-3 0 4.15', '-1.5 0 4.15', '0 0 4.15', '1.5 0 4.15', '3 0 4.15',
 ] as const;
 
-const audiencePlacements = [
-  { avatar: 0, position: '-3.2 0.05 1.78' },
-  { avatar: 1, position: '-1.6 0.05 1.78' },
-  { avatar: 2, position: '1.6 0.05 1.78' },
-  { avatar: 3, position: '3.2 0.05 1.78' },
-  { avatar: 2, position: '-3.6 0.05 3.23' },
-  { avatar: 0, position: '-1.8 0.05 3.23' },
-  { avatar: 3, position: '1.8 0.05 3.23' },
-  { avatar: 1, position: '3.6 0.05 3.23' },
+const audiencePlacements: ReadonlyArray<{
+  avatar: number;
+  position: string;
+  clip: AudienceClip;
+  rotation: number;
+  timeScale: number;
+}> = [
+  { avatar: 0, position: '-2.5 0 1.35', clip: 'SIT_Sitting_Idle1', rotation: 178, timeScale: 0.94 },
+  { avatar: 1, position: '-1.25 0 1.35', clip: 'SIT_Sitting2', rotation: 182, timeScale: 0.88 },
+  { avatar: 2, position: '1.25 0 1.35', clip: 'SIT_Sitting_Laughing', rotation: 177, timeScale: 0.92 },
+  { avatar: 3, position: '2.5 0 1.35', clip: 'SIT_Sitting3', rotation: 184, timeScale: 0.9 },
+  { avatar: 2, position: '-2.75 0 2.75', clip: 'SIT_Sitting_Clap', rotation: 181, timeScale: 0.86 },
+  { avatar: 0, position: '-1.38 0 2.75', clip: 'SIT_Sitting1', rotation: 176, timeScale: 0.82 },
+  { avatar: 3, position: '1.38 0 2.75', clip: 'SIT_Sitting_Idle2', rotation: 183, timeScale: 0.96 },
+  { avatar: 1, position: '2.75 0 2.75', clip: 'SIT_Sitting4', rotation: 179, timeScale: 0.72 },
 ] as const;
 
 const performanceSequence = [
@@ -48,7 +53,6 @@ export function VRStage({
   sceneReady,
   sceneError,
   selectedId,
-  onSelect,
   onSceneElement,
 }: VRStageProps) {
   const selectedAvatar = getAvatar(selectedId);
@@ -66,31 +70,40 @@ export function VRStage({
     <div className="scene-card">
       <div className="scene-toolbar" aria-hidden="true">
         <div className="window-dots"><span /><span /><span /></div>
-        <span>outdoor-stage.aframe</span>
+        <span>indoor-theater.aframe</span>
         <span className="live-label">LIVE</span>
       </div>
 
-      <div className="scene-viewport" aria-label="晴天露天脱口秀舞台实时预览">
+      <div className="scene-viewport" aria-label="室内脱口秀剧场实时预览">
         {sceneReady ? (
           <a-scene
             ref={(node) => onSceneElement(node as VRSceneElement | null)}
             embedded
-            renderer="colorManagement: true; antialias: true; toneMapping: ACESFilmic; exposure: 1.05; physicallyCorrectLights: true"
+            renderer="colorManagement: true; antialias: true; toneMapping: ACESFilmic; exposure: 1.2; physicallyCorrectLights: true"
             vr-mode-ui="enabled: false"
             loading-screen="enabled: false"
-            background="color: #8fd4ff"
+            background="color: #15131d"
             webxr="optionalFeatures: bounded-floor, hand-tracking"
           >
             {/* Direct URLs avoid A-Frame resolving React-mounted #asset selectors before they exist. */}
-            <a-sky color="#8fd4ff" />
+            <a-sky color="#15131d" />
             <a-plane
-              position="0 -0.04 -1"
+              position="0 -0.04 -0.6"
               rotation="-90 0 0"
-              width="28"
-              height="28"
-              color="#8dbd6c"
+              width="15"
+              height="15"
+              color="#342c32"
               material="roughness: 1; metalness: 0"
             />
+
+            <a-box position="0 2.5 -6.72" width="15" height="5.1" depth="0.35" color="#211b2b" material="roughness: 0.96; metalness: 0" />
+            <a-box position="-7.35 2.5 -0.5" width="0.3" height="5.1" depth="12.8" color="#2c2432" material="roughness: 1; metalness: 0" />
+            <a-box position="7.35 2.5 -0.5" width="0.3" height="5.1" depth="12.8" color="#2c2432" material="roughness: 1; metalness: 0" />
+            <a-plane position="0 5.02 -0.5" rotation="90 0 0" width="15" height="12.8" color="#18151f" material="side: double; roughness: 1; metalness: 0" />
+
+            <a-box position="0 2.55 -6.48" width="8.3" height="4.3" depth="0.22" color="#2d263b" material="roughness: 0.92; metalness: 0" />
+            <a-box position="-3.72 2.52 -6.3" width="0.95" height="4.25" depth="0.18" color="#6f263f" material="roughness: 1; metalness: 0" />
+            <a-box position="3.72 2.52 -6.3" width="0.95" height="4.25" depth="0.18" color="#6f263f" material="roughness: 1; metalness: 0" />
 
             <a-box
               position="0 0.32 -4.8"
@@ -103,20 +116,20 @@ export function VRStage({
             {[-3, -1, 1, 3].map((x) => (
               <a-entity key={`floor-${x}`} gltf-model="url(/assets/stage/floor-thick.glb)" position={`${x} 0.65 -4.8`} scale="2 0.5 2" />
             ))}
-            <a-entity gltf-model="url(/assets/stage/stairs.glb)" position="0 0 -2.72" rotation="0 180 0" scale="1.5 0.7 1.2" />
+            <a-entity gltf-model="url(/assets/stage/stairs.glb)" position="-3.15 0 -2.72" rotation="0 180 0" scale="1.25 0.7 1.1" />
             <a-box
               position="0 3.85 -6.55"
               width="9"
               height="0.35"
               depth="0.6"
-              color="#f0e4cf"
+              color="#d8b97f"
               material="roughness: 0.9; metalness: 0"
             />
             {[-4.15, 4.15].map((x) => (
               <a-entity key={`column-${x}`} gltf-model="url(/assets/stage/column.glb)" position={`${x} 0.64 -6.2`} scale="1.15 3.2 1.15" />
             ))}
-            <a-text value="VR STANDUP" position="0 3.28 -6.23" align="center" width="7" color="#17314a" />
-            <a-text value="OPEN AIR COMEDY" position="0 2.84 -6.2" align="center" width="3.6" color="#376581" />
+            <a-text value="VR STANDUP" position="0 3.3 -6.2" align="center" width="7" color="#ffe7ad" />
+            <a-text value="LIVE COMEDY THEATER" position="0 2.85 -6.18" align="center" width="3.6" color="#d8b97f" />
 
             <a-entity id="performer" position="0 0.66 -4.55" rotation="0 0 0">
               <a-entity
@@ -145,7 +158,7 @@ export function VRStage({
                 gltf-model={index % 5 === 2 ? 'url(/assets/stage/chair-rounded.glb)' : 'url(/assets/stage/chair.glb)'}
                 position={position}
                 rotation="0 180 0"
-                scale="2.8 2.8 2.8"
+                scale="2.2 2.2 2.2"
               />
             ))}
             {audiencePlacements.map((placement, index) => {
@@ -155,55 +168,33 @@ export function VRStage({
                   key={`viewer-${index}`}
                   gltf-model={`url(${avatar.model})`}
                   position={placement.position}
-                  rotation="0 180 0"
-                  scale="0.92 0.92 0.92"
-                  animation-mixer={`clip: ${avatar.clip}; loop: repeat; timeScale: ${index % 2 ? '0.92' : '1.04'}`}
+                  rotation={`0 ${placement.rotation} 0`}
+                  scale="0.88 0.88 0.88"
+                  animation-mixer={`clip: ${placement.clip}; loop: repeat; timeScale: ${placement.timeScale}`}
                 />
               );
             })}
 
-            <a-entity gltf-model="url(/assets/stage/bench.glb)" position="-4.75 0 3.45" rotation="0 140 0" scale="3.6 3.6 3.6" />
-            <a-entity gltf-model="url(/assets/stage/loungeChair.glb)" position="4.1 0 3.8" rotation="0 205 0" scale="2.2 2.2 2.2" />
+            <a-entity gltf-model="url(/assets/stage/bench.glb)" position="-5.65 0 3.55" rotation="0 90 0" scale="3.2 3.2 3.2" />
+            <a-entity gltf-model="url(/assets/stage/loungeChair.glb)" position="5.55 0 3.55" rotation="0 270 0" scale="1.9 1.9 1.9" />
 
-            <a-entity position="4.6 1.45 -3.8" rotation="0 -24 0">
-              <a-box width="2.55" height="1.7" depth="0.12" color="#f8f3e7" material="roughness: 0.98; metalness: 0" />
-              <a-text value="CHOOSE PERFORMER" position="0 0.58 0.075" align="center" width="2.6" color="#17314a" />
-              {AVATARS.map((avatar, index) => {
-                const selected = avatar.id === selectedId;
-                return (
-                  <a-entity key={avatar.id} position={`0 ${0.13 - index * 0.48} 0`}>
-                    <a-box
-                      className="avatar-choice"
-                      data-avatar-id={avatar.id}
-                      width="2.05"
-                      height="0.34"
-                      depth="0.1"
-                      color={selected ? avatar.accent : '#dce8eb'}
-                      material={`roughness: 0.92; metalness: 0; emissive: ${selected ? avatar.accent : '#000000'}; emissiveIntensity: ${selected ? '0.05' : '0'}`}
-                      onClick={(event) => { event.stopPropagation(); onSelect(avatar.id); }}
-                    />
-                    <a-text value={`${avatar.shortLabel}  ${avatar.gender.toUpperCase()}`} position="0 0 0.065" align="center" width="2.6" color="#17314a" />
-                  </a-entity>
-                );
-              })}
-              <a-text value="POINT + TRIGGER / VOICE PREVIEW" position="0 -0.67 0.075" align="center" width="2.25" color="#5e7480" />
-            </a-entity>
-
-            <a-entity light="type: ambient; color: #dff3ff; intensity: 1.25" />
-            <a-entity position="-5 9 4" light="type: directional; color: #fff4d6; intensity: 2.15" />
-            <a-entity position="5 5 1" light="type: directional; color: #d7eeff; intensity: 0.72" />
+            <a-entity light="type: ambient; color: #fff1df; intensity: 1.05" />
+            <a-entity light="type: hemisphere; color: #e7efff; groundColor: #6f4b36; intensity: 1.15" />
+            <a-entity position="0 3.8 0.3" rotation="-24 0 0" light="type: spot; color: #ffe2bd; intensity: 22; distance: 12; angle: 42; penumbra: 0.78; decay: 1.35" />
+            <a-entity position="-4.4 3.2 -2.8" rotation="-18 -68 0" light="type: spot; color: #ffd3c4; intensity: 11; distance: 8; angle: 38; penumbra: 0.82; decay: 1.4" />
+            <a-entity position="4.4 3.2 -2.8" rotation="-18 68 0" light="type: spot; color: #cfe3ff; intensity: 10; distance: 8; angle: 38; penumbra: 0.82; decay: 1.4" />
+            <a-entity position="0 4.75 -4.45" rotation="-90 0 0" light="type: spot; color: #fff0cf; intensity: 16; distance: 7; angle: 48; penumbra: 0.88; decay: 1.3" />
 
             <a-entity position="0 1.65 6.1">
               <a-camera look-controls="pointerLockEnabled: false" wasd-controls="acceleration: 18">
-                <a-cursor fuse="false" raycaster="objects: .avatar-choice" color="#17314a" />
+                <a-cursor fuse="false" color="#e8c882" />
               </a-camera>
             </a-entity>
-            <a-entity laser-controls="hand: right" raycaster="objects: .avatar-choice; far: 14" line="color: #17314a; opacity: 0.9" />
           </a-scene>
         ) : (
           <div className="scene-loading" role="status">
             <span className="loader-ring" aria-hidden="true" />
-            <p>{sceneError ? '剧场加载失败，请刷新重试。' : '正在搭建露天舞台…'}</p>
+            <p>{sceneError ? '剧场加载失败，请刷新重试。' : '正在搭建室内剧场…'}</p>
           </div>
         )}
       </div>
@@ -214,7 +205,7 @@ export function VRStage({
           <strong>{selectedAvatar.name}</strong>
           <span className="wardrobe-label">动作：{performance.clip.replace('PERFORM_', '')}</span>
         </div>
-        <p>晴天柔光 · 24 件家具道具 · 8 位虚拟观众</p>
+        <p>室内舞台 · 四向柔光 · 15 把座椅 · 8 位动态观众</p>
       </div>
     </div>
   );

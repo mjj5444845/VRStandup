@@ -17,9 +17,16 @@
     "aframe_extras_component_registered": true,
     "aframe_extras_clip_switching": true
   },
-  "animation_count": 1,
+  "animation_count": 8,
   "animations": [
-    "SIT_Sitting_Idle2"
+    "SIT_Sitting1",
+    "SIT_Sitting2",
+    "SIT_Sitting3",
+    "SIT_Sitting4",
+    "SIT_Sitting_Clap",
+    "SIT_Sitting_Idle1",
+    "SIT_Sitting_Idle2",
+    "SIT_Sitting_Laughing"
   ],
   "missing_required_animations": [],
   "skinned_mesh_count": 7,
@@ -38,8 +45,57 @@
   },
   "clip_reports": [
     {
+      "name": "SIT_Sitting1",
+      "duration_seconds": 7.033333,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting2",
+      "duration_seconds": 9.6,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting3",
+      "duration_seconds": 9.6,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting4",
+      "duration_seconds": 1.2,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting_Clap",
+      "duration_seconds": 6.533333,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting_Idle1",
+      "duration_seconds": 3,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
       "name": "SIT_Sitting_Idle2",
       "duration_seconds": 4.333333,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting_Laughing",
+      "duration_seconds": 8.366667,
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
@@ -47,10 +103,59 @@
   ],
   "aframe_extras_component_switches": [
     {
+      "name": "SIT_Sitting1",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting1"
+      ]
+    },
+    {
+      "name": "SIT_Sitting2",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting2"
+      ]
+    },
+    {
+      "name": "SIT_Sitting3",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting3"
+      ]
+    },
+    {
+      "name": "SIT_Sitting4",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting4"
+      ]
+    },
+    {
+      "name": "SIT_Sitting_Clap",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting_Clap"
+      ]
+    },
+    {
+      "name": "SIT_Sitting_Idle1",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting_Idle1"
+      ]
+    },
+    {
       "name": "SIT_Sitting_Idle2",
       "active_actions": 1,
       "selected_clips": [
         "SIT_Sitting_Idle2"
+      ]
+    },
+    {
+      "name": "SIT_Sitting_Laughing",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting_Laughing"
       ]
     }
   ],

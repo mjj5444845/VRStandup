@@ -5,7 +5,14 @@
   "max_texture": 256,
   "image_quality": 64,
   "clips": [
-    "SIT_Sitting_Idle1"
+    "SIT_Sitting1",
+    "SIT_Sitting2",
+    "SIT_Sitting3",
+    "SIT_Sitting4",
+    "SIT_Sitting_Clap",
+    "SIT_Sitting_Idle1",
+    "SIT_Sitting_Idle2",
+    "SIT_Sitting_Laughing"
   ],
   "armatures": 1,
   "meshes": 8,
@@ -77,5 +84,5 @@
       ]
     }
   ],
-  "bytes": 2120732
+  "bytes": 3248704
 }

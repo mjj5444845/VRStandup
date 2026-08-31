@@ -120,11 +120,6 @@ export function AvatarLabClient() {
               background="color: #91d6ff"
               webxr="optionalFeatures: bounded-floor, hand-tracking"
             >
-              <a-assets timeout="30000">
-                {AVATARS.map((avatar) => (
-                  <a-asset-item key={avatar.id} id={`lab-${avatar.id}`} src={avatar.model} />
-                ))}
-              </a-assets>
               <a-sky color="#91d6ff" />
               <a-plane position="0 0 0" rotation="-90 0 0" width="12" height="12" color="#91bc72" material="roughness: 1; metalness: 0" />
               <a-circle position="0 0.012 0" rotation="-90 0 0" radius="1.35" color="#e2d1b6" material="roughness: 0.96; metalness: 0" />
@@ -132,7 +127,7 @@ export function AvatarLabClient() {
                 key={selectedId}
                 ref={(node) => { setAvatarNode(node as AFrameEntity | null); }}
                 id="mixamo-performer"
-                gltf-model={`#lab-${selectedId}`}
+                gltf-model={`url(${selectedAvatar.model})`}
                 position="0 0 0"
                 rotation="0 180 0"
                 animation-mixer={`clip: ${currentClip}; loop: repeat; crossFadeDuration: 0.3`}
