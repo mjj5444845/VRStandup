@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "runtime": {
+    "aframe": "1.8.0",
+    "aframe_extras": "7.7.0",
+    "component": "animation-mixer"
+  },
+  "glb": "Ch02_nonPBR_avatar.glb",
+  "checks": {
+    "gltf_loaded_by_three": true,
+    "animations_exposed_on_model": true,
+    "required_clips_present": true,
+    "skinned_meshes_present": true,
+    "bones_present": true,
+    "animation_actions_created": true,
+    "sampled_transforms_finite": true,
+    "aframe_extras_component_registered": true,
+    "aframe_extras_clip_switching": true
+  },
+  "animation_count": 16,
+  "animations": [
+    "IDLE_Idle",
+    "IDLE_Idle2",
+    "PERFORM_Agreeing",
+    "PERFORM_Standing_Greeting",
+    "PERFORM_Talking1",
+    "PERFORM_Talking2",
+    "PERFORM_Talking3",
+    "PERFORM_Waving",
+    "SIT_Sitting1",
+    "SIT_Sitting2",
+    "SIT_Sitting3",
+    "SIT_Sitting4",
+    "SIT_Sitting_Clap",
+    "SIT_Sitting_Idle1",
+    "SIT_Sitting_Idle2",
+    "SIT_Sitting_Laughing"
+  ],
+  "missing_required_animations": [],
+  "skinned_mesh_count": 6,
+  "bone_count": 65,
+  "bounds": {
+    "size": [
+      1.673992,
+      1.763641,
+      0.341105
+    ],
+    "center": [
+      -0.000066,
+      0.88288,
+      -0.001585
+    ]
+  },
+  "clip_reports": [
+    {
+      "name": "IDLE_Idle",
+      "duration_seconds": 16.666666,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "PERFORM_Talking1",
+      "duration_seconds": 3.8,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "PERFORM_Waving",
+      "duration_seconds": 3.2,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "SIT_Sitting1",
+      "duration_seconds": 7.033333,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    }
+  ],
+  "aframe_extras_component_switches": [
+    {
+      "name": "IDLE_Idle",
+      "active_actions": 1,
+      "selected_clips": [
+        "IDLE_Idle"
+      ]
+    },
+    {
+      "name": "PERFORM_Talking1",
+      "active_actions": 1,
+      "selected_clips": [
+        "PERFORM_Talking1"
+      ]
+    },
+    {
+      "name": "PERFORM_Waving",
+      "active_actions": 1,
+      "selected_clips": [
+        "PERFORM_Waving"
+      ]
+    },
+    {
+      "name": "SIT_Sitting1",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting1"
+      ]
+    }
+  ],
+  "emitted_event_count": 0
+}

@@ -1,0 +1,217 @@
+.shell {
+  min-height: 100vh;
+  padding: 0 24px 64px;
+  background:
+    radial-gradient(circle at 70% 10%, rgb(112 65 90 / 30%), transparent 34rem),
+    #0c0b10;
+  color: #f7eddf;
+}
+
+.header,
+.intro,
+.workspace,
+.acceptance {
+  width: min(1240px, 100%);
+  margin-inline: auto;
+}
+
+.header {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.brand,
+.header span,
+.eyebrow,
+.viewportStatus,
+.panelHeading span,
+.clipList button > span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.brand { font-size: 0.78rem; font-weight: 800; }
+.header span { font-size: 0.68rem; }
+.passed { color: #76d29b; }
+.pending { color: #ffc46b; }
+
+.intro {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 72px;
+  align-items: end;
+  padding: 70px 0 42px;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: #ff8a64;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.intro h1 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3.4rem, 7vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.88;
+}
+
+.intro > p {
+  max-width: 520px;
+  margin: 0 0 8px;
+  color: #afa2b0;
+  line-height: 1.8;
+}
+
+.intro code { color: #ffc46b; }
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 13%);
+  border-radius: 24px;
+  background: #111017;
+  box-shadow: 0 30px 80px rgb(0 0 0 / 38%);
+}
+
+.viewport {
+  position: relative;
+  min-height: 680px;
+  overflow: hidden;
+  background: #17141c;
+}
+
+.viewport a-scene,
+.viewport :global(.a-canvas) {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.loading {
+  display: grid;
+  min-height: 680px;
+  place-items: center;
+  color: #afa2b0;
+}
+
+.viewportStatus {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 10px;
+  background: rgb(12 11 16 / 78%);
+  backdrop-filter: blur(12px);
+  font-size: 0.62rem;
+}
+
+.viewportStatus span { color: #76d29b; }
+.viewportStatus strong { color: #ffc46b; font-weight: 700; }
+
+.panel {
+  display: flex;
+  min-height: 680px;
+  flex-direction: column;
+  border-left: 1px solid rgb(255 255 255 / 12%);
+}
+
+.panelHeading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 22px;
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.panelHeading div { display: grid; gap: 7px; }
+.panelHeading span { color: #716976; font-size: 0.58rem; }
+.panelHeading strong { font-size: 0.75rem; }
+
+.clipList {
+  display: grid;
+  gap: 8px;
+  max-height: 526px;
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.clip,
+.selectedClip {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  background: #17151d;
+  color: #f7eddf;
+  text-align: left;
+  cursor: pointer;
+}
+
+.clip:hover { border-color: rgb(255 196 107 / 55%); }
+.selectedClip { border-color: #ffc46b; background: #2a2023; }
+.clip:disabled { cursor: wait; opacity: 0.45; }
+.clipList button > span { color: #ff8a64; font-size: 0.52rem; }
+.clipList button strong { font-size: 0.72rem; }
+.clipList button small { color: #827985; font-size: 0.62rem; }
+
+.vrButton {
+  min-height: 54px;
+  margin: auto 14px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #ff6b4a;
+  color: #160b0b;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.vrButton:disabled { cursor: wait; opacity: 0.5; }
+
+.acceptance {
+  padding: 42px 0 0;
+}
+
+.acceptance > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.acceptance span {
+  padding: 9px 12px;
+  border: 1px solid rgb(118 210 155 / 34%);
+  border-radius: 999px;
+  color: #b8dfc7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.67rem;
+}
+
+@media (max-width: 920px) {
+  .intro { grid-template-columns: 1fr; gap: 28px; }
+  .workspace { grid-template-columns: 1fr; }
+  .panel { min-height: auto; border-top: 1px solid rgb(255 255 255 / 12%); border-left: 0; }
+  .clipList { max-height: 420px; }
+  .vrButton { margin-top: 10px; }
+}
+
+@media (max-width: 620px) {
+  .shell { padding-inline: 14px; }
+  .intro { padding-top: 52px; }
+  .intro h1 { font-size: 3.5rem; }
+  .viewport, .loading { min-height: 540px; }
+}
