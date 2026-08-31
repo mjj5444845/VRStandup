@@ -1,0 +1,70 @@
+{
+  "source": "Ch31_nonPBR_avatar.glb",
+  "destination": "male-ch31.glb",
+  "blender_version": "5.2.1 LTS",
+  "max_texture": 256,
+  "image_quality": 64,
+  "clips": [
+    "SIT_Sitting_Idle2"
+  ],
+  "armatures": 1,
+  "meshes": 8,
+  "textures": [
+    {
+      "name": "Ch31_1001_Diffuse",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch31_1001_Glossiness",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch31_1001_Normal",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch31_1001_Specular",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch31_1002_Diffuse",
+      "source": [
+        2048,
+        2048
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    }
+  ],
+  "bytes": 2187988
+}

@@ -1,8 +1,8 @@
 {
   "passed": true,
   "blender_version": "5.2.1 LTS",
-  "glb": "Ch02_nonPBR_avatar.glb",
-  "glb_bytes": 8578156,
+  "glb": "male-ch06.glb",
+  "glb_bytes": 4609192,
   "checks": {
     "glb_reimported": true,
     "single_armature": true,
@@ -20,23 +20,13 @@
   ],
   "bone_count": 65,
   "meshes": [
-    "Ch02_Body",
-    "Ch02_Cloth",
-    "Ch02_Eyelashes",
-    "Ch02_Hair",
-    "Ch02_Sneakers",
-    "Ch02_Socks"
+    "Ch06"
   ],
   "skinned_meshes": [
-    "Ch02_Body",
-    "Ch02_Cloth",
-    "Ch02_Eyelashes",
-    "Ch02_Hair",
-    "Ch02_Sneakers",
-    "Ch02_Socks"
+    "Ch06"
   ],
-  "material_count": 4,
-  "texture_count": 8,
+  "material_count": 5,
+  "texture_count": 10,
   "animation_count": 16,
   "animations": [
     "IDLE_Idle",
@@ -62,53 +52,53 @@
     {
       "name": "IDLE_Idle",
       "passed": true,
-      "frame_start": 0.8000000715255737,
+      "frame_start": 0.0,
       "frame_end": 400.0,
       "sampled_frames": [
-        0.8000000715255737,
-        200.4000000357628,
+        0.0,
+        200.0,
         400.0
       ],
-      "max_pose_to_rest_ratio": 4.411417,
+      "max_pose_to_rest_ratio": 3.932962,
       "error": null
     },
     {
       "name": "PERFORM_Talking1",
       "passed": true,
-      "frame_start": 0.8000000715255737,
-      "frame_end": 91.19999694824219,
+      "frame_start": 0.0,
+      "frame_end": 91.0,
       "sampled_frames": [
-        0.8000000715255737,
-        45.99999850988388,
-        91.19999694824219
+        0.0,
+        45.5,
+        91.0
       ],
-      "max_pose_to_rest_ratio": 4.562018,
+      "max_pose_to_rest_ratio": 4.051449,
       "error": null
     },
     {
       "name": "PERFORM_Waving",
       "passed": true,
-      "frame_start": 0.8000000715255737,
-      "frame_end": 76.80000305175781,
+      "frame_start": 0.0,
+      "frame_end": 76.0,
       "sampled_frames": [
-        0.8000000715255737,
-        38.80000156164169,
-        76.80000305175781
+        0.0,
+        38.0,
+        76.0
       ],
-      "max_pose_to_rest_ratio": 4.361862,
+      "max_pose_to_rest_ratio": 3.928311,
       "error": null
     },
     {
       "name": "SIT_Sitting1",
       "passed": true,
-      "frame_start": 0.8000000715255737,
-      "frame_end": 168.8000030517578,
+      "frame_start": 0.0,
+      "frame_end": 168.0,
       "sampled_frames": [
-        0.8000000715255737,
-        84.8000015616417,
-        168.8000030517578
+        0.0,
+        84.0,
+        168.0
       ],
-      "max_pose_to_rest_ratio": 4.516834,
+      "max_pose_to_rest_ratio": 4.089684,
       "error": null
     }
   ]

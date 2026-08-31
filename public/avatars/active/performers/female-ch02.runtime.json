@@ -1,0 +1,96 @@
+{
+  "source": "Ch02_nonPBR_avatar.glb",
+  "destination": "female-ch02.glb",
+  "blender_version": "5.2.1 LTS",
+  "max_texture": 1024,
+  "image_quality": 76,
+  "clips": [
+    "IDLE_Idle",
+    "IDLE_Idle2",
+    "PERFORM_Agreeing",
+    "PERFORM_Standing_Greeting",
+    "PERFORM_Talking1",
+    "PERFORM_Talking2",
+    "PERFORM_Talking3",
+    "PERFORM_Waving",
+    "SIT_Sitting1",
+    "SIT_Sitting2",
+    "SIT_Sitting3",
+    "SIT_Sitting4",
+    "SIT_Sitting_Clap",
+    "SIT_Sitting_Idle1",
+    "SIT_Sitting_Idle2",
+    "SIT_Sitting_Laughing"
+  ],
+  "armatures": 1,
+  "meshes": 7,
+  "textures": [
+    {
+      "name": "Ch02_1001_Diffuse",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "Ch02_1001_Glossiness",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "Ch02_1001_Normal",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "Ch02_1001_Specular",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "Ch02_1002_Diffuse",
+      "source": [
+        2048,
+        2048
+      ],
+      "runtime": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "Ch02_1002_Normal",
+      "source": [
+        2048,
+        2048
+      ],
+      "runtime": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "bytes": 4891880
+}

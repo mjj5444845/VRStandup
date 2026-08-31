@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "runtime": {
+    "aframe": "1.8.0",
+    "aframe_extras": "7.7.0",
+    "component": "animation-mixer"
+  },
+  "glb": "male-ch23.glb",
+  "checks": {
+    "gltf_loaded_by_three": true,
+    "animations_exposed_on_model": true,
+    "required_clips_present": true,
+    "skinned_meshes_present": true,
+    "bones_present": true,
+    "animation_actions_created": true,
+    "sampled_transforms_finite": true,
+    "aframe_extras_component_registered": true,
+    "aframe_extras_clip_switching": true
+  },
+  "animation_count": 1,
+  "animations": [
+    "SIT_Sitting_Idle1"
+  ],
+  "missing_required_animations": [],
+  "skinned_mesh_count": 8,
+  "bone_count": 65,
+  "bounds": {
+    "size": [
+      1.780746,
+      1.792746,
+      0.319484
+    ],
+    "center": [
+      0,
+      0.895954,
+      0.039209
+    ]
+  },
+  "clip_reports": [
+    {
+      "name": "SIT_Sitting_Idle1",
+      "duration_seconds": 3,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    }
+  ],
+  "aframe_extras_component_switches": [
+    {
+      "name": "SIT_Sitting_Idle1",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting_Idle1"
+      ]
+    }
+  ],
+  "emitted_event_count": 0
+}

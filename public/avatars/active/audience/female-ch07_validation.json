@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "blender_version": "5.2.1 LTS",
+  "glb": "female-ch07.glb",
+  "glb_bytes": 2120732,
+  "checks": {
+    "glb_reimported": true,
+    "single_armature": true,
+    "mesh_present": true,
+    "all_meshes_skinned": true,
+    "materials_present": true,
+    "textures_present": true,
+    "manifest_clips_present": true,
+    "required_clips_present": true,
+    "required_clips_pose_sane": true,
+    "object_scales_sane": true
+  },
+  "armatures": [
+    "AvatarRig"
+  ],
+  "bone_count": 65,
+  "meshes": [
+    "Ch07_Body",
+    "Ch07_Eyelashes",
+    "Ch07_Hair",
+    "Ch07_Heels",
+    "Ch07_Pants",
+    "Ch07_Shirt",
+    "Ch07_Suit"
+  ],
+  "skinned_meshes": [
+    "Ch07_Body",
+    "Ch07_Eyelashes",
+    "Ch07_Hair",
+    "Ch07_Heels",
+    "Ch07_Pants",
+    "Ch07_Shirt",
+    "Ch07_Suit"
+  ],
+  "material_count": 4,
+  "texture_count": 8,
+  "animation_count": 1,
+  "animations": [
+    "SIT_Sitting_Idle1"
+  ],
+  "missing_manifest_animations": [],
+  "missing_required_animations": [],
+  "clip_reports": [
+    {
+      "name": "SIT_Sitting_Idle1",
+      "passed": true,
+      "frame_start": 0.0,
+      "frame_end": 72.0,
+      "sampled_frames": [
+        0.0,
+        36.0,
+        72.0
+      ],
+      "max_pose_to_rest_ratio": 3.865247,
+      "error": null
+    }
+  ]
+}

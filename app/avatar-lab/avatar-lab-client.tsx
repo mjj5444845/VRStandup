@@ -2,10 +2,28 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { AVATARS, getAvatar, type AvatarId } from '../data/avatars';
 import styles from './avatar-lab.module.css';
 
-const GLB_URL = '/avatars/new_avatar_mixamo/output/Ch02_nonPBR_avatar.glb';
-const MANIFEST_URL = '/avatars/new_avatar_mixamo/output/Ch02_nonPBR_animations.json';
+const CLIPS = [
+  'IDLE_Idle',
+  'IDLE_Idle2',
+  'PERFORM_Agreeing',
+  'PERFORM_Standing_Greeting',
+  'PERFORM_Talking1',
+  'PERFORM_Talking2',
+  'PERFORM_Talking3',
+  'PERFORM_Waving',
+  'SIT_Sitting1',
+  'SIT_Sitting2',
+  'SIT_Sitting3',
+  'SIT_Sitting4',
+  'SIT_Sitting_Clap',
+  'SIT_Sitting_Idle1',
+  'SIT_Sitting_Idle2',
+  'SIT_Sitting_Laughing',
+] as const;
+
 const REQUIRED_CLIPS = [
   'IDLE_Idle',
   'PERFORM_Talking1',
@@ -13,94 +31,63 @@ const REQUIRED_CLIPS = [
   'SIT_Sitting1',
 ] as const;
 
-type ManifestAnimation = {
-  name: string;
-  category: 'idle' | 'perform' | 'sit';
-  duration_seconds: number;
-  bone_match_ratio: number;
-  root_motion: { detected: boolean };
-};
-
-type AnimationManifest = {
-  character: string;
-  bone_count: number;
-  animations: ManifestAnimation[];
-};
-
-type AFrameEntity = HTMLElement & {
-  enterVR?: () => Promise<void>;
-};
-
-type LoadedModel = {
-  animations?: Array<{ name: string }>;
-};
+type AFrameEntity = HTMLElement & { enterVR?: () => Promise<void> };
+type LoadedModel = { animations?: Array<{ name: string }> };
 
 export function AvatarLabClient() {
   const [runtimeReady, setRuntimeReady] = useState(false);
   const [runtimeError, setRuntimeError] = useState(false);
-  const [manifest, setManifest] = useState<AnimationManifest | null>(null);
+  const [selectedId, setSelectedId] = useState<AvatarId>('female-ch02');
+  const [avatarNode, setAvatarNode] = useState<AFrameEntity | null>(null);
   const [loadedClips, setLoadedClips] = useState<string[]>([]);
   const [currentClip, setCurrentClip] = useState<string>('IDLE_Idle');
   const [modelReady, setModelReady] = useState(false);
   const sceneRef = useRef<AFrameEntity | null>(null);
-  const avatarRef = useRef<AFrameEntity | null>(null);
+  const selectedAvatar = getAvatar(selectedId);
 
   useEffect(() => {
     let active = true;
-    Promise.all([
-      import('aframe').then(() => import('aframe-extras')),
-      fetch(MANIFEST_URL).then((response) => {
-        if (!response.ok) throw new Error(`Manifest ${response.status}`);
-        return response.json() as Promise<AnimationManifest>;
-      }),
-    ])
-      .then(([, nextManifest]) => {
-        if (!active) return;
-        setManifest(nextManifest);
-        setRuntimeReady(true);
-      })
-      .catch(() => {
-        if (active) setRuntimeError(true);
-      });
-
-    return () => {
-      active = false;
-    };
+    import('aframe')
+      .then(() => import('aframe-extras'))
+      .then(() => { if (active) setRuntimeReady(true); })
+      .catch(() => { if (active) setRuntimeError(true); });
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
-    const avatar = avatarRef.current;
-    if (!avatar || !runtimeReady) return;
-
+    if (!avatarNode || !runtimeReady) return;
     const handleModelLoaded = (event: Event) => {
       const model = (event as CustomEvent<{ model: LoadedModel }>).detail.model;
-      const names = (model.animations ?? []).map((clip) => clip.name).sort();
-      setLoadedClips(names);
+      setLoadedClips((model.animations ?? []).map((clip) => clip.name).sort());
       setModelReady(true);
     };
-
-    avatar.addEventListener('model-loaded', handleModelLoaded);
-    return () => avatar.removeEventListener('model-loaded', handleModelLoaded);
-  }, [runtimeReady]);
+    avatarNode.addEventListener('model-loaded', handleModelLoaded);
+    return () => avatarNode.removeEventListener('model-loaded', handleModelLoaded);
+  }, [avatarNode, runtimeReady]);
 
   useEffect(() => {
-    const avatar = avatarRef.current;
-    if (!avatar || !modelReady) return;
-    avatar.setAttribute(
+    if (!avatarNode || !modelReady) return;
+    avatarNode.setAttribute(
       'animation-mixer',
       `clip: ${currentClip}; loop: repeat; crossFadeDuration: 0.3`,
     );
-  }, [currentClip, modelReady]);
+  }, [avatarNode, currentClip, modelReady]);
 
-  const manifestClips = manifest?.animations ?? [];
+  const chooseAvatar = (id: AvatarId) => {
+    setSelectedId(id);
+    setCurrentClip('IDLE_Idle');
+    setLoadedClips([]);
+    setModelReady(false);
+    setAvatarNode(null);
+  };
+
   const requiredReady = REQUIRED_CLIPS.every((clip) => loadedClips.includes(clip));
-
   const status = runtimeError
     ? 'A-Frame 加载失败'
     : !runtimeReady
       ? '正在加载 A-Frame…'
       : !modelReady
-        ? '正在解析 GLB…'
+        ? '正在解析演员 GLB…'
         : requiredReady
           ? `${loadedClips.length} 个 clips 已就绪`
           : 'GLB 缺少验收 clips';
@@ -114,12 +101,12 @@ export function AvatarLabClient() {
 
       <section className={styles.intro}>
         <div>
-          <p className={styles.eyebrow}>A-FRAME · ANIMATION-MIXER · WEBXR</p>
+          <p className={styles.eyebrow}>2 PERFORMERS · A-FRAME · WEBXR</p>
           <h1>Mixamo Avatar<br />动作实验室</h1>
         </div>
         <p>
-          这个页面直接加载 Blender pipeline 生成的 GLB。点击 clip 名称会通过
-          <code> animation-mixer </code>实时切换动作，名称与 manifest 完全一致。
+          这个页面直接加载当前系统使用的两位轻量 GLB。可切换男女演员，再通过
+          <code> animation-mixer </code>逐项验证 16 个动作。
         </p>
       </section>
 
@@ -129,49 +116,30 @@ export function AvatarLabClient() {
             <a-scene
               ref={(node) => { sceneRef.current = node as AFrameEntity | null; }}
               embedded
-              renderer="colorManagement: true; antialias: true; toneMapping: ACESFilmic; exposure: 1.1"
-              background="color: #17141c"
+              renderer="colorManagement: true; antialias: true; toneMapping: ACESFilmic; exposure: 1.02"
+              background="color: #91d6ff"
               webxr="optionalFeatures: bounded-floor, hand-tracking"
             >
               <a-assets timeout="30000">
-                <a-asset-item id="mixamo-avatar" src={GLB_URL} />
+                {AVATARS.map((avatar) => (
+                  <a-asset-item key={avatar.id} id={`lab-${avatar.id}`} src={avatar.model} />
+                ))}
               </a-assets>
-              <a-sky color="#17141c" />
-              <a-plane
-                position="0 0 0"
-                rotation="-90 0 0"
-                width="12"
-                height="12"
-                color="#332d39"
-                material="roughness: 0.92; metalness: 0"
-              />
-              <a-circle
-                position="0 0.012 0"
-                rotation="-90 0 0"
-                radius="1.35"
-                color="#70415a"
-                material="roughness: 0.9; metalness: 0"
-              />
+              <a-sky color="#91d6ff" />
+              <a-plane position="0 0 0" rotation="-90 0 0" width="12" height="12" color="#91bc72" material="roughness: 1; metalness: 0" />
+              <a-circle position="0 0.012 0" rotation="-90 0 0" radius="1.35" color="#e2d1b6" material="roughness: 0.96; metalness: 0" />
               <a-entity
-                ref={(node) => { avatarRef.current = node as AFrameEntity | null; }}
+                key={selectedId}
+                ref={(node) => { setAvatarNode(node as AFrameEntity | null); }}
                 id="mixamo-performer"
-                gltf-model="#mixamo-avatar"
+                gltf-model={`#lab-${selectedId}`}
                 position="0 0 0"
-                rotation="0 0 0"
+                rotation="0 180 0"
                 animation-mixer={`clip: ${currentClip}; loop: repeat; crossFadeDuration: 0.3`}
               />
-              <a-entity light="type: ambient; color: #fff3e5; intensity: 1.1" />
-              <a-entity
-                position="-2.5 4 3"
-                light="type: spot; color: #ffe7ce; intensity: 4; angle: 55; penumbra: 1; target: #mixamo-performer"
-              />
-              <a-entity
-                position="2.5 3 2"
-                light="type: point; color: #c6d0ff; intensity: 1.4; distance: 9; decay: 1.5"
-              />
-              <a-entity position="0 1.55 3.2">
-                <a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false" />
-              </a-entity>
+              <a-entity light="type: ambient; color: #e8f7ff; intensity: 1.2" />
+              <a-entity position="-4 7 4" light="type: directional; color: #fff2d1; intensity: 2" />
+              <a-entity position="0 1.55 3.2"><a-camera look-controls="pointerLockEnabled: false" wasd-controls="enabled: false" /></a-entity>
             </a-scene>
           ) : (
             <div className={styles.loading}>{status}</div>
@@ -184,46 +152,45 @@ export function AvatarLabClient() {
 
         <aside className={styles.panel}>
           <div className={styles.panelHeading}>
-            <div>
-              <span>CHARACTER</span>
-              <strong>{manifest?.character ?? 'Ch02_nonPBR.fbx'}</strong>
-            </div>
-            <div>
-              <span>SKELETON</span>
-              <strong>{manifest ? `${manifest.bone_count} bones` : '—'}</strong>
-            </div>
+            <div><span>CHARACTER</span><strong>{selectedAvatar.name}</strong></div>
+            <div><span>SKELETON</span><strong>65 bones</strong></div>
+          </div>
+
+          <div className={styles.performerSwitch} aria-label="选择实验室演员">
+            {AVATARS.map((avatar) => (
+              <button
+                type="button"
+                key={avatar.id}
+                className={avatar.id === selectedId ? styles.selectedPerformer : styles.performer}
+                onClick={() => chooseAvatar(avatar.id)}
+              >
+                {avatar.shortLabel} · {avatar.gender.toUpperCase()}
+              </button>
+            ))}
           </div>
 
           <div className={styles.clipList} aria-label="Animation clips">
-            {manifestClips.map((clip) => {
-              const selected = clip.name === currentClip;
-              const available = loadedClips.includes(clip.name);
+            {CLIPS.map((clip) => {
+              const selected = clip === currentClip;
+              const available = loadedClips.includes(clip);
               return (
                 <button
-                  key={clip.name}
+                  key={clip}
                   type="button"
                   className={selected ? styles.selectedClip : styles.clip}
-                  onClick={() => setCurrentClip(clip.name)}
+                  onClick={() => setCurrentClip(clip)}
                   disabled={!available}
-                  data-clip={clip.name}
+                  data-clip={clip}
                 >
-                  <span>{clip.category}</span>
-                  <strong>{clip.name}</strong>
-                  <small>
-                    {clip.duration_seconds.toFixed(1)}s · {Math.round(clip.bone_match_ratio * 100)}%
-                    {clip.root_motion.detected ? ' · root' : ''}
-                  </small>
+                  <span>{clip.split('_')[0]}</span>
+                  <strong>{clip}</strong>
+                  <small>{available ? 'runtime ready' : 'loading'}</small>
                 </button>
               );
             })}
           </div>
 
-          <button
-            className={styles.vrButton}
-            type="button"
-            disabled={!modelReady}
-            onClick={() => sceneRef.current?.enterVR?.()}
-          >
+          <button className={styles.vrButton} type="button" disabled={!modelReady} onClick={() => sceneRef.current?.enterVR?.()}>
             进入 VR 验证
           </button>
         </aside>
