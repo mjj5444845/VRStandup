@@ -53,15 +53,36 @@
   },
   "clip_reports": [
     {
-      "name": "IDLE_Idle",
-      "duration_seconds": 16.666666,
+      "name": "PERFORM_Talking1",
+      "duration_seconds": 3.791667,
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
     },
     {
-      "name": "PERFORM_Talking1",
-      "duration_seconds": 3.791667,
+      "name": "PERFORM_Agreeing",
+      "duration_seconds": 4.708333,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "PERFORM_Talking2",
+      "duration_seconds": 5.166667,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "PERFORM_Standing_Greeting",
+      "duration_seconds": 5.125,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    },
+    {
+      "name": "PERFORM_Talking3",
+      "duration_seconds": 3.958333,
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
@@ -72,23 +93,9 @@
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
-    },
-    {
-      "name": "SIT_Sitting1",
-      "duration_seconds": 7,
-      "track_count": 195,
-      "action_created": true,
-      "transforms_finite": true
     }
   ],
   "aframe_extras_component_switches": [
-    {
-      "name": "IDLE_Idle",
-      "active_actions": 1,
-      "selected_clips": [
-        "IDLE_Idle"
-      ]
-    },
     {
       "name": "PERFORM_Talking1",
       "active_actions": 1,
@@ -97,17 +104,38 @@
       ]
     },
     {
+      "name": "PERFORM_Agreeing",
+      "active_actions": 1,
+      "selected_clips": [
+        "PERFORM_Agreeing"
+      ]
+    },
+    {
+      "name": "PERFORM_Talking2",
+      "active_actions": 1,
+      "selected_clips": [
+        "PERFORM_Talking2"
+      ]
+    },
+    {
+      "name": "PERFORM_Standing_Greeting",
+      "active_actions": 1,
+      "selected_clips": [
+        "PERFORM_Standing_Greeting"
+      ]
+    },
+    {
+      "name": "PERFORM_Talking3",
+      "active_actions": 1,
+      "selected_clips": [
+        "PERFORM_Talking3"
+      ]
+    },
+    {
       "name": "PERFORM_Waving",
       "active_actions": 1,
       "selected_clips": [
         "PERFORM_Waving"
-      ]
-    },
-    {
-      "name": "SIT_Sitting1",
-      "active_actions": 1,
-      "selected_clips": [
-        "SIT_Sitting1"
       ]
     }
   ],

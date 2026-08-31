@@ -169,7 +169,7 @@ export default function Home() {
             <span>03</span>
             <div>
               <strong>准备表演</strong>
-              <p>角色、动作和语音已解耦，可继续接入脚本、TTS、灯光与字幕时间线。</p>
+              <p>角色、动作和语音已解耦，可继续接入脚本、灯光与字幕时间线。</p>
             </div>
           </li>
         </ol>
