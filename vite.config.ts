@@ -10,22 +10,9 @@ const localBindingConfig = {
   main: './worker/index.ts',
   compatibility_flags: ['nodejs_compat'],
   d1_databases: d1
-    ? [
-        {
-          binding: d1,
-          database_name: 'vr-standup-d1',
-          database_id: PLACEHOLDER_DATABASE_ID,
-        },
-      ]
+    ? [{ binding: d1, database_name: 'vr-standup-d1', database_id: PLACEHOLDER_DATABASE_ID }]
     : [],
-  r2_buckets: r2
-    ? [
-        {
-          binding: r2,
-          bucket_name: 'vr-standup-r2',
-        },
-      ]
-    : [],
+  r2_buckets: r2 ? [{ binding: r2, bucket_name: 'vr-standup-r2' }] : [],
 };
 
 export default defineConfig(async () => {

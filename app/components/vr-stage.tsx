@@ -49,10 +49,10 @@ export function VRStage({
           <a-scene
             ref={(node) => onSceneElement(node as VRSceneElement | null)}
             embedded
-            renderer="colorManagement: true; antialias: true"
+            renderer="colorManagement: true; antialias: true; toneMapping: ACESFilmic; exposure: 1.28"
             vr-mode-ui="enabled: false"
             loading-screen="enabled: false"
-            background="color: #09080d"
+            background="color: #17141c"
             webxr="optionalFeatures: bounded-floor, hand-tracking"
           >
             <a-assets timeout="15000">
@@ -70,7 +70,7 @@ export function VRStage({
               ])}
             </a-assets>
 
-            <a-sky color="#09080d" />
+            <a-sky color="#17141c" />
 
             <a-plane
               position="0 0 -2"
@@ -87,7 +87,7 @@ export function VRStage({
               height="0.7"
               depth="3"
               color="#34273b"
-              material="roughness: 0.65"
+              material="roughness: 0.9; metalness: 0"
             />
             <a-box
               position="0 2.7 -6"
@@ -116,13 +116,13 @@ export function VRStage({
               radius="0.08"
               height="1.2"
               color="#d9c4aa"
-              material="metalness: 0.75; roughness: 0.22"
+              material="metalness: 0.28; roughness: 0.68"
             />
             <a-sphere
               position="0.62 1.94 -3.92"
               radius="0.14"
               color="#f1c15e"
-              material="emissive: #b96524; emissiveIntensity: 0.25; metalness: 0.5"
+              material="emissive: #8a4c24; emissiveIntensity: 0.12; metalness: 0.2; roughness: 0.62"
             />
 
             <a-text
@@ -212,22 +212,26 @@ export function VRStage({
               color="#302a37"
             />
 
-            <a-entity light="type: ambient; color: #d9c8d5; intensity: 0.92" />
+            <a-entity light="type: ambient; color: #fff4e8; intensity: 1.18" />
             <a-entity
-              position="0 4.8 -2.5"
-              light="type: spot; color: #ffe0b8; intensity: 25; angle: 34; penumbra: 0.62; target: #performer"
+              position="-2.4 4.8 0.2"
+              light="type: spot; color: #ffe9cf; intensity: 6; angle: 58; penumbra: 1; distance: 14; decay: 1.2; target: #performer"
             />
             <a-entity
-              position="-3.6 2.5 -2"
-              light="type: point; color: #e84a76; intensity: 9; distance: 9"
+              position="-4 3 -2.5"
+              light="type: point; color: #ff91aa; intensity: 1.8; distance: 11; decay: 1.5"
             />
             <a-entity
-              position="3.6 2.5 -2"
-              light="type: point; color: #7284ff; intensity: 8; distance: 9"
+              position="4 3 -2.5"
+              light="type: point; color: #9eabff; intensity: 1.6; distance: 11; decay: 1.5"
             />
             <a-entity
-              position="0 2.6 1.8"
-              light="type: spot; color: #fff4e6; intensity: 15; angle: 48; penumbra: 0.78; target: #performer"
+              position="2.8 3.2 1.5"
+              light="type: spot; color: #fff8ee; intensity: 4.2; angle: 68; penumbra: 1; distance: 13; decay: 1.2; target: #performer"
+            />
+            <a-entity
+              position="0 5 -5.2"
+              light="type: point; color: #ffd7b0; intensity: 1.25; distance: 8; decay: 1.6"
             />
 
             <a-entity position="0 1.65 2.8">

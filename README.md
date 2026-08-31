@@ -4,8 +4,6 @@
 
 当前角色库包含 8 位低多边形演员。用户可以在网页选角区切换演员，也可以进入 VR 后使用舞台右侧选角台切换；选择会保存在当前设备中。
 
-访问 `/voices` 可查看 Mosi 声线选择教程、为每位演员绑定 Voice ID，并生成短台词试听。浏览器只调用本站服务端接口，Mosi API Key 不会进入客户端代码。
-
 ## 本地开发
 
 要求 Node.js 22.13 或更高版本。安装依赖并启动开发服务器：
@@ -23,18 +21,14 @@ npm run build
 
 部署前请复制 `.env.example` 为对应环境配置，并将 `NEXT_PUBLIC_SITE_URL` 改为实际站点域名，以生成正确的社交分享链接。
 
-Mosi TTS 使用服务端环境变量 `MOSS_API_KEY`。本地放在 `.env.local`，线上必须通过部署平台的加密环境变量配置；不要添加 `NEXT_PUBLIC_` 前缀。
-
 ## 目录说明
 
 - `app/`：页面、A-Frame 场景与全局样式
-- `app/data/avatars.ts`：角色模型、名称与未来声线方向的统一配置
-- `app/lib/performance/`：脚本、台词、声线绑定和 TTS 供应商接口
-- `app/api/tts/`：Mosi 音色查询与语音生成的服务端代理
-- `app/voices/`：声线选择、绑定与试听教程页
+- `app/data/avatars.ts`：角色模型、名称与服装信息的统一配置
+- `app/lib/performance/`：脚本、台词、演员绑定和舞台指令类型
 - `public/`：会直接公开访问的静态资源
 - `public/avatars/`：部署所需的 8 个 OBJ/MTL 角色模型和 CC0 授权
-- `docs/PERFORMANCE_ARCHITECTURE.md`：脚本、TTS 与表演调度的后续实现规划
+- `docs/PERFORMANCE_ARCHITECTURE.md`：脚本、动作、灯光与字幕调度的后续实现规划
 - `standup_video/`：仅保存在本地的原始视频素材，不进入 Git 或部署
 - `videoshortcutpic/`：仅保存在本地的视频截图素材，不进入 Git 或部署
 - `.openai/hosting.json`：网站部署能力配置

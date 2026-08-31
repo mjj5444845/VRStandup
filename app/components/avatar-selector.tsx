@@ -35,7 +35,6 @@ export function AvatarSelector({ selectedId, onSelect }: AvatarSelectorProps) {
                 <strong>{avatar.name}</strong>
                 <small>{avatar.wardrobe}</small>
               </span>
-              <span className="voice-direction">{avatar.voiceDirection}</span>
             </button>
           );
         })}

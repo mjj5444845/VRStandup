@@ -1,9 +1,8 @@
 import type { AvatarId } from '../../data/avatars';
 
-export type DeliveryDirection = {
+export type StageDirection = {
   emotion?: 'neutral' | 'warm' | 'excited' | 'dry' | 'serious';
   pace?: number;
-  pitch?: number;
   pauseAfterMs?: number;
 };
 
@@ -12,7 +11,7 @@ export type PerformanceCue = {
   order: number;
   avatarId: AvatarId;
   text: string;
-  direction?: DeliveryDirection;
+  direction?: StageDirection;
 };
 
 export type PerformanceScript = {
@@ -22,31 +21,12 @@ export type PerformanceScript = {
   cues: PerformanceCue[];
 };
 
-export type VoiceBinding = {
+export type CastBinding = {
   avatarId: AvatarId;
-  provider: string;
-  providerVoiceId: string;
-  stylePrompt?: string;
+  roleName: string;
 };
 
-export type TtsRequest = {
-  cue: PerformanceCue;
-  voice: VoiceBinding;
-  format: 'mp3' | 'wav';
-};
-
-export type TtsResult = {
-  cueId: string;
-  audioUrl: string;
-  durationMs: number;
-};
-
-export interface TtsProvider {
-  synthesize(request: TtsRequest): Promise<TtsResult>;
-}
-
-export type PerformanceManifest = {
+export type PerformancePlan = {
   script: PerformanceScript;
-  voices: VoiceBinding[];
-  audio: TtsResult[];
+  cast: CastBinding[];
 };

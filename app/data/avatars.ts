@@ -17,7 +17,6 @@ export type AvatarProfile = {
   obj: string;
   mtl: string;
   accent: string;
-  voiceDirection: string;
 };
 
 export const AVATARS: readonly AvatarProfile[] = [
@@ -30,7 +29,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/male-casual/Smooth_Male_Casual.obj',
     mtl: '/avatars/male-casual/Smooth_Male_Casual.mtl',
     accent: '#ff9b61',
-    voiceDirection: '轻快男声 · 亲近感',
   },
   {
     id: 'male-longsleeve',
@@ -41,7 +39,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/male-longsleeve/Smooth_Male_LongSleeve.obj',
     mtl: '/avatars/male-longsleeve/Smooth_Male_LongSleeve.mtl',
     accent: '#f3b04f',
-    voiceDirection: '沉稳男声 · 慢节奏',
   },
   {
     id: 'male-shirt',
@@ -52,7 +49,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/male-shirt/Smooth_Male_Shirt.obj',
     mtl: '/avatars/male-shirt/Smooth_Male_Shirt.mtl',
     accent: '#63b7ff',
-    voiceDirection: '清晰男声 · 干练感',
   },
   {
     id: 'male-suit',
@@ -63,7 +59,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/male-suit/Smooth_Male_Suit.obj',
     mtl: '/avatars/male-suit/Smooth_Male_Suit.mtl',
     accent: '#8ca5ff',
-    voiceDirection: '低沉男声 · 冷幽默',
   },
   {
     id: 'female-alternative',
@@ -74,7 +69,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/female-alternative/Smooth_Female_Alternative.obj',
     mtl: '/avatars/female-alternative/Smooth_Female_Alternative.mtl',
     accent: '#ff6ca8',
-    voiceDirection: '明亮女声 · 强表现力',
   },
   {
     id: 'female-casual',
@@ -85,7 +79,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/female-casual/Smooth_Female_Casual.obj',
     mtl: '/avatars/female-casual/Smooth_Female_Casual.mtl',
     accent: '#ff8f86',
-    voiceDirection: '自然女声 · 对话感',
   },
   {
     id: 'female-dress',
@@ -96,7 +89,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/female-dress/Smooth_Female_Dress.obj',
     mtl: '/avatars/female-dress/Smooth_Female_Dress.mtl',
     accent: '#d98cff',
-    voiceDirection: '温柔女声 · 叙事感',
   },
   {
     id: 'female-tanktop',
@@ -107,7 +99,6 @@ export const AVATARS: readonly AvatarProfile[] = [
     obj: '/avatars/female-tanktop/Smooth_Female_TankTop.obj',
     mtl: '/avatars/female-tanktop/Smooth_Female_TankTop.mtl',
     accent: '#65dec6',
-    voiceDirection: '活力女声 · 快节奏',
   },
 ] as const;
 

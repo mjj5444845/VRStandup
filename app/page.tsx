@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { AvatarSelector } from './components/avatar-selector';
 import { VRStage } from './components/vr-stage';
 import {
@@ -62,13 +61,10 @@ export default function Home() {
           </span>
           <span>VR Standup</span>
         </a>
-        <nav className="topnav" aria-label="主导航">
-          <Link href="/voices">声线教程</Link>
-          <span className="status-pill">
-            <span className="status-dot" aria-hidden="true" />
-            8 avatars ready
-          </span>
-        </nav>
+        <span className="status-pill">
+          <span className="status-dot" aria-hidden="true" />
+          8 avatars ready
+        </span>
       </header>
 
       <section className="hero" id="top">
@@ -150,7 +146,7 @@ export default function Home() {
             <span>03</span>
             <div>
               <strong>准备表演</strong>
-              <p>角色、声线方向与表演数据已解耦，可继续接入脚本、TTS、口型与动作时间线。</p>
+              <p>角色配置与舞台渲染已解耦，可继续接入脚本、动作、灯光与字幕时间线。</p>
             </div>
           </li>
         </ol>
@@ -158,7 +154,7 @@ export default function Home() {
 
       <footer>
         <span>VR STANDUP / WEBXR EXPERIENCE</span>
-        <span>8 AVATARS · TTS READY ARCHITECTURE</span>
+        <span>8 AVATARS · INTERACTIVE CASTING</span>
       </footer>
     </main>
   );
