@@ -52,19 +52,19 @@ export const AVATARS: readonly AvatarProfile[] = [
 export const AUDIENCE_AVATARS: readonly AudienceAvatar[] = [
   {
     id: 'audience-female-ch07',
-    model: '/avatars/active/audience/female-ch07.glb',
+    model: '/avatars/active/audience/female-ch07.glb?v=8-clips',
   },
   {
     id: 'audience-female-ch21',
-    model: '/avatars/active/audience/female-ch21.glb',
+    model: '/avatars/active/audience/female-ch21.glb?v=8-clips',
   },
   {
     id: 'audience-male-ch23',
-    model: '/avatars/active/audience/male-ch23.glb',
+    model: '/avatars/active/audience/male-ch23.glb?v=8-clips',
   },
   {
     id: 'audience-male-ch31',
-    model: '/avatars/active/audience/male-ch31.glb',
+    model: '/avatars/active/audience/male-ch31.glb?v=8-clips',
   },
 ] as const;
 
