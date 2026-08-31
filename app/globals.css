@@ -396,7 +396,7 @@ h1 span {
 
 .avatar-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -456,6 +456,14 @@ h1 span {
 .avatar-option-copy small {
   color: var(--muted);
   font-size: 0.72rem;
+}
+
+.voice-status {
+  margin: 18px 0 0;
+  color: #9acde2;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
 }
 
 .controls {

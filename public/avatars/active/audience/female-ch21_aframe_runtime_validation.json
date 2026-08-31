@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "runtime": {
+    "aframe": "1.8.0",
+    "aframe_extras": "7.7.0",
+    "component": "animation-mixer"
+  },
+  "glb": "female-ch21.glb",
+  "checks": {
+    "gltf_loaded_by_three": true,
+    "animations_exposed_on_model": true,
+    "required_clips_present": true,
+    "skinned_meshes_present": true,
+    "bones_present": true,
+    "animation_actions_created": true,
+    "sampled_transforms_finite": true,
+    "aframe_extras_component_registered": true,
+    "aframe_extras_clip_switching": true
+  },
+  "animation_count": 1,
+  "animations": [
+    "SIT_Sitting_Idle2"
+  ],
+  "missing_required_animations": [],
+  "skinned_mesh_count": 6,
+  "bone_count": 65,
+  "bounds": {
+    "size": [
+      1.668948,
+      1.75938,
+      0.284845
+    ],
+    "center": [
+      -0.000006,
+      0.879671,
+      0.03409
+    ]
+  },
+  "clip_reports": [
+    {
+      "name": "SIT_Sitting_Idle2",
+      "duration_seconds": 4.333333,
+      "track_count": 195,
+      "action_created": true,
+      "transforms_finite": true
+    }
+  ],
+  "aframe_extras_component_switches": [
+    {
+      "name": "SIT_Sitting_Idle2",
+      "active_actions": 1,
+      "selected_clips": [
+        "SIT_Sitting_Idle2"
+      ]
+    }
+  ],
+  "emitted_event_count": 0
+}

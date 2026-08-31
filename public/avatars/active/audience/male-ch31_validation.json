@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "blender_version": "5.2.1 LTS",
+  "glb": "male-ch31.glb",
+  "glb_bytes": 2187988,
+  "checks": {
+    "glb_reimported": true,
+    "single_armature": true,
+    "mesh_present": true,
+    "all_meshes_skinned": true,
+    "materials_present": true,
+    "textures_present": true,
+    "manifest_clips_present": true,
+    "required_clips_present": true,
+    "required_clips_pose_sane": true,
+    "object_scales_sane": true
+  },
+  "armatures": [
+    "AvatarRig"
+  ],
+  "bone_count": 65,
+  "meshes": [
+    "Ch31_Body",
+    "Ch31_Collar",
+    "Ch31_Eyelashes",
+    "Ch31_Hair",
+    "Ch31_Pants",
+    "Ch31_Shoes",
+    "Ch31_Sweater"
+  ],
+  "skinned_meshes": [
+    "Ch31_Body",
+    "Ch31_Collar",
+    "Ch31_Eyelashes",
+    "Ch31_Hair",
+    "Ch31_Pants",
+    "Ch31_Shoes",
+    "Ch31_Sweater"
+  ],
+  "material_count": 4,
+  "texture_count": 7,
+  "animation_count": 1,
+  "animations": [
+    "SIT_Sitting_Idle2"
+  ],
+  "missing_manifest_animations": [],
+  "missing_required_animations": [],
+  "clip_reports": [
+    {
+      "name": "SIT_Sitting_Idle2",
+      "passed": true,
+      "frame_start": 0.0,
+      "frame_end": 104.0,
+      "sampled_frames": [
+        0.0,
+        52.0,
+        104.0
+      ],
+      "max_pose_to_rest_ratio": 3.916113,
+      "error": null
+    }
+  ]
+}

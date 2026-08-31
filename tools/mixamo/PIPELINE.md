@@ -7,17 +7,19 @@
 ## 目录结构
 
 ```text
-new_avatar_mixamo/
-├── characters/                 # With Skin / T-Pose FBX
-├── idle/                       # Without Skin animation FBX
+local_assets/mixamo/             # 仅本地，不上传
+├── characters/                  # With Skin / T-Pose FBX
+├── idle/                        # Without Skin animation FBX
 ├── perform/
 ├── sit/
-├── output/
-├── mixamo_aframe_batch_builder.py
-└── README.md
+└── output/                      # 完整 GLB / manifest / master blend
+
+public/avatars/active/           # 唯一允许部署的 Avatar
+├── performers/
+└── audience/
 ```
 
-原始 FBX 与生成的 master `.blend` 只保留在本地，不上传 GitHub。用于网页运行时验证的 GLB、manifest 和 validation JSON 会保留在 `output/`。
+原始 FBX 与完整输出只保留在 `local_assets/`。网页只加载 `public/avatars/active/` 中经过贴图缩放和 clip 裁剪的派生 GLB。
 
 ## Blender 图形界面使用
 
@@ -35,14 +37,14 @@ new_avatar_mixamo/
 
 ```powershell
 blender --factory-startup --background `
-  --python public/avatars/new_avatar_mixamo/mixamo_aframe_batch_builder.py `
-  -- public/avatars/new_avatar_mixamo/characters/Ch02_nonPBR.fbx
+  --python tools/mixamo/mixamo_aframe_batch_builder.py `
+  -- local_assets/mixamo/characters/Ch02_nonPBR.fbx
 ```
 
 ## 输出
 
 ```text
-output/
+local_assets/mixamo/output/
 ├── Ch02_nonPBR_avatar_master.blend
 ├── Ch02_nonPBR_avatar.glb
 ├── Ch02_nonPBR_animations.json
@@ -61,12 +63,21 @@ output/
 ```powershell
 blender --factory-startup --background `
   --python tools/mixamo/validate_mixamo_glb_blender52.py `
-  -- public/avatars/new_avatar_mixamo/output/Ch02_nonPBR_avatar.glb `
-  --manifest public/avatars/new_avatar_mixamo/output/Ch02_nonPBR_animations.json `
+  -- local_assets/mixamo/output/Ch02_nonPBR_avatar.glb `
+  --manifest local_assets/mixamo/output/Ch02_nonPBR_animations.json `
   --required IDLE_Idle PERFORM_Talking1 PERFORM_Waving SIT_Sitting1
 ```
 
 验证器会检查：GLB 可重新导入、唯一 Armature、65 根骨骼、所有 Mesh 仍蒙皮、材质/贴图存在、manifest clips 完整、指定动作可采样、pose bounds 与对象 scale 没有异常。
+
+## 批量生成全部 11 个角色与运行时资源
+
+```powershell
+.\tools\mixamo\build_all_runtime.ps1 `
+  -Blender 'C:\path\to\blender.exe'
+```
+
+脚本会先处理 `characters/` 中全部 FBX，再生成两位全动作演员与四位单坐姿观众。当前性别标注为：男 Ch06、Ch08、Ch23、Ch31、Ch42；女 Ch02、Ch07、Ch21、Ch22、Ch27、Ch37。
 
 ## A-Frame 使用
 
@@ -88,7 +99,9 @@ avatar.setAttribute(
 );
 ```
 
-## 已验证结果（Ch02 / Blender 5.2.1 LTS）
+## 已验证结果（11 Characters / Blender 5.2.1 LTS）
+
+2026-08-31 已批量处理 Ch02、Ch06、Ch07、Ch08、Ch21、Ch22、Ch23、Ch27、Ch31、Ch37、Ch42：全部角色均为 16/16 clips、65/65 骨骼匹配、0 errors。完整 GLB 合计约 97 MB，只在本地保存；部署用两位演员与四位观众合计约 18.5 MB。
 
 - 16/16 个 Animation FBX 成功。
 - 每个动画均为 65/65 骨骼匹配，match ratio 为 100%。

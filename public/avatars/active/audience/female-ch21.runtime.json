@@ -1,0 +1,81 @@
+{
+  "source": "Ch21_nonPBR_avatar.glb",
+  "destination": "female-ch21.glb",
+  "blender_version": "5.2.1 LTS",
+  "max_texture": 256,
+  "image_quality": 64,
+  "clips": [
+    "SIT_Sitting_Idle2"
+  ],
+  "armatures": 1,
+  "meshes": 7,
+  "textures": [
+    {
+      "name": "Ch21_1001_Diffuse",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch21_1001_Glossiness",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch21_1001_Normal",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch21_1001_Specular",
+      "source": [
+        4096,
+        4096
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch21_1002_Diffuse",
+      "source": [
+        2048,
+        2048
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "Ch21_1002_Normal",
+      "source": [
+        2048,
+        2048
+      ],
+      "runtime": [
+        256,
+        256
+      ]
+    }
+  ],
+  "bytes": 2406800
+}

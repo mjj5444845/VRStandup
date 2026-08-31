@@ -20,12 +20,15 @@ export default function Home() {
   const [sceneReady, setSceneReady] = useState(false);
   const [sceneError, setSceneError] = useState(false);
   const [selectedId, setSelectedId] = useState<AvatarId>(DEFAULT_AVATAR_ID);
+  const [voiceStatus, setVoiceStatus] = useState('点击演员即可试听对应测试语音');
   const sceneRef = useRef<VRSceneElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const selectedAvatar = getAvatar(selectedId);
 
   useEffect(() => {
     let active = true;
     import('aframe')
+      .then(() => import('aframe-extras'))
       .then(() => {
         if (!active) return;
         const savedAvatar = window.localStorage.getItem(AVATAR_STORAGE_KEY);
@@ -40,12 +43,25 @@ export default function Home() {
 
     return () => {
       active = false;
+      audioRef.current?.pause();
     };
   }, []);
 
   const selectAvatar = useCallback((id: AvatarId) => {
     setSelectedId(id);
     window.localStorage.setItem(AVATAR_STORAGE_KEY, id);
+    const avatar = getAvatar(id);
+    audioRef.current?.pause();
+    const preview = new Audio(avatar.voice);
+    preview.preload = 'auto';
+    audioRef.current = preview;
+    setVoiceStatus(`正在播放：${avatar.name}测试语音`);
+    preview.addEventListener('ended', () => {
+      setVoiceStatus(`${avatar.name}测试语音播放完成`);
+    }, { once: true });
+    preview.play().catch(() => {
+      setVoiceStatus('浏览器阻止了播放，请再次点击演员');
+    });
   }, []);
 
   const enterVR = async () => {
@@ -63,7 +79,7 @@ export default function Home() {
         </a>
         <span className="status-pill">
           <span className="status-dot" aria-hidden="true" />
-          8 avatars ready
+          2 performers · 4 audience models
         </span>
       </header>
 
@@ -103,7 +119,7 @@ export default function Home() {
             </div>
             <div>
               <dt>角色库</dt>
-              <dd>8 位演员</dd>
+              <dd>2 位演员</dd>
             </div>
             <div>
               <dt>控制</dt>
@@ -123,7 +139,11 @@ export default function Home() {
         />
       </section>
 
-      <AvatarSelector selectedId={selectedId} onSelect={selectAvatar} />
+      <AvatarSelector
+        selectedId={selectedId}
+        voiceStatus={voiceStatus}
+        onSelect={selectAvatar}
+      />
 
       <section className="controls" id="controls" aria-labelledby="controls-title">
         <div>
@@ -135,7 +155,7 @@ export default function Home() {
             <span>01</span>
             <div>
               <strong>选择演员</strong>
-              <p>在网页角色卡或 VR 舞台右侧选角台选择 8 位演员中的一位。</p>
+              <p>在网页角色卡或 VR 舞台右侧选角台选择男、女演员；点击会同时播放对应测试语音。</p>
             </div>
           </li>
           <li>
@@ -149,7 +169,7 @@ export default function Home() {
             <span>03</span>
             <div>
               <strong>准备表演</strong>
-              <p>角色配置与舞台渲染已解耦，可继续接入脚本、动作、灯光与字幕时间线。</p>
+              <p>角色、动作和语音已解耦，可继续接入脚本、TTS、灯光与字幕时间线。</p>
             </div>
           </li>
         </ol>
@@ -157,7 +177,7 @@ export default function Home() {
 
       <footer>
         <span>VR STANDUP / WEBXR EXPERIENCE</span>
-        <span>8 AVATARS · INTERACTIVE CASTING</span>
+        <span>2 PERFORMERS · 4 AUDIENCE MODELS · INTERACTIVE CASTING</span>
       </footer>
     </main>
   );

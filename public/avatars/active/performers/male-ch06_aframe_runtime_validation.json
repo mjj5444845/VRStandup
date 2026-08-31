@@ -5,7 +5,7 @@
     "aframe_extras": "7.7.0",
     "component": "animation-mixer"
   },
-  "glb": "Ch02_nonPBR_avatar.glb",
+  "glb": "male-ch06.glb",
   "checks": {
     "gltf_loaded_by_three": true,
     "animations_exposed_on_model": true,
@@ -37,18 +37,18 @@
     "SIT_Sitting_Laughing"
   ],
   "missing_required_animations": [],
-  "skinned_mesh_count": 6,
+  "skinned_mesh_count": 3,
   "bone_count": 65,
   "bounds": {
     "size": [
-      1.673992,
-      1.763641,
-      0.341105
+      1.780222,
+      1.826936,
+      0.382083
     ],
     "center": [
-      -0.000066,
-      0.88288,
-      -0.001585
+      0,
+      0.911414,
+      0.023554
     ]
   },
   "clip_reports": [
@@ -61,21 +61,21 @@
     },
     {
       "name": "PERFORM_Talking1",
-      "duration_seconds": 3.8,
+      "duration_seconds": 3.791667,
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
     },
     {
       "name": "PERFORM_Waving",
-      "duration_seconds": 3.2,
+      "duration_seconds": 3.166667,
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
     },
     {
       "name": "SIT_Sitting1",
-      "duration_seconds": 7.033333,
+      "duration_seconds": 7,
       "track_count": 195,
       "action_created": true,
       "transforms_finite": true
