@@ -91,6 +91,9 @@ export default function Home() {
             <a className="secondary-action" href="#avatars">
               选择演员
             </a>
+            <a className="secondary-action" href="/avatar-lab">
+              动作实验室
+            </a>
           </div>
 
           <dl className="scene-facts" aria-label="体验信息">

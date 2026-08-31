@@ -10,10 +10,12 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "validate:mixamo": "node tools/mixamo/validate_aframe_runtime.mjs public/avatars/new_avatar_mixamo/output/Ch02_nonPBR_avatar.glb --required IDLE_Idle PERFORM_Talking1 PERFORM_Waving SIT_Sitting1"
   },
   "dependencies": {
     "aframe": "1.8.0",
+    "aframe-extras": "7.7.0",
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6",

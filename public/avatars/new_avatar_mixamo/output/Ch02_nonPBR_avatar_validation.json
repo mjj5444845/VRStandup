@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "blender_version": "5.2.1 LTS",
+  "glb": "Ch02_nonPBR_avatar.glb",
+  "glb_bytes": 8578156,
+  "checks": {
+    "glb_reimported": true,
+    "single_armature": true,
+    "mesh_present": true,
+    "all_meshes_skinned": true,
+    "materials_present": true,
+    "textures_present": true,
+    "manifest_clips_present": true,
+    "required_clips_present": true,
+    "required_clips_pose_sane": true,
+    "object_scales_sane": true
+  },
+  "armatures": [
+    "AvatarRig"
+  ],
+  "bone_count": 65,
+  "meshes": [
+    "Ch02_Body",
+    "Ch02_Cloth",
+    "Ch02_Eyelashes",
+    "Ch02_Hair",
+    "Ch02_Sneakers",
+    "Ch02_Socks"
+  ],
+  "skinned_meshes": [
+    "Ch02_Body",
+    "Ch02_Cloth",
+    "Ch02_Eyelashes",
+    "Ch02_Hair",
+    "Ch02_Sneakers",
+    "Ch02_Socks"
+  ],
+  "material_count": 4,
+  "texture_count": 8,
+  "animation_count": 16,
+  "animations": [
+    "IDLE_Idle",
+    "IDLE_Idle2",
+    "PERFORM_Agreeing",
+    "PERFORM_Standing_Greeting",
+    "PERFORM_Talking1",
+    "PERFORM_Talking2",
+    "PERFORM_Talking3",
+    "PERFORM_Waving",
+    "SIT_Sitting1",
+    "SIT_Sitting2",
+    "SIT_Sitting3",
+    "SIT_Sitting4",
+    "SIT_Sitting_Clap",
+    "SIT_Sitting_Idle1",
+    "SIT_Sitting_Idle2",
+    "SIT_Sitting_Laughing"
+  ],
+  "missing_manifest_animations": [],
+  "missing_required_animations": [],
+  "clip_reports": [
+    {
+      "name": "IDLE_Idle",
+      "passed": true,
+      "frame_start": 0.8000000715255737,
+      "frame_end": 400.0,
+      "sampled_frames": [
+        0.8000000715255737,
+        200.4000000357628,
+        400.0
+      ],
+      "max_pose_to_rest_ratio": 4.411417,
+      "error": null
+    },
+    {
+      "name": "PERFORM_Talking1",
+      "passed": true,
+      "frame_start": 0.8000000715255737,
+      "frame_end": 91.19999694824219,
+      "sampled_frames": [
+        0.8000000715255737,
+        45.99999850988388,
+        91.19999694824219
+      ],
+      "max_pose_to_rest_ratio": 4.562018,
+      "error": null
+    },
+    {
+      "name": "PERFORM_Waving",
+      "passed": true,
+      "frame_start": 0.8000000715255737,
+      "frame_end": 76.80000305175781,
+      "sampled_frames": [
+        0.8000000715255737,
+        38.80000156164169,
+        76.80000305175781
+      ],
+      "max_pose_to_rest_ratio": 4.361862,
+      "error": null
+    },
+    {
+      "name": "SIT_Sitting1",
+      "passed": true,
+      "frame_start": 0.8000000715255737,
+      "frame_end": 168.8000030517578,
+      "sampled_frames": [
+        0.8000000715255737,
+        84.8000015616417,
+        168.8000030517578
+      ],
+      "max_pose_to_rest_ratio": 4.516834,
+      "error": null
+    }
+  ]
+}

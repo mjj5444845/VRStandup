@@ -28,6 +28,9 @@ npm run build
 - `app/lib/performance/`：脚本、台词、演员绑定和舞台指令类型
 - `public/`：会直接公开访问的静态资源
 - `public/avatars/`：部署所需的 8 个 OBJ/MTL 角色模型和 CC0 授权
+- `public/avatars/new_avatar_mixamo/`：Blender 5.2 Mixamo 自动处理 pipeline、测试 GLB、animation manifest 与验证结果
+- `app/avatar-lab/`：使用 `aframe-extras` animation-mixer 的 GLB clip 切换验证页
+- `tools/mixamo/`：生成 GLB 的 Blender 重新导入验证工具
 - `docs/PERFORMANCE_ARCHITECTURE.md`：脚本、动作、灯光与字幕调度的后续实现规划
 - `standup_video/`：仅保存在本地的原始视频素材，不进入 Git 或部署
 - `videoshortcutpic/`：仅保存在本地的视频截图素材，不进入 Git 或部署
@@ -47,3 +50,7 @@ Vercel 会通过 `vercel.json` 识别 Next.js，并运行 `npm run build` 生成
 - VR 头显：点击“进入 VR 剧场”启动 WebXR 沉浸模式
 - VR 选角：右手柄指向选角台并按下触发键
 - 移动设备：触摸拖动查看场景
+
+## Mixamo 动画角色
+
+访问 `/avatar-lab` 可以在 A-Frame/WebVR 中加载已生成的 Ch02 GLB，并按 manifest 中的名称切换 16 个独立 animation clips。Blender 操作、输出格式与验证说明见 [`public/avatars/new_avatar_mixamo/README.md`](public/avatars/new_avatar_mixamo/README.md)。

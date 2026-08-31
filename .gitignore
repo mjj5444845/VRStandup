@@ -29,6 +29,20 @@
 /videoshortcutpic/
 /*.zip
 
+# local Blender/Mixamo build inputs and reproducible heavy intermediates
+/.blender-portable/
+/.tmp-mixamo-minimal/
+/.sites-deploy/
+/blender-5.2.1.sha256
+/public/avatars/new_avatar_mixamo/characters/*.fbx
+/public/avatars/new_avatar_mixamo/idle/*.fbx
+/public/avatars/new_avatar_mixamo/perform/*.fbx
+/public/avatars/new_avatar_mixamo/sit/*.fbx
+/public/avatars/new_avatar_mixamo/output/*.blend
+/public/avatars/new_avatar_mixamo/output/*.blend[0-9]*
+**/__pycache__/
+*.pyc
+
 # logs
 npm-debug.log*
 yarn-debug.log*
