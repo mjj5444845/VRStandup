@@ -51,7 +51,7 @@ output/
 ```
 
 - `*_avatar_master.blend`：唯一 `AvatarRig`、角色 Mesh/Material/Texture 和静音 NLA action stash。
-- `*_avatar.glb`：供 A-Frame/Three.js/WebXR 运行时加载。
+- `*_avatar.glb`：供 A-Frame/Three.js/WebXR 运行时加载；贴图以支持透明通道的 WebP 内嵌，降低网络传输体积。
 - `*_animations.json`：clip 名称、帧范围、时长、骨骼匹配率、namespace 重映射数量、root motion 与逐文件告警。
 - `*_avatar_validation.json`：GLB 重新导入 Blender 后的自动验收结果。
 - `*_avatar_aframe_runtime_validation.json`：Three.js GLTFLoader 与 AnimationMixer 的运行时加载、动作创建和交叉切换结果。

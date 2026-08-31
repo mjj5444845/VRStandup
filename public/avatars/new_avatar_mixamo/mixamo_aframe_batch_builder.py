@@ -539,6 +539,8 @@ def export_glb(glb_path: Path, character_objects: Iterable, target_rig) -> None:
     result = bpy.ops.export_scene.gltf(
         filepath=str(glb_path),
         export_format="GLB",
+        export_image_format="WEBP",
+        export_image_quality=82,
         use_selection=True,
         export_animations=True,
         export_animation_mode="ACTIONS",

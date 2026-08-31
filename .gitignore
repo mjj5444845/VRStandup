@@ -39,6 +39,7 @@
 /public/avatars/new_avatar_mixamo/perform/*.fbx
 /public/avatars/new_avatar_mixamo/sit/*.fbx
 /public/avatars/new_avatar_mixamo/output/*.blend
+/public/avatars/new_avatar_mixamo/output/*.blend[0-9]*
 **/__pycache__/
 *.pyc
 

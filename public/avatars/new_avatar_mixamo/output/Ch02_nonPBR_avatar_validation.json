@@ -2,7 +2,7 @@
   "passed": true,
   "blender_version": "5.2.1 LTS",
   "glb": "Ch02_nonPBR_avatar.glb",
-  "glb_bytes": 56533800,
+  "glb_bytes": 8578156,
   "checks": {
     "glb_reimported": true,
     "single_armature": true,
