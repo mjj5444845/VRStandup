@@ -29,7 +29,7 @@ npm run build
 - `public/`：会直接公开访问的静态资源
 - `public/avatars/active/`：部署所需的两位演员与四位轻量观众 GLB
 - `public/audio/performers/`：由本地 WAV 转码得到的网页测试语音
-- `public/assets/stage/`：从 Kenney 素材包提取的舞台与座椅 GLB 及许可证
+- `public/assets/stage/`：从 Kenney 素材包提取的舞台、座椅、桌凳、音箱与绿植 GLB，共享色板及许可证
 - `app/avatar-lab/`：使用 `aframe-extras` animation-mixer 的 GLB clip 切换验证页
 - `tools/mixamo/`：批量生成、瘦身和验证 Mixamo GLB 的工具
 - `local_assets/`：原始 FBX、WAV、ZIP 与完整 Blender 输出；除说明文件外不进入 Git
