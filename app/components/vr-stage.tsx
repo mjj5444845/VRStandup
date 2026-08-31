@@ -77,7 +77,7 @@ export function VRStage({
               rotation="-90 0 0"
               width="18"
               height="18"
-              color="#17151d"
+              color="#24212b"
               material="roughness: 0.88; metalness: 0.08"
             />
 
@@ -86,7 +86,7 @@ export function VRStage({
               width="6.5"
               height="0.7"
               depth="3"
-              color="#221a29"
+              color="#34273b"
               material="roughness: 0.65"
             />
             <a-box
@@ -94,7 +94,7 @@ export function VRStage({
               width="8"
               height="5.4"
               depth="0.25"
-              color="#4f1028"
+              color="#681a38"
               material="roughness: 0.82"
             />
 
@@ -102,7 +102,7 @@ export function VRStage({
               key={selectedAvatar.id}
               id="performer"
               position="0 0.72 -4.55"
-              rotation="0 180 0"
+              rotation="0 0 0"
               scale="0.4 0.4 0.4"
             >
               <a-obj-model
@@ -212,18 +212,22 @@ export function VRStage({
               color="#302a37"
             />
 
-            <a-entity light="type: ambient; color: #9c8195; intensity: 0.52" />
+            <a-entity light="type: ambient; color: #d9c8d5; intensity: 0.92" />
             <a-entity
               position="0 4.8 -2.5"
-              light="type: spot; color: #ffd6a5; intensity: 16; angle: 28; penumbra: 0.7; target: #performer"
+              light="type: spot; color: #ffe0b8; intensity: 25; angle: 34; penumbra: 0.62; target: #performer"
             />
             <a-entity
               position="-3.6 2.5 -2"
-              light="type: point; color: #cf315e; intensity: 6; distance: 8"
+              light="type: point; color: #e84a76; intensity: 9; distance: 9"
             />
             <a-entity
               position="3.6 2.5 -2"
-              light="type: point; color: #4e60d9; intensity: 5; distance: 8"
+              light="type: point; color: #7284ff; intensity: 8; distance: 9"
+            />
+            <a-entity
+              position="0 2.6 1.8"
+              light="type: spot; color: #fff4e6; intensity: 15; angle: 48; penumbra: 0.78; target: #performer"
             />
 
             <a-entity position="0 1.65 2.8">

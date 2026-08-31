@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { AvatarSelector } from './components/avatar-selector';
 import { VRStage } from './components/vr-stage';
 import {
@@ -61,10 +62,13 @@ export default function Home() {
           </span>
           <span>VR Standup</span>
         </a>
-        <span className="status-pill">
-          <span className="status-dot" aria-hidden="true" />
-          8 avatars ready
-        </span>
+        <nav className="topnav" aria-label="主导航">
+          <Link href="/voices">声线教程</Link>
+          <span className="status-pill">
+            <span className="status-dot" aria-hidden="true" />
+            8 avatars ready
+          </span>
+        </nav>
       </header>
 
       <section className="hero" id="top">
