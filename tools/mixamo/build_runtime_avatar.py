@@ -5,9 +5,9 @@ Run with Blender 5.2+:
   blender --factory-startup --background --python tools/mixamo/build_runtime_avatar.py -- \
     source.glb destination.glb --max-texture 1024 --quality 78
 
-Use ``--clip SIT_Sitting_Idle1`` for an audience-only asset. The source GLB is
-never modified; this script is the reproducible boundary between local master
-assets and files that are allowed into ``public/avatars/active``.
+Repeat ``--clip`` to keep only the sitting clips needed by an audience asset.
+The source GLB is never modified; this script is the reproducible boundary
+between local master assets and files allowed into ``public/avatars/active``.
 """
 
 from __future__ import annotations

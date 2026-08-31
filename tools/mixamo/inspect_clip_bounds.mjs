@@ -35,6 +35,18 @@ const bounds = () => {
   };
 };
 
+const landmarkPositions = () => {
+  const landmarks = {};
+  gltf.scene.updateMatrixWorld(true);
+  gltf.scene.traverse((node) => {
+    if (!/(hips|head|leftfoot|rightfoot)$/i.test(node.name)) return;
+    landmarks[node.name] = node.getWorldPosition(new THREE.Vector3())
+      .toArray()
+      .map((value) => Number(value.toFixed(4)));
+  });
+  return landmarks;
+};
+
 const report = { rest: bounds(), animations: gltf.animations.map((clip) => clip.name) };
 if (clipName) {
   const clip = THREE.AnimationClip.findByName(gltf.animations, clipName);
@@ -47,6 +59,7 @@ if (clipName) {
     duration: Number(clip.duration.toFixed(4)),
     normalizedTime: Number(normalizedTime),
     bounds: bounds(),
+    landmarks: landmarkPositions(),
   };
 }
 

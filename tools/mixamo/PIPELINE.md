@@ -77,7 +77,7 @@ blender --factory-startup --background `
   -Blender 'C:\path\to\blender.exe'
 ```
 
-脚本会先处理 `characters/` 中全部 FBX，再生成两位全动作演员与四位单坐姿观众。当前性别标注为：男 Ch06、Ch08、Ch23、Ch31、Ch42；女 Ch02、Ch07、Ch21、Ch22、Ch27、Ch37。
+脚本会先处理 `characters/` 中全部 FBX，再生成两位全动作演员与四位轻量观众；每个观众保留 8 个坐姿、鼓掌与大笑动作。当前性别标注为：男 Ch06、Ch08、Ch23、Ch31、Ch42；女 Ch02、Ch07、Ch21、Ch22、Ch27、Ch37。
 
 ## A-Frame 使用
 

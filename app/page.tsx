@@ -132,7 +132,6 @@ export default function Home() {
           sceneReady={sceneReady}
           sceneError={sceneError}
           selectedId={selectedId}
-          onSelect={selectAvatar}
           onSceneElement={(scene) => {
             sceneRef.current = scene;
           }}

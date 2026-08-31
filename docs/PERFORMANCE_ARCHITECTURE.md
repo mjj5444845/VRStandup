@@ -3,7 +3,7 @@
 ## 当前完成的边界
 
 - `app/data/avatars.ts` 是两位演员与四个观众模型的唯一运行时目录，统一维护模型、性别和测试语音。
-- `app/components/vr-stage.tsx` 负责晴天露天 WebXR 舞台、演员/观众模型、柔和灯光、Kenney 家具和 VR 内选角台。演员会在说话、赞同、问候与挥手等六段动作间自动交叉淡化循环。
+- `app/components/vr-stage.tsx` 负责室内 WebXR 剧场、演员/观众模型、舞台家具以及面光、侧光和顶光。演员会在说话、赞同、问候与挥手等六段动作间自动交叉淡化循环；观众使用多种坐姿、鼓掌和大笑动作。VR 场景内的临时选角板已移除，选角保留在网页角色卡中。
 - `app/components/avatar-selector.tsx` 提供浏览器与移动端的无障碍选角界面。
 - `app/lib/performance/types.ts` 定义脚本、台词段落、演员绑定与舞台指令。
 - `public/avatars/active/` 只保存上线所需的轻量 GLB；过时 OBJ 在 `archive/deprecated_avatars/`，原始 FBX 在本地 `local_assets/`。

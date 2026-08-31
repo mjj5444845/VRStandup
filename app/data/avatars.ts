@@ -14,8 +14,17 @@ export type AvatarProfile = {
 export type AudienceAvatar = {
   id: string;
   model: string;
-  clip: 'SIT_Sitting_Idle1' | 'SIT_Sitting_Idle2';
 };
+
+export type AudienceClip =
+  | 'SIT_Sitting1'
+  | 'SIT_Sitting2'
+  | 'SIT_Sitting3'
+  | 'SIT_Sitting4'
+  | 'SIT_Sitting_Clap'
+  | 'SIT_Sitting_Idle1'
+  | 'SIT_Sitting_Idle2'
+  | 'SIT_Sitting_Laughing';
 
 export const AVATARS: readonly AvatarProfile[] = [
   {
@@ -44,22 +53,18 @@ export const AUDIENCE_AVATARS: readonly AudienceAvatar[] = [
   {
     id: 'audience-female-ch07',
     model: '/avatars/active/audience/female-ch07.glb',
-    clip: 'SIT_Sitting_Idle1',
   },
   {
     id: 'audience-female-ch21',
     model: '/avatars/active/audience/female-ch21.glb',
-    clip: 'SIT_Sitting_Idle2',
   },
   {
     id: 'audience-male-ch23',
     model: '/avatars/active/audience/male-ch23.glb',
-    clip: 'SIT_Sitting_Idle1',
   },
   {
     id: 'audience-male-ch31',
     model: '/avatars/active/audience/male-ch31.glb',
-    clip: 'SIT_Sitting_Idle2',
   },
 ] as const;
 
