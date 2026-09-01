@@ -25,6 +25,7 @@
 *.pem
 .env*
 !.env.example
+/config/tts.local.json
 /standup_video/
 /videoshortcutpic/
 /*.zip

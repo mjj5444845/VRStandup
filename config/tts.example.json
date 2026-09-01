@@ -1,0 +1,7 @@
+{
+  "provider": "moss",
+  "apiKey": "replace-with-your-server-side-api-key",
+  "model": "moss-tts-1.5-flash",
+  "voiceId": "replace-with-a-moss-voice-id",
+  "apiBaseUrl": "https://api.mosi.cn"
+}

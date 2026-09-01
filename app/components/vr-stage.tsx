@@ -106,17 +106,18 @@ export function VRStage({
             <a-box position="3.72 2.52 -6.3" width="0.95" height="4.25" depth="0.18" color="#6f263f" material="roughness: 1; metalness: 0" />
 
             <a-box
-              position="0 0.32 -4.8"
+              position="0 0.33 -4.8"
               width="8"
-              height="0.64"
+              height="0.66"
               depth="3.8"
-              color="#d8c7aa"
+              color="#6b493f"
               material="roughness: 0.96; metalness: 0"
             />
-            {[-3, -1, 1, 3].map((x) => (
-              <a-entity key={`floor-${x}`} gltf-model="url(/assets/stage/floor-thick.glb)" position={`${x} 0.65 -4.8`} scale="2 0.5 2" />
-            ))}
-            <a-entity gltf-model="url(/assets/stage/stairs.glb)" position="-3.15 0 -2.72" rotation="0 180 0" scale="1.25 0.7 1.1" />
+            <a-entity id="stage-left-stairs">
+              <a-box position="-3.15 0.1 -2.05" width="1.45" height="0.2" depth="0.5" color="#6b493f" material="roughness: 0.96; metalness: 0" />
+              <a-box position="-3.15 0.2 -2.35" width="1.45" height="0.4" depth="0.5" color="#6b493f" material="roughness: 0.96; metalness: 0" />
+              <a-box position="-3.15 0.3 -2.65" width="1.45" height="0.6" depth="0.5" color="#6b493f" material="roughness: 0.96; metalness: 0" />
+            </a-entity>
             <a-box
               position="0 3.85 -6.55"
               width="9"
@@ -131,7 +132,7 @@ export function VRStage({
             <a-text value="VR STANDUP" position="0 3.3 -6.2" align="center" width="7" color="#ffe7ad" />
             <a-text value="LIVE COMEDY THEATER" position="0 2.85 -6.18" align="center" width="3.6" color="#d8b97f" />
 
-            <a-entity id="performer" position="0 0.66 -4.55" rotation="0 0 0">
+            <a-entity id="performer" position="0 0.7 -4.55" rotation="0 0 0">
               <a-entity
                 key={selectedAvatar.id}
                 gltf-model={`url(${selectedAvatar.model})`}
@@ -143,8 +144,10 @@ export function VRStage({
             <a-sphere position="0.66 1.85 -3.78" radius="0.075" color="#303a40" material="metalness: 0.15; roughness: 0.8" />
 
             <a-entity gltf-model="url(/assets/stage/stoolBar.glb)" position="1.25 0.66 -4.95" rotation="0 165 0" scale="2 2 2" />
-            <a-entity gltf-model="url(/assets/stage/tableRound.glb)" position="-2.9 1.04 -5.15" rotation="0 18 0" scale="1.4 1.4 1.4" />
-            <a-entity gltf-model="url(/assets/stage/plantSmall1.glb)" position="-2.42 1.18 -4.95" scale="2.1 2.1 2.1" />
+            <a-entity position="-2.9 0 -5.15">
+              <a-entity gltf-model="url(/assets/stage/tableRound.glb)" position="-0.485 1.04 0.56" scale="1.4 1.4 1.4" />
+              <a-entity gltf-model="url(/assets/stage/plantSmall1.glb)" position="0 1.18 0" scale="1.8 1.8 1.8" />
+            </a-entity>
             {[-3.55, 3.4].map((x) => (
               <a-entity key={`speaker-${x}`} gltf-model="url(/assets/stage/speaker.glb)" position={`${x} 0.66 -3.55`} rotation="0 180 0" scale="2.3 2.3 2.3" />
             ))}
@@ -155,11 +158,15 @@ export function VRStage({
             {chairPositions.map((position, index) => (
               <a-entity
                 key={`chair-${index}`}
-                gltf-model={index % 5 === 2 ? 'url(/assets/stage/chair-rounded.glb)' : 'url(/assets/stage/chair.glb)'}
                 position={position}
-                rotation="0 180 0"
-                scale="2.2 2.2 2.2"
-              />
+              >
+                <a-entity
+                  gltf-model={index % 5 === 2 ? 'url(/assets/stage/chair-rounded.glb)' : 'url(/assets/stage/chair.glb)'}
+                  position="0.22 0 -0.22"
+                  rotation="0 180 0"
+                  scale="2.2 2.2 2.2"
+                />
+              </a-entity>
             ))}
             {audiencePlacements.map((placement, index) => {
               const avatar = AUDIENCE_AVATARS[placement.avatar];
@@ -174,10 +181,6 @@ export function VRStage({
                 />
               );
             })}
-
-            <a-entity gltf-model="url(/assets/stage/bench.glb)" position="-5.65 0 3.55" rotation="0 90 0" scale="3.2 3.2 3.2" />
-            <a-entity gltf-model="url(/assets/stage/loungeChair.glb)" position="5.55 0 3.55" rotation="0 270 0" scale="1.9 1.9 1.9" />
-
             <a-entity light="type: ambient; color: #fff1df; intensity: 1.05" />
             <a-entity light="type: hemisphere; color: #e7efff; groundColor: #6f4b36; intensity: 1.15" />
             <a-entity position="0 3.8 0.3" rotation="-24 0 0" light="type: spot; color: #ffe2bd; intensity: 22; distance: 12; angle: 42; penumbra: 0.78; decay: 1.35" />
