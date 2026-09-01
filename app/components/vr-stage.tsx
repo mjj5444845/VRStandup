@@ -18,9 +18,9 @@ type VRStageProps = {
 };
 
 const chairPositions = [
-  '-2.5 0 1.35', '-1.25 0 1.35', '0 0 1.35', '1.25 0 1.35', '2.5 0 1.35',
-  '-2.75 0 2.75', '-1.38 0 2.75', '0 0 2.75', '1.38 0 2.75', '2.75 0 2.75',
-  '-3 0 4.15', '-1.5 0 4.15', '0 0 4.15', '1.5 0 4.15', '3 0 4.15',
+  '-2.5 0 0.55', '-1.25 0 0.55', '0 0 0.55', '1.25 0 0.55', '2.5 0 0.55',
+  '-2.75 0 1.85', '-1.38 0 1.85', '0 0 1.85', '1.38 0 1.85', '2.75 0 1.85',
+  '-3 0 3.15', '-1.5 0 3.15', '0 0 3.15', '1.5 0 3.15', '3 0 3.15',
 ] as const;
 
 const audiencePlacements: ReadonlyArray<{
@@ -30,14 +30,14 @@ const audiencePlacements: ReadonlyArray<{
   rotation: number;
   timeScale: number;
 }> = [
-  { avatar: 0, position: '-2.5 0 1.35', clip: 'SIT_Sitting_Idle1', rotation: 178, timeScale: 0.94 },
-  { avatar: 1, position: '-1.25 0 1.35', clip: 'SIT_Sitting2', rotation: 182, timeScale: 0.88 },
-  { avatar: 2, position: '1.25 0 1.35', clip: 'SIT_Sitting_Laughing', rotation: 177, timeScale: 0.92 },
-  { avatar: 3, position: '2.5 0 1.35', clip: 'SIT_Sitting3', rotation: 184, timeScale: 0.9 },
-  { avatar: 2, position: '-2.75 0 2.75', clip: 'SIT_Sitting_Clap', rotation: 181, timeScale: 0.86 },
-  { avatar: 0, position: '-1.38 0 2.75', clip: 'SIT_Sitting1', rotation: 176, timeScale: 0.82 },
-  { avatar: 3, position: '1.38 0 2.75', clip: 'SIT_Sitting_Idle2', rotation: 183, timeScale: 0.96 },
-  { avatar: 1, position: '2.75 0 2.75', clip: 'SIT_Sitting4', rotation: 179, timeScale: 0.72 },
+  { avatar: 0, position: '-2.5 0.12 0.41', clip: 'SIT_Sitting_Idle1', rotation: 178, timeScale: 0.94 },
+  { avatar: 1, position: '-1.25 0.12 0.41', clip: 'SIT_Sitting2', rotation: 182, timeScale: 0.88 },
+  { avatar: 2, position: '1.25 0.12 0.41', clip: 'SIT_Sitting_Laughing', rotation: 177, timeScale: 0.92 },
+  { avatar: 3, position: '2.5 0.12 0.41', clip: 'SIT_Sitting3', rotation: 184, timeScale: 0.9 },
+  { avatar: 2, position: '-2.75 0.12 1.71', clip: 'SIT_Sitting_Clap', rotation: 181, timeScale: 0.86 },
+  { avatar: 0, position: '-1.38 0.12 1.71', clip: 'SIT_Sitting1', rotation: 176, timeScale: 0.82 },
+  { avatar: 3, position: '1.38 0.12 1.71', clip: 'SIT_Sitting_Idle2', rotation: 183, timeScale: 0.96 },
+  { avatar: 1, position: '2.75 0.14 1.61', clip: 'SIT_Sitting4', rotation: 179, timeScale: 0.72 },
 ] as const;
 
 const performanceSequence = [
@@ -188,8 +188,13 @@ export function VRStage({
             <a-entity position="4.4 3.2 -2.8" rotation="-18 68 0" light="type: spot; color: #cfe3ff; intensity: 10; distance: 8; angle: 38; penumbra: 0.82; decay: 1.4" />
             <a-entity position="0 4.75 -4.45" rotation="-90 0 0" light="type: spot; color: #fff0cf; intensity: 16; distance: 7; angle: 48; penumbra: 0.88; decay: 1.3" />
 
-            <a-entity position="0 1.65 6.1">
-              <a-camera look-controls="pointerLockEnabled: false" wasd-controls="acceleration: 18">
+            <a-entity id="audience-camera-rig" position="0 0 0.55">
+              <a-camera
+                position="0 1.2 0"
+                camera="fov: 80"
+                look-controls="pointerLockEnabled: false"
+                wasd-controls="acceleration: 12"
+              >
                 <a-cursor fuse="false" color="#e8c882" />
               </a-camera>
             </a-entity>
