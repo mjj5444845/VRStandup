@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: high resolution polished 2D storyboard concept board for PunchCap audience interaction. Wide 16:10, six panels in 3 columns x 2 rows with large readable story illustrations. Warm ivory board, dark-plum ink, muted burgundy theater, warm amber lights, bright yellow and coral impact-caption token.
+Exact Chinese title "让花字成为一次递话". Small subtitle exact "间离模式 · 观众与演员的回应闭环".
+Use same small standup club and black-jacket cream-shirt Chinese comedian. Adult audience depicted as neutral simple human avatars. Clear human faces, flat illustrated drawing, no 3D render. One recurring yellow crown token bearing exact text "人生赢家". This token passes through scenes as one object.
+Panel 01 "笑后出现": performer after laugh, crown placard appears ABOVE clear head, visibly beyond initial laugh moment. No other tokens.
+Panel 02 "抓取保留": first-person own VR hand pinches crown by edge, tiny unobtrusive saved-slot shape near own hand; no caption elsewhere. Other spectators untouched.
+Panel 03 "抛向舞台": same first-person hand sends crown along one modest curved arc TOWARD stage. Panel stage receiver is an abstract intake outline near side of stage. Token must NOT hit performer directly. Other seated spectators have no labels.
+Panel 04 "进入待审": separated off-stage researcher view, small operator tablet shows miniature incoming crown and two clearly labeled choices exact "接纳" and "暂缓". Theater performer is separate background, token stays in queue, not already on actor. Clearly operator / experimenter mediation.
+Panel 05 "演员接纳": after operator acceptance, performer hand receives the crown token at side of body, inviting open gesture, clear face. Small editorial tag exact "触发回应分支".
+Panel 06 "回应与回调": performer playfully lifts the SAME crown next to self, audience laughing; token not attached to anyone else; caption exact "被听见，才有下一次互动".
+Fine directional connectors outside panels 01 → 02 → 03 → 04 → 05 → 06, no maze arrows.
+Footer exact "仅可挂自己或投向舞台 · 不贴其他观众 · 每次开放互动都准备回应分支".
+This is a proposal storyboard, not implemented application screenshots; small footer "概念提案 · 控制台布局为本轮补充".

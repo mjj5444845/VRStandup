@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: high resolution professional 2D concept board, five alienation-caption devices for PunchCap standup. Wide landscape 16:10, warm off-white editorial backdrop, plum typography. Flat 2D character illustration, muted dark-purple theater vignette background, saturated yellow/coral/cyan comic cutout captions with thick plum outlines; no 3D and no photographs.
+Exact header "间离 · 五种追加包袱".
+Five clearly separated numbered cards arranged 3 on top and 2 wide below, clear generous margins. Same adult Chinese standup comedian in black jacket and cream shirt, expressive faces never covered. Each card is a different moment, NOT simultaneous objects.
+01 title exact "反差". Speaker pantomimes huge gift, one minuscule wrapped yellow candy beside their extended hand. Larger implied empty space around candy creates size contrast. Caption object no text.
+02 title exact "贴标签". Actor smiling after embarrassing self-deprecation; one yellow crown sign clearly ABOVE head with exact bold Chinese words "人生赢家", no face occlusion. Sign visibly comic art.
+03 title exact "插嘴". Actor confidently speaking while slightly skeptical eyebrow; one compact jagged pale cyan balloon beside head, away from face, containing only "？". Facial reaction matches question.
+04 title exact "另一种可能". Actor open palm after saying they chose forgiveness; one coral placard beside body with exact text "报警" crossed out by a single strong diagonal line. No other caption message.
+05 title exact "回调". TWO small subframes joined by an editorial curved arrow, same distinctive coral "前任" token first held by a viewer's own hand in an early moment, later reappearing beside performer in a later moment with a tiny reused-token arrow icon. Token exact Chinese "前任". A clear small footer in this card exact "保留同一物件，再次入场". Never attach to another audience member.
+Bottom editorial strip exact "笑声开始后 0.5–2 s 出现 · 每段 1–2 个 · 未抓取约 5 s 消失".
+Tiny footnote "示例文案需与具体台词共创". Do not write full jokes or explanatory paragraphs. Captions should add an ironic second meaning. No full-screen confetti, no explosion covering faces, no uncontrolled floating stickers.

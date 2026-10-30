@@ -1,0 +1,67 @@
+.page {
+  width: min(100% - 40px, 960px);
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.header p { margin-bottom: 36px; }
+.title { font-size: clamp(28px, 5vw, 44px); }
+.introduction { max-width: 640px; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+.check { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 50vw, 480px);
+  background: #edf1e9;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  margin: 0;
+  background: #edf1e9;
+  color: var(--muted);
+  text-align: center;
+}
+
+.controls { padding: 20px 24px; }
+.status { margin: 0 0 16px; line-height: 1.7; }
+.buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+.buttons button { padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; background: white; color: var(--accent); font: inherit; cursor: pointer; }
+.buttons button:hover:not(:disabled) { background: #eef4ee; }
+.buttons button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.buttons button:disabled { opacity: 0.45; cursor: default; }
+.note { margin: 20px 0 0; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.vrCheck { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
+.vrViewport { height: clamp(200px, 26vw, 260px); }
+.vrCheck h2 { font-size: 20px; margin: 0 0 18px; }
+.diagnostics { display: grid; gap: 14px; margin: 0 0 20px; }
+.diagnostics div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; line-height: 1.7; }
+.diagnostics dt { color: var(--muted); }
+.diagnostics dd { margin: 0; overflow-wrap: anywhere; }
+.vrButton { padding: 12px 24px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent); color: white; font: inherit; cursor: pointer; }
+.vrButton:disabled { background: #e5e9e2; border-color: var(--line); color: #617064; cursor: default; }
+.vrButton:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.vrMessage { margin: 12px 0; line-height: 1.7; }
+.browserDetails { margin-top: 16px; color: var(--muted); font-size: 13px; }
+.browserDetails summary { cursor: pointer; }
+.browserDetails p { overflow-wrap: anywhere; line-height: 1.6; }
+
+@media (max-width: 480px) {
+  .page { width: calc(100% - 28px); padding-top: 24px; }
+  .header { gap: 12px; font-size: 14px; }
+  .header p { font-size: 11px; }
+  .controls { padding: 16px; }
+}

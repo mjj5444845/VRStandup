@@ -1,0 +1,1248 @@
+{
+  "date": "2026-10-30",
+  "timezone": "America/New_York",
+  "files": [
+    {
+      "path": "app/api/tts/route.ts",
+      "bytes": 1731,
+      "sha256": "43f7ed8f766d317a9e42f409e71f90d0d48a88559e8d5ec1e2490bbe4373b367",
+      "action": "moved"
+    },
+    {
+      "path": "app/avatar-lab/avatar-lab-client.tsx",
+      "bytes": 7762,
+      "sha256": "94ae69e9c42e76a70fb39f08ac04144a35c764712880d13973978028a50a2170",
+      "action": "moved"
+    },
+    {
+      "path": "app/avatar-lab/avatar-lab.module.css",
+      "bytes": 4935,
+      "sha256": "232d1bf83e930b85010f2b0be504520d24d597d8e4d570aa50a4810c64d8112c",
+      "action": "moved"
+    },
+    {
+      "path": "app/avatar-lab/page.tsx",
+      "bytes": 364,
+      "sha256": "0d250dfc509a0a71b07cccae42851447ad0b9dcc6f5b6f7ee569ad4f30c61359",
+      "action": "moved"
+    },
+    {
+      "path": "app/components/avatar-selector.tsx",
+      "bytes": 1760,
+      "sha256": "d18cd90d6e7d6d813907b4178c2c63b12bc52e48b48b156d91079939c332cb40",
+      "action": "moved"
+    },
+    {
+      "path": "app/components/vr-stage.tsx",
+      "bytes": 10617,
+      "sha256": "b9ec12a4065066b8e8500be650ed207f97bce73353dae089f8afef0035df032c",
+      "action": "moved"
+    },
+    {
+      "path": "app/data/avatars.ts",
+      "bytes": 1873,
+      "sha256": "40add4fdad028f1ce71b8141c12072a83623a0b0e3dd7cae6eb73e5154a91e42",
+      "action": "moved"
+    },
+    {
+      "path": "app/globals.css",
+      "bytes": 11278,
+      "sha256": "b49a8d0f0f3a8b9e54036f9cc3bc87d909600da7ac4416d173d7add04e84b0f9",
+      "action": "moved"
+    },
+    {
+      "path": "app/layout.tsx",
+      "bytes": 1339,
+      "sha256": "357371c4d611ba451abd06fb99e6369a449f04a0fc35bf8f757e13ca0358a082",
+      "action": "moved"
+    },
+    {
+      "path": "app/lib/performance/types.ts",
+      "bytes": 604,
+      "sha256": "5daf2d89120ec10fba78cf6a49b666e1f224a22852605d0b708708c56a528dc3",
+      "action": "moved"
+    },
+    {
+      "path": "app/lib/tts/speech.ts",
+      "bytes": 1186,
+      "sha256": "ab47cd4e20bf26456cfeba769e4af37e5ad73113fd9a50f4b1e78c521ab446d9",
+      "action": "moved"
+    },
+    {
+      "path": "app/page.tsx",
+      "bytes": 5657,
+      "sha256": "f682293ed5e1b9d2aaac013223442b93aca0b71e7410dc0dbf2a3a8afea076b1",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/KENNEY_FURNITURE_LICENSE.txt",
+      "bytes": 328,
+      "sha256": "dc5575239556106c6e206e08a56e441d71076149630a22208fa4b625665b5c3b",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/KENNEY_PROTOTYPE_LICENSE.txt",
+      "bytes": 328,
+      "sha256": "89d45d67a46804fe59a062f1eecbd7ac899b01611fcb0ae71afccfe9e3f51c65",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/README.md",
+      "bytes": 641,
+      "sha256": "e19653c718e5fe738b0b849f67eda98fc96f0cda55fb8fdd9d7267583c8e6585",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/Textures/colormap.png",
+      "bytes": 8706,
+      "sha256": "0d4947d34ff32acf4a359c7f22ca784e057e7e72f622170a9a77b6fc88fdb70e",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/chair-rounded.glb",
+      "bytes": 17156,
+      "sha256": "53f4933ec547179c499f04dbda1231cf44b83ec82c7f4ab981cdf680aee5c973",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/chair.glb",
+      "bytes": 10756,
+      "sha256": "c8a11eec93e89e31250ba91afc1b8d56c3bec7ae86640fd1239f595ff4180883",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/column.glb",
+      "bytes": 2888,
+      "sha256": "e3296cf890d23ac56c7683251d43d95c4c7f0a10b46478af2c3ef9ca53fb207a",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/plantSmall1.glb",
+      "bytes": 8224,
+      "sha256": "2b9c022feb47be857b2c4fdc29f36522766ba9b70c578c31d7c05d71b4377d15",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/pottedPlant.glb",
+      "bytes": 7576,
+      "sha256": "5b760eda2766f75fda36b2c5df652a1662f82981ef64cd8fa7fe7bcd386b3a15",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/speaker.glb",
+      "bytes": 15744,
+      "sha256": "78230b9fb382a937cb19e4bf7556ee9402d33ac80b1baaee2d2eb89493cfa1fc",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/stoolBar.glb",
+      "bytes": 11816,
+      "sha256": "a86167a9f92401a61fec7e509ad089ecc552d0f299743add3aeb919acb24e341",
+      "action": "moved"
+    },
+    {
+      "path": "public/assets/stage/tableRound.glb",
+      "bytes": 6444,
+      "sha256": "f8daea9124a542a00b7bdacfddac82dc468573d43e44d7b54dd6316e9695754b",
+      "action": "moved"
+    },
+    {
+      "path": "public/audio/performers/female-test.mp3",
+      "bytes": 1678046,
+      "sha256": "ed775336fe3fbc45522958c5473ab8635ef0c3a717b784b5aacd2bc4fbc8b6dd",
+      "action": "moved"
+    },
+    {
+      "path": "public/audio/performers/male-test.mp3",
+      "bytes": 1534791,
+      "sha256": "4d5a84efb969c01c667da8f3c5db9bd9120055254fac885715ef99c19dd0f18f",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/README.md",
+      "bytes": 454,
+      "sha256": "4d456595cd19d8ad0b1690b686b11f28ba91b872e8bdbd1b9b598f702e808c65",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch07.glb",
+      "bytes": 3248704,
+      "sha256": "67e79d305902e637fbff94e3723c9384d9528eddad4cc6710dbb1bf2137b1a72",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch07.runtime.json",
+      "bytes": 1354,
+      "sha256": "5698425c2038afbc8c65cb7f7c481b666031dff08cc7d35ff131975458920426",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch07_aframe_runtime_validation.json",
+      "bytes": 3475,
+      "sha256": "86662502457e3e857e3334033ead42106fa715ff311da60afc25ba329b7d6cd9",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch07_validation.json",
+      "bytes": 1271,
+      "sha256": "f9677c20b61bc37dc3d512c92c33467ed207b609bfd93aa7af9f77da6266f907",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch21.glb",
+      "bytes": 3567136,
+      "sha256": "ca058b3a546f72e9d2b154ccbbdfc41f55877704d419de7ec64b2a702da1b70e",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch21.runtime.json",
+      "bytes": 1354,
+      "sha256": "5fc3b7e6ef40a76a8b9126adf31b29737859d6b6f1b206232b6bbefe27823637",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch21_aframe_runtime_validation.json",
+      "bytes": 3476,
+      "sha256": "49b35074e90e1ae1eab22af1eea5488ed9795fe9c127bd3f4308ea92941fcf67",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/female-ch21_validation.json",
+      "bytes": 1241,
+      "sha256": "40acee972ffc4460bd5fadb465ffcafddfdd44a0ec94bc4ae636693065d67f37",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch23.glb",
+      "bytes": 3338960,
+      "sha256": "09e9b4858e3aa6ddf1105bc8269215d92dc755ed0da614c892a7ad70726438b8",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch23.runtime.json",
+      "bytes": 1199,
+      "sha256": "ada900cb1dbe017ec184e44ad6820afb02b8220f9e23035c472178f0a6cf2b88",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch23_aframe_runtime_validation.json",
+      "bytes": 3468,
+      "sha256": "fa2e191b3ba24da80540c9e4ff580fab2e70b29d1c86c5d475941a3aa048ac7b",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch23_validation.json",
+      "bytes": 1303,
+      "sha256": "9d7fe66e939d1e60b9ffcc1475d0d9d1ff3e6c4a9e5cad2cb2bc6b338a726dfc",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch31.glb",
+      "bytes": 3347784,
+      "sha256": "143052f33a4902c5a7ae31f84aebc711ff4b1ab7a325d6170b56cf89996983f0",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch31.runtime.json",
+      "bytes": 1199,
+      "sha256": "f2fa05b41191530e37462b323aa5ec95827d974d86d2a0c02d6da06760a1e4c4",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch31_aframe_runtime_validation.json",
+      "bytes": 3467,
+      "sha256": "fa3fe1f8b329a092671fca03412ba0d907f3b9b6f4184be101163af14ea2ff95",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/audience/male-ch31_validation.json",
+      "bytes": 1279,
+      "sha256": "9b0baea08b3b7b41c8943b127572a730688fa2324a030ecdeed8a5a2d5ab2a36",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/female-ch02.glb",
+      "bytes": 4891880,
+      "sha256": "3cd71ae648cfe021660ea4e3a3c4448dbfc5b70ee8e0a154afc9f08babcb6f38",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/female-ch02.runtime.json",
+      "bytes": 1552,
+      "sha256": "857c7bbea12b5ceb9c025d595cf79254fbd64fd8ef9bee3ed30115e51ef7b0e4",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/female-ch02_aframe_runtime_validation.json",
+      "bytes": 3124,
+      "sha256": "850dcdb9c1a019d0dbba24d4e4f9e8f407e6c2006d44d3cf78e063463119dd06",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/female-ch02_validation.json",
+      "bytes": 2348,
+      "sha256": "fe84ad3bfb1924d2976cea3fccc9094aa6766390db47f9a5bd9978d9691f1c78",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/male-ch06.glb",
+      "bytes": 4609192,
+      "sha256": "19f50639df5ee8211a1bc692999661b596faa9ddc658a942e3a13a58eac71d8c",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/male-ch06.runtime.json",
+      "bytes": 1866,
+      "sha256": "6cd27e384581236db25cd42be3493ffc03e77f40ce0900565f45bdac88223ba0",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/male-ch06_aframe_runtime_validation.json",
+      "bytes": 3113,
+      "sha256": "e2f6579bb7808d6f2a0176aa7a70cfaf893f8fcc3241b14dbdda62d61ab7401b",
+      "action": "moved"
+    },
+    {
+      "path": "public/avatars/active/performers/male-ch06_validation.json",
+      "bytes": 2146,
+      "sha256": "5ac98aa031744419545f1bc038acd32f5e33cb136ca03d4c4af7667aed6cce35",
+      "action": "moved"
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 712,
+      "sha256": "8fa980907f761135451917cb3d9c9324de9e0c0a8f49a4afea14f548fe32ffa5",
+      "action": "moved"
+    },
+    {
+      "path": "public/og.png",
+      "bytes": 1791861,
+      "sha256": "f5f71b1ea377d24f5ec234d7d68a261bc2ace7d56b98f7eaaa4d5b041a546ab2",
+      "action": "moved"
+    },
+    {
+      "path": "server/tts/config.ts",
+      "bytes": 2806,
+      "sha256": "b6bec7d822f7905523dd6deddd300e7b5be5a407911846ccff888a95eeb89b58",
+      "action": "moved"
+    },
+    {
+      "path": "server/tts/errors.ts",
+      "bytes": 397,
+      "sha256": "ac9020bc4fda4d828b3337c34de4f543915c883d0c1de662256497dbc252ce35",
+      "action": "moved"
+    },
+    {
+      "path": "server/tts/index.ts",
+      "bytes": 560,
+      "sha256": "b50cf98bc1f1a1e6acd588ec4e17e31bdfe26eb188660a7ebd5ff4b3c26e10c1",
+      "action": "moved"
+    },
+    {
+      "path": "server/tts/providers/moss.ts",
+      "bytes": 1663,
+      "sha256": "6ec1220061cce93fad1d7a32e564c52afa56f4368d820120f43762c0c735a9ce",
+      "action": "moved"
+    },
+    {
+      "path": "server/tts/types.ts",
+      "bytes": 415,
+      "sha256": "f447d8ef2fc688927a7f28089453c9faf03ef4237f008db6c7f1a187ba274243",
+      "action": "moved"
+    },
+    {
+      "path": "config/tts.example.json",
+      "bytes": 195,
+      "sha256": "e12692cf5993107c3cc1a91134999fcb86c1a3ba3c75a69a159c4427f10b994a",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/PIPELINE.md",
+      "bytes": 5811,
+      "sha256": "a5949b9bdcc82809bacac73d6e66f222d1fb5ef4fdbb153a0fd0137540d343e7",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/add_glb_animations.mjs",
+      "bytes": 5337,
+      "sha256": "d229a045bbe3bfb15dc60ce42b62a838f5d46991261dbb093edbf367aba1ca45",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/build_all_runtime.ps1",
+      "bytes": 2546,
+      "sha256": "40d65177daf104a5e682aab40c9d82021552f05bed7dc5d09dec462ae2f0d7b2",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/build_runtime_avatar.py",
+      "bytes": 5471,
+      "sha256": "5835d8363e4ef252360fcadad479292956fcde0dff973a7e25df0888d78d3ca4",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/inspect_clip_bounds.mjs",
+      "bytes": 2336,
+      "sha256": "59338479b38fe2a798574b17e8f1d39704b7df217488fcfeb702dff47b4b5811",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/mixamo_aframe_batch_builder.py",
+      "bytes": 25367,
+      "sha256": "887439066fbb67301a4e028fe912d09e2a74aad8616296e94c11a7421b1f5777",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/validate_aframe_runtime.mjs",
+      "bytes": 6373,
+      "sha256": "19e275f801f4255ba756652fd31cca16cfe3e38c2d33011c7b7f4bb6293bad33",
+      "action": "moved"
+    },
+    {
+      "path": "tools/mixamo/validate_mixamo_glb_blender52.py",
+      "bytes": 7024,
+      "sha256": "1464fd864ceacbab969da31ef63c93d483bc678f115a9d8c91d78a22e5b5d397",
+      "action": "moved"
+    },
+    {
+      "path": "types/aframe-module.d.ts",
+      "bytes": 57,
+      "sha256": "963f3b601e78af92b1cf7fedcaa8939b574ed7a8080e039113c39e4d4fafc6ce",
+      "action": "moved"
+    },
+    {
+      "path": "types/aframe.d.ts",
+      "bytes": 775,
+      "sha256": "7ab8df978363699cfb1efcf934568ae93b133c0649d51aebd3e47abd693c5378",
+      "action": "moved"
+    },
+    {
+      "path": "local_assets/README.md",
+      "bytes": 639,
+      "sha256": "981020117202447d7068aa134f26c021285ad7792ba61fe639ebe5270fc3ddbb",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short001.mp4",
+      "bytes": 9703329,
+      "sha256": "4c39053dd0f75102c57edfc5abad00b6ebf83ec46de3e9f62edbe4d1cc7ef3c0",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short002.mp4",
+      "bytes": 11586019,
+      "sha256": "66545f4565305520d68b6f2b331f7740dbbd0c2b88606e41691991681ee4d01e",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short003.mp4",
+      "bytes": 22007396,
+      "sha256": "51a8d356be6df92f8bb7716ed32e61b460a0dc36e40253063f6bf68a7ef1c068",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short004.mp4",
+      "bytes": 9755693,
+      "sha256": "ea3a288145281a272b0c51b25550d51415ff65aec83759c57d067a7fb1fa476a",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short005.mp4",
+      "bytes": 10447402,
+      "sha256": "9f4c7c52cd917a5eb8fb0b453c1e6762e543fed766eae12f9f6d92e20b23ca19",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short006.mp4",
+      "bytes": 13808473,
+      "sha256": "7ffdee856f02de861c008d8e30330fcf3b78ecc3b4e48e19afdb0ee3771a4318",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short007.mp4",
+      "bytes": 8017457,
+      "sha256": "686f093b674095bf77f782a2df9f5b676a4a67b90e7ef1a80c0af8ad90151175",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short008.mp4",
+      "bytes": 9768736,
+      "sha256": "88405879a71f19df5f3f2b32a47b0d66ff4826ca89ab7aa13effab2e5a444f75",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short009.mp4",
+      "bytes": 19199307,
+      "sha256": "dddac1ab9aca2454b34948ccbfe9ac573ae2697cf32545c7456d6c75d6ac690c",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short010.mp4",
+      "bytes": 2627470,
+      "sha256": "5de29a89d94e6aa5e5d13ac203b1a1d467ba32072f761df77db014f128946b40",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short011.mp4",
+      "bytes": 14666290,
+      "sha256": "6316bb6b815931636ac6b0d9a0f71d58c034af23319da700de7ed058c99f6fbf",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short012.mp4",
+      "bytes": 6564271,
+      "sha256": "9ad7bb7762f8d1ad1c6e19158da924ed24c2689932743e1c4298ab3c49e95b5f",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short013.mp4",
+      "bytes": 19106767,
+      "sha256": "54a29ccdaba6183cc9257d1775cb21ac899e5ddc286a5582f70c1f71cd3121be",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short014.mp4",
+      "bytes": 19639881,
+      "sha256": "67461b90fe5df8caf9bcda3f24c5d36a469dc7dcd0d1bd45322259eb68dcf7ae",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short015.mp4",
+      "bytes": 6328666,
+      "sha256": "4277313b0d6d8a435cad4c730a9de6d8c92b2a86cdf1c1cfe652d20ab086f7dd",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short016.mp4",
+      "bytes": 35505339,
+      "sha256": "91857b4962e6c647ebab0c9ebd2d1dcc7bff02d9fed9a3acda34a3e9b2d7b431",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short017.mp4",
+      "bytes": 19610726,
+      "sha256": "2822403b2063198ccb79b96ecac64248dab9d706d1ddad357162794ffdf77604",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short018.mp4",
+      "bytes": 14824720,
+      "sha256": "501b794c9f8b99ca2bf442126b986e3a3f6055fcd08762b288a57fb4188a9bdf",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short019.mp4",
+      "bytes": 8071252,
+      "sha256": "7b57640bbb8a4562632fbc3523acd1286366dd9c445f8a2b420f1a84355879cd",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short020.mp4",
+      "bytes": 19605385,
+      "sha256": "a0ad27844e105cbb5d69c65a4587bd70d6d074dc7a3be829c65514b744d16364",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short021.mp4",
+      "bytes": 10419834,
+      "sha256": "339f4e21ecc430e6a2d071ca7032123d86df30933bd950d9b8ec16953c684a74",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short022.mp4",
+      "bytes": 6113519,
+      "sha256": "f509e3a11234b9ed86bce07820637776a719646905234307e986f1a34e77a705",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short023.mp4",
+      "bytes": 25052673,
+      "sha256": "24e3ce55c5f44fe4499b7ad37650c968c6efc25eda41caa6d80706931e5071e6",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short024.mp4",
+      "bytes": 12220030,
+      "sha256": "ba005ec8ac8384cc42d89e7a61f2bc4eaae0a86efc1e6a5e6dc1557145ddb9da",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short025.mp4",
+      "bytes": 13649622,
+      "sha256": "9dc162f1b0f4391dc60fa3f177b9090439da8a0b1cb7a4763639a6b16c903b69",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short026.mp4",
+      "bytes": 13149906,
+      "sha256": "af32ca30bc097e60229ba2e3d8b8879bd31da1bca475dae7a4c7b3c1b9557f18",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short027.mp4",
+      "bytes": 8325045,
+      "sha256": "67257b7f6df78a66175f7796ed15801aaf57b9b5eab9eb2a748c1fb1c8e3072d",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short028.mp4",
+      "bytes": 21779665,
+      "sha256": "f07e913b1f53d78338569c78cd650c2620707bbe36553e2d2d3e72c3d3753bc4",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short029.mp4",
+      "bytes": 18107038,
+      "sha256": "269d4072274513b8f80a189d09ce8c51aebaf8f67cc4d9e3a2d0922121cd919a",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short030.mp4",
+      "bytes": 13395305,
+      "sha256": "7d5a6e2cefdc11f4eb7f3021e5d66159155b5ebb08a1a230e2d2293914478b6a",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short031.mp4",
+      "bytes": 12914399,
+      "sha256": "9ea540bb6e109b1b7f2ef7ed4a88006bce55832b0288fcb531b9dc8f5f772a5d",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short032.mp4",
+      "bytes": 10002493,
+      "sha256": "612559ad9e6aec5e0c6bd3c1450cfa93513e578b58ec45b3b72ebd017d8e44c6",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short033.mp4",
+      "bytes": 20144552,
+      "sha256": "4342a18c2485e946627071e89a9a14a11f670470ec9d8275e02d069d499a4a57",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short034.mp4",
+      "bytes": 4735668,
+      "sha256": "f24b5cf7782b23e48568790433741f685aacf8e05b17f83877bd07cf0804ec76",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short035.mp4",
+      "bytes": 15362543,
+      "sha256": "72455a154980c323afe19c3be1f01b4e943ab952eed0b4067acaab8ad9809a27",
+      "action": "moved"
+    },
+    {
+      "path": "standup_video/short036.mp4",
+      "bytes": 14775068,
+      "sha256": "c001433373ec7aad1f340937ae2493a81a1eea89002b78e558154154d5656ced",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午1.50.24.png",
+      "bytes": 750360,
+      "sha256": "6795fd8dd22c093dc3913600591a97b935fdcf690de3f945d287bf89ab5d8fb3",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午1.55.37.png",
+      "bytes": 756802,
+      "sha256": "719b17ccf1d80e8cd7628451f0107311fdd93d0690c029b615fc70444e9fcea7",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午1.58.17.png",
+      "bytes": 667170,
+      "sha256": "28cb54f27543f139c81019c198bb7f2a2c020b3374378d42bfbf1ed2f5c20154",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.03.13.png",
+      "bytes": 633412,
+      "sha256": "20f3a152ae0c2006807fd8c4ec2afd4adffb9340cc20ab7649ba54ccd7c1bf90",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.08.37.png",
+      "bytes": 713644,
+      "sha256": "d59f1f1ffb849cddef95af7c9874e3ae0526581776b0ea2b7ae894806da75947",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.11.20.png",
+      "bytes": 801959,
+      "sha256": "0dc365cf8d0a3866668e294b9f1e3df3e7ad81cb775b96dc9c2365b6c0a109f0",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.12.36.png",
+      "bytes": 625996,
+      "sha256": "24edea1be9114a4b85aad88530cb5b85726eab35f3b6c0c12eeafc118b13f099",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.18.01.png",
+      "bytes": 763569,
+      "sha256": "7fa9b545fa197d3a09a70d0599c3a4a84fb61fc6236dda511ad20a75d75e2ef7",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.19.01.png",
+      "bytes": 904384,
+      "sha256": "8b7ba11996ca76ccb8c691f9b1776daacaac8484403aaffe7bb028090e347321",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.27.08.png",
+      "bytes": 887881,
+      "sha256": "3d617a2d97649b36ee7415675aefa9a89f32c78909841832bb96155cc964e2c4",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.45.58.png",
+      "bytes": 723423,
+      "sha256": "14f610613f93be5ef4a206d6b6ca1cf9eacbc87a4a1ee54e66ce67541b677e3c",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.51.39.png",
+      "bytes": 688272,
+      "sha256": "32eb4ba2d9bc57e0a0ad6efc68064b6c1d14c0b87bb5de07ac7dea63140169fc",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.55.37.png",
+      "bytes": 581060,
+      "sha256": "4be19360c082f378872eb66f7881d1e7f603e85595562ea0132d64f446aef8f6",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午2.57.17.png",
+      "bytes": 787715,
+      "sha256": "a0bf309a050d40ae45e932d3851549718d79cdc4364ea62e0655df7bfd505e30",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.03.24.png",
+      "bytes": 667717,
+      "sha256": "0430834d82da7173b19f88c57ed8923a5c7d241af87471ea1e3cfa0a451b97db",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.10.51.png",
+      "bytes": 545773,
+      "sha256": "5e393188dddb29415942a757683fe3c6eba809dc6103c68ae6c99ee8337cc5ea",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.18.51.png",
+      "bytes": 606737,
+      "sha256": "ea496e9b82016572f8ab760b0900cadbe3412956e840b2502675f75894c7f084",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.22.13.png",
+      "bytes": 659194,
+      "sha256": "5c24a2e3f5e6916f851866ec73d400ed2848671502ccf260b1884059ccaaae38",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.25.15.png",
+      "bytes": 792657,
+      "sha256": "1c2c7ebdb93603a552ad1f85bbb028112bdb746036ed71671c9f01b3ed31649e",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.27.43.png",
+      "bytes": 661951,
+      "sha256": "de1602c0fa268191c6a41dfb4d221b7f179674e8260f0906260d148f88a3e4f5",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.33.19.png",
+      "bytes": 701692,
+      "sha256": "2283cc2410f09502f8669eaa5214df2778c3897fa492f24570860ec7ed34eb4e",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.33.41.png",
+      "bytes": 734782,
+      "sha256": "44eb7511cf11a17be2ee8a21f0d36f57f4bb5f1d39be0803197bc1718d075c03",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.46.56.png",
+      "bytes": 681321,
+      "sha256": "cf0e04a223350d7d63137f66081d334aa344576447dc474f01434bf6c05d77d4",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.47.22.png",
+      "bytes": 873103,
+      "sha256": "c3c65ade1cbaa8d68f046168f286cf597be8772ee1bcc194b23fa271c3ed88b2",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.47.39.png",
+      "bytes": 657870,
+      "sha256": "78393425170de40b6fd2fb30156ff0c8950363c74bf28450ccbf2e5254102087",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午3.47.57.png",
+      "bytes": 647704,
+      "sha256": "1341db54972223f566bf261eb89a4873666e5a7f25473b616b863072c86891da",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.05.12.png",
+      "bytes": 863240,
+      "sha256": "24f57b8d0a90291483d5eece747b6f21455f1bf7c8517fc3d84a56b5b6ad1b11",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.10.15.png",
+      "bytes": 939956,
+      "sha256": "e6427ad51ed6390438084d9a37574b808753c6810d81e7e9cfe5f74492fc30fe",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.16.12.png",
+      "bytes": 697981,
+      "sha256": "d1172ef2238d544338fd4fc6bc7bbddb624216e721e768ff2b981d3e4aefc7b4",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.23.00.png",
+      "bytes": 674097,
+      "sha256": "3018e109ba95421588761809f085a553ad528a41c00c0ed4c45e0868339c10e0",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.24.19.png",
+      "bytes": 748107,
+      "sha256": "02f47cd4154f9c58eb2b41c116e98d2e616288726e7bb3bdf93f2e3dc341b67a",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.28.02.png",
+      "bytes": 607712,
+      "sha256": "374d6c38d601c015f8731627269adff8ed790019c13d5338119607b043180476",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.32.16.png",
+      "bytes": 792923,
+      "sha256": "86bfec06c5f5fbb9b4eb7a3c18c37030ebd295ceb4a899b110f0ec543b12b58d",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.36.45.png",
+      "bytes": 757880,
+      "sha256": "f9516f8e230bb2721b767873113a38c29e8b5f84e168b14ba22f3a1d219a5834",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.38.12.png",
+      "bytes": 855624,
+      "sha256": "2d277a5535923c2386bb6b11f2697e52630ceb033be0b40c2a2a5d5be0f5f21b",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.40.31.png",
+      "bytes": 805380,
+      "sha256": "64aaa48ca5b9437e837ae4b0498cc9b17bc199509514987775c810512e7ac864",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.43.43.png",
+      "bytes": 797830,
+      "sha256": "e4e26de446abfc2a5d47610f42dd744e61fd3ab59456376583cbb82073210ab6",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.48.31.png",
+      "bytes": 846269,
+      "sha256": "87e729e29eb1d11abb05f816d95f6c30eb1814340ffb8e56c54780ee1573c69c",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.57.03.png",
+      "bytes": 709423,
+      "sha256": "10cb54d7c8e88e046e1adc015b02833447b467a05daf20e615bd110e867d0982",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午7.58.18.png",
+      "bytes": 846676,
+      "sha256": "e1612531603894d0517ae356840371f6dd16ab7e537fee646de297cd132fffbb",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午8.11.37.png",
+      "bytes": 615758,
+      "sha256": "aa2fd1c143270915ff705e184dcab40fdd606a940ae9cc93d4860e90b1f23f81",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午8.14.05.png",
+      "bytes": 680680,
+      "sha256": "2b0dfaa37049d168d4707c6c909cecb89f9c0d1f80d4b78ac0467867297982fe",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午8.18.30.png",
+      "bytes": 732770,
+      "sha256": "64eceb70a910bbdfb273f4737ef14af17acb1bc0595fbfc95ed9643c78fb03cb",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午8.19.00.png",
+      "bytes": 704232,
+      "sha256": "99bf59ec5a331843a11bcc991408918b6d6fc27ae65cd49a50393b09c5fa1bea",
+      "action": "moved"
+    },
+    {
+      "path": "videoshortcutpic/截屏2026-08-29 下午8.19.26.png",
+      "bytes": 695769,
+      "sha256": "fb2279ebed3e992e9beba4b0ae59eee613576e5df1f3d6c7db945587899dae62",
+      "action": "moved"
+    },
+    {
+      "path": "output/PunchCap-2D-concepts.zip",
+      "bytes": 20296115,
+      "sha256": "4b0569a3193ceecb101619f146502fd0e3f948e6fd0792ebe8fc1940ec863d28",
+      "action": "moved"
+    },
+    {
+      "path": "output/pdf/PunchCap-2D-concepts.pdf",
+      "bytes": 14506014,
+      "sha256": "ed6b3e432c0c6038fe8564fd1291068c85dbbd66c92456b5748ffb428241bdb6",
+      "action": "moved"
+    },
+    {
+      "path": "docs/PERFORMANCE_ARCHITECTURE.md",
+      "bytes": 2144,
+      "sha256": "f9353258375a1ba55f6372375405985276fb1d36e6a03454080ea125f59c4104",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/concepts/01-two-modes.png",
+      "bytes": 1639671,
+      "sha256": "34a218f274ca3ed1abb5eb6ba0914fbc71113438e42e3a7753f2f59ad6058575",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/concepts/02-xieyi-language.png",
+      "bytes": 2260933,
+      "sha256": "d2261c04269df61d65a07ee6a1c188c79360d48fe2fd4c230c94376cab577c72",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/concepts/03-jianli-techniques.png",
+      "bytes": 1890535,
+      "sha256": "930d9ad76073f9d6967adb4461835c13bea31bac3d0a302979ef830be2e5ffbd",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/concepts/04-crowdwork-storyboard.png",
+      "bytes": 1987204,
+      "sha256": "8b7ccbc423196e55d52703fcec705acf77d5480e4411ba8f4bcbdd1f0d47aa75",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/05-design-space.png",
+      "bytes": 455611,
+      "sha256": "9dc5f90660a318ef460c830a05da01710d6286a7bc5dffcbf9f725f5c63d3258",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/05-design-space.svg",
+      "bytes": 6913,
+      "sha256": "639f03207491ca420a62d427e28eb6e2d37d4c12d60f467607f229d3c20342b5",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/06-timing.png",
+      "bytes": 359670,
+      "sha256": "4bb5aed31f5eaea9d6491c0b40d10d91d96c934bdc6d4e5284c1c6b86d69bd9c",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/06-timing.svg",
+      "bytes": 6193,
+      "sha256": "06e0b05d69ad8fd741214e5af140043f868484830f62cc2e20a7c033ea2223ce",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/07-spatial-anchors.png",
+      "bytes": 358419,
+      "sha256": "e47e76ba3cda537d47c693e537fc5a2da5f94a023be36b0854dcefc5fd50db4b",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/07-spatial-anchors.svg",
+      "bytes": 5467,
+      "sha256": "3d62a7abd8b876d3c2915a68916230d033c98a96dbb1103b5014d0a17ceb6be1",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/08-interaction-loop.png",
+      "bytes": 447639,
+      "sha256": "bef13b9081806df1b2d617c4e57f12c0299d0de6cefaadb914cf4be5d23c48e0",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/diagrams/08-interaction-loop.svg",
+      "bytes": 7765,
+      "sha256": "8490388973d2b53c281fb8d96e8d04215fbd49407a82168606c8492b21e03c65",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/index.html",
+      "bytes": 10419,
+      "sha256": "e8c9359d13da7d67b3f60f70aed28a05e96f0bab17a19df44ce084df294163be",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/manifest.json",
+      "bytes": 4841,
+      "sha256": "912c6283a6b943a17f0a5ea7bc7bc7eb8fa642b12db0be8901f361ba6dbc8e7e",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/prompts/01-two-modes-refinement.txt",
+      "bytes": 725,
+      "sha256": "a4187137bdefb90cc76b3fe40940dad574a0812514579b9df6c164091b7ed828",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/prompts/01-two-modes.txt",
+      "bytes": 2306,
+      "sha256": "df9a1e4eb603c9b9ba740ff0603cdf20b1f4ecb88cdd9b73ee56df0623ccfcb7",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/prompts/02-xieyi-language.txt",
+      "bytes": 2126,
+      "sha256": "2aad6aced542669522285f2d3552d1ce1d7ac8f7ccb7926ff151b6e80892f515",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/prompts/03-jianli-techniques.txt",
+      "bytes": 2299,
+      "sha256": "79aa6d2945b4ce10576cded623a768ca49f36959a872500384066ba9e88fd569",
+      "action": "moved"
+    },
+    {
+      "path": "docs/punchcap-concepts/prompts/04-crowdwork-storyboard.txt",
+      "bytes": 2360,
+      "sha256": "e90b52aca32b871bee597005807a7653d40e92e5b0fdffc4184ac5aaf62c6a49",
+      "action": "moved"
+    },
+    {
+      "path": "worker/index.ts",
+      "bytes": 1443,
+      "sha256": "4584cbe61e2f76e1c041fef403a3ca2189a7a24a90134091168011129021656a",
+      "action": "moved"
+    },
+    {
+      "path": "vite.config.ts",
+      "bytes": 928,
+      "sha256": "635d3775c79400da084e6c4bd5664fb2f58ab9061e2d37e6520560dbdd846067",
+      "action": "moved"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4278,
+      "sha256": "c08b1ef3ed42b709edb8cd414fffd3e418599c29ad68336f2e00ef6967a61b91",
+      "action": "copied"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2388,
+      "sha256": "d7b2a0a8d889e87a14556e2f7492b7315be0e2e763983582e29e05d29145bbbf",
+      "action": "copied"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 301846,
+      "sha256": "a2b7547e18d3fb5ce6e0881cef1afb3d6948384c35859804fbba2e245cd72a98",
+      "action": "copied"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 706,
+      "sha256": "b5ac7424278bbeb65f1d14c04c5ee11671f6e51c88b3a738185b012a2ef4d705",
+      "action": "copied"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 358,
+      "sha256": "da17138695d573681380951fcbc1f0be5ef880615c6cb606941900ae0c0df413",
+      "action": "copied"
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 150,
+      "sha256": "f31ec323a3a8276876a738b3a80820437d96717da9daaa5f69a851fc2ca06376",
+      "action": "copied"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 741,
+      "sha256": "5b6985ba31f861e91add7f69f0040e106338c91f5439bc63cdfef98938e674d4",
+      "action": "copied"
+    },
+    {
+      "path": ".vercelignore",
+      "bytes": 232,
+      "sha256": "32206d3a901615ebdbb3b00445f46adfdc6272b16cfb949ef47e372c38996b7a",
+      "action": "copied"
+    },
+    {
+      "path": ".env.example",
+      "bytes": 116,
+      "sha256": "1ae0a45e1fe0db3cecbf87b18f0cebb911a36c1db2550d0a16115ad401710287",
+      "action": "copied"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 117,
+      "sha256": "457d467f69fe24ed236dbec979d1f70ee88095d245e3479b217138f5a2f15776",
+      "action": "copied"
+    },
+    {
+      "path": ".openai/hosting.json",
+      "bytes": 91,
+      "sha256": "b10f26154c6090e9cf7a6cb337736ce2a82610c659353d9dbf28b2574309efe4",
+      "action": "copied"
+    },
+    {
+      "path": "系统设计与实现指南.md",
+      "bytes": 67552,
+      "sha256": "f7a3db5265ab07cc946dea8af5986747590c12d63d614d4f284ac632189f97e3",
+      "action": "copied"
+    },
+    {
+      "path": "questionnaire-pre.md",
+      "bytes": 11408,
+      "sha256": "8eea07c6686f206ef603d9c31b7ecc6f200226173b7826520d1e9f6eea9d2aba",
+      "action": "copied"
+    },
+    {
+      "path": "questionnaire-post.md",
+      "bytes": 23067,
+      "sha256": "d89a8c7d0df8a4144c86d65f43d6e5bf6d9af4d32e78c0aa42c6c086371e247e",
+      "action": "copied"
+    },
+    {
+      "path": "archive/deprecated_avatars/README.md",
+      "bytes": 510,
+      "sha256": "5f3e950fe1d0ac0e4a70e38da604a0587f63bccc6aaf6d832abdfdfe0dbf0947",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/LICENSE.txt",
+      "bytes": 352,
+      "sha256": "20b983ae0e2e555817495a65c37519bfcb2231825269db6a57d72c51ed6006e3",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-alternative/Smooth_Female_Alternative.mtl",
+      "bytes": 1855,
+      "sha256": "4da8094ec6a130b693eff02769ddb762bb98fbd46af31b56c8ce2c5e2a019a8e",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-alternative/Smooth_Female_Alternative.obj",
+      "bytes": 351146,
+      "sha256": "77575f96980cf293d02046176625b2741cd976091ff4847bfb641cd1c5fc69b0",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-casual/Smooth_Female_Casual.mtl",
+      "bytes": 1485,
+      "sha256": "5c6d8e34a643a0b17e1e2f57290bc9bd46b776dbdc382ef31f67d0c202a77832",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-casual/Smooth_Female_Casual.obj",
+      "bytes": 362276,
+      "sha256": "b5ed0cfe3c403fe90189396ef27b84ef4243d12958097a2a542d36ac7a397e7c",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-dress/Smooth_Female_Dress.mtl",
+      "bytes": 950,
+      "sha256": "79c7382e21adc0bf99b5d20fc5e29350ff453f0523052d10d9d683a574d98741",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-dress/Smooth_Female_Dress.obj",
+      "bytes": 375685,
+      "sha256": "fea5305f0dec026ced829b1e772033ae2a1e25c7ea6268dbc3ebe3b9caca48a9",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-tanktop/Smooth_Female_TankTop.mtl",
+      "bytes": 1309,
+      "sha256": "5743372f73f6348e2a5bce191b201bde20582198e36e64a01191a20f10a02f90",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/female-tanktop/Smooth_Female_TankTop.obj",
+      "bytes": 433239,
+      "sha256": "fa5b8a24f3acf24684ead15de41831c14a0c81587db2dc2ed585ac396f63d933",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-casual/Smooth_Male_Casual.mtl",
+      "bytes": 1126,
+      "sha256": "cec7ab523f307d8049af400da1d8292463a5d04c6b691cd3c6ea6ce378076f3f",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-casual/Smooth_Male_Casual.obj",
+      "bytes": 388366,
+      "sha256": "e9e33dcbe4e563e0828775cb3d4b19150f12c388c0dbc840f636254e53f47bec",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-longsleeve/Smooth_Male_LongSleeve.mtl",
+      "bytes": 953,
+      "sha256": "e6dc08c2133877401cd49622a04f0584d763857e4792fe2af35063da84e92924",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-longsleeve/Smooth_Male_LongSleeve.obj",
+      "bytes": 412792,
+      "sha256": "5a0efe627a3e7d3549da6baf67897753c96fa9f0b87fa2cc745e83c4da841393",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-shirt/Smooth_Male_Shirt.mtl",
+      "bytes": 1657,
+      "sha256": "457aa94b014e3046736bd3df2b8b7ddd9b2e0c8bcb57e020a75a24612965b19f",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-shirt/Smooth_Male_Shirt.obj",
+      "bytes": 390001,
+      "sha256": "50e2852cc0c20b2c367ddeb68077f807199ba0568f96cc6201aabcf8ed0ca8d6",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-suit/Smooth_Male_Suit.mtl",
+      "bytes": 1308,
+      "sha256": "01f6d53a966b776eff6e2cbe59b98f57b570c9c7198b15082d3d48d5d55f8921",
+      "action": "moved"
+    },
+    {
+      "path": "archive/deprecated_avatars/legacy_obj_2026-08-31/male-suit/Smooth_Male_Suit.obj",
+      "bytes": 592181,
+      "sha256": "5220eebac2fb17b08752341156ee00069eca261b66593d22e55bf0dee8e4dd59",
+      "action": "moved"
+    }
+  ]
+}

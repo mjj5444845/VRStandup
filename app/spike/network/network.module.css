@@ -1,0 +1,36 @@
+.page { width: min(100% - 40px, 900px); margin: 0 auto; padding: 40px 0; }
+.header { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; }
+.header p { margin-bottom: 36px; }
+.page h1 { font-size: clamp(30px, 5vw, 44px); }
+.intro { color: var(--muted); line-height: 1.8; margin: 0 0 28px; max-width: 660px; }
+.steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.steps section, .panel { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+.number { color: var(--accent); font-size: 14px; letter-spacing: .12em; }
+.steps h2 { font-size: 23px; }
+.steps p { line-height: 1.8; color: var(--muted); }
+.steps a { display: inline-block; padding: 12px 0; font-weight: 600; }
+.statusLine { display: flex; gap: 10px; align-items: center; }
+.statusLine h2 { font-size: 21px; margin: 0; }
+.connected, .disconnected { width: 10px; height: 10px; border-radius: 50%; background: #2c7854; flex-shrink: 0; }
+.disconnected { background: #ad7845; }
+.message { min-height: 28px; line-height: 1.8; margin: 18px 0; }
+.peers { display: flex; gap: 40px; padding: 20px; border-radius: 10px; background: #f0f4ee; }
+.peers dt { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.peers dd { margin: 0; font-weight: 600; }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.buttons button { font: inherit; padding: 11px 18px; border: 1px solid var(--accent); color: var(--accent); border-radius: 8px; background: white; cursor: pointer; }
+.buttons .primary { color: #fff; background: var(--accent); }
+.buttons button:disabled { opacity: .45; cursor: default; }
+.buttons button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hint, .note { color: var(--muted); font-size: 14px; line-height: 1.8; }
+.note { margin-top: 24px; }
+.panel h3 { font-size: 16px; margin: 28px 0 12px; }
+.history { padding-left: 22px; margin: 0; max-height: 240px; overflow-y: auto; }
+.history li { line-height: 1.8; padding: 3px 0; overflow-wrap: anywhere; }
+@media(max-width: 600px) {
+  .steps { grid-template-columns: 1fr; }
+  .page { width: calc(100% - 28px); padding: 24px 0; }
+  .header { font-size: 13px; }
+  .panel { padding: 20px; }
+  .peers { gap: 28px; }
+}

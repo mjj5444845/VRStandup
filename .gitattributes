@@ -1,0 +1,9 @@
+# Use consistent text line endings across Mac and Windows.
+* text=auto eol=lf
+
+# Windows command files use their native line endings when added later.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Historical files must keep their original bytes and checksums.
+archive/** -text !eol

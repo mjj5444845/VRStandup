@@ -1,0 +1,16 @@
+# Raw local media is intentionally excluded from Vercel uploads.
+standup_video
+videoshortcutpic
+*.zip
+*.fbx
+*.blend
+*.wav
+archive
+local_assets
+tools
+
+# Local development and alternate-platform output.
+.wrangler
+.vinext
+outputs
+work

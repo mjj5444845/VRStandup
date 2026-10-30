@@ -52,3 +52,35 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 *.tsbuildinfo
+
+# New research system: private files and preserved local-only legacy material.
+/data/
+/certs/
+/study/config/allocation.json
+/archive/legacy-*/generated/
+/archive/legacy-*/project/standup_video/
+/archive/legacy-*/project/videoshortcutpic/
+/archive/legacy-*/project/output/
+/archive/legacy-*/project/local_assets/**
+!/archive/legacy-*/project/local_assets/README.md
+/archive/legacy-*/project/archive/deprecated_avatars/legacy_idle_fbx_2026-08-31/
+
+# Local-only originals, recordings, exports, and backup copies.
+/raw/
+/recordings/
+/output/
+/backups/
+
+# Local media-check reports and unfinished fixture generation.
+punchcap-media-check-*.json
+/public/study/checks/media-clock/.generate-*/
+
+# Private keys and certificate bundles, wherever they are created.
+*.key
+*.p12
+*.pfx
+
+# Disposable logs and editor temporary files.
+*.log
+*.swp
+*.swo

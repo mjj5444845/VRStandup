@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "purpose": "Synthetic M0 S3 clock check; no research recordings",
+  "durationSeconds": 62,
+  "fps": 30,
+  "width": 640,
+  "height": 360,
+  "sampleRate": 48000,
+  "files": [
+    {
+      "name": "clock.mp4",
+      "bytes": 107589,
+      "sha256": "43b7455dcaa88c304415219b4bf38d3020ad67171594296429d5b21ca1b4ab77"
+    },
+    {
+      "name": "click.wav",
+      "bytes": 5952044,
+      "sha256": "b4fea4bb069d3d393b53d44b47cfcc511ffb39b10f5d167f3d907a6c3d522555"
+    }
+  ]
+}

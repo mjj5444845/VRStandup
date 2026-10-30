@@ -1,0 +1,205 @@
+PunchCap：第二个工作——HTTPS 与头显连接
+更新：2026-10-30
+
+一、这一步要完成什么
+
+让头显通过实验室网络打开检查页，并尝试进入 VR，看到绿色方块和地面。
+电脑与头显之间需要浏览器认可的加密连接，专业上叫“可信 HTTPS”。
+本步骤对应 M0 的 S1：先确认连接方式可行，再做正式舞台。
+这里没有正式实验流程、研究数据记录、录音或实验通信。
+
+代码和 Mac 本机 HTTPS 请求已检查。Windows、证书安装、头显进入和退出尚未实测。
+只有在目标 Windows 和真实头显上完成第九节，才能将 S1 记为通过。
+
+二、先在当前 Mac 看检查页，不用安装证书
+
+沿用 01 说明中的开发服务；已经启动就不用重复启动。
+浏览器打开：http://localhost:3000/spike/xr
+也可在第一个检查页点击“下一步：头显连接检查”。
+
+页面分别说明连接方式、安全环境和 VR 设备状态。
+普通电脑没有可用头显时，“进入 VR”保持灰色，这是正常结果。
+localhost 即使使用 HTTP，浏览器也可能认可其为本机安全环境；这不代表已完成 HTTPS 验证。
+本节只是预览。头显中不能使用电脑的 localhost 地址。
+
+三、Windows 先准备好网页和网络
+
+先完成 02 传文件和 03 Windows 安装运行说明。
+下文假定项目在 C:\PunchCap；不同位置要替换路径。
+Windows 电脑和头显连接到同一个可信实验室局域网。
+电脑插网线、头显连 Wi-Fi 也可以，但两者必须能够互相访问。
+访客 Wi-Fi 可能隔离设备；必要时请实验室网络管理员协助。
+
+在普通 PowerShell 中输入：
+
+Set-Location -LiteralPath "C:\PunchCap"
+ipconfig
+
+找到正在使用的以太网或 Wi-Fi 网卡的“IPv4 地址”。
+不要选断开的网卡、VPN 或虚拟机网卡。记录它：________________。
+下文 192.168.50.10 只是示例，所有出现处都要换成刚记录的实际地址。
+
+本次增加了工具包，收到新版后先执行：
+
+npm.cmd ci --include=dev
+
+四、Windows 准备证书工具，只需做一次
+
+mkcert 是为本机开发准备证书的小工具。仅从官方发布页下载：
+https://github.com/FiloSottile/mkcert/releases/latest
+
+普通 Intel/AMD 64 位 Windows 选择文件名带 windows-amd64.exe 的版本。
+如果是 ARM 电脑，先核对发布页对应系统的可用文件，不使用 Mac 文件替代。
+在项目里准备本机工具文件夹：
+
+New-Item -ItemType Directory -Force -Path ".\local_assets\tools"
+
+将下载的程序改名为 mkcert.exe，放到：
+C:\PunchCap\local_assets\tools\mkcert.exe
+这个文件夹的工具不会上传 GitHub。
+
+下面一步会让当前 Windows 信任 mkcert 创建的本机开发证书。
+请你亲自执行，并核对 Windows 弹出的提示；助手没有替你修改电脑的信任设置。
+
+& ".\local_assets\tools\mkcert.exe" -install
+
+成功标志：工具提示本机证书颁发机构已安装或已被信任。
+它不是面向公网的正式证书服务。不要把根证书的私钥 rootCA-key.pem 复制给其他设备或上传。
+在 Windows 安装信任，不会自动让头显也信任它。
+
+五、Windows 为实际地址生成证书
+
+将示例 IP 换成第三节记录的实际地址后输入：
+
+npm.cmd run spike:cert -- --ip 192.168.50.10 --mkcert .\local_assets\tools\mkcert.exe
+
+成功后在 certs 文件夹生成：
+lab-cert.pem：网站的证书。
+lab-key.pem：网站的私钥，要保密。
+
+证书同时包含 localhost、127.0.0.1、::1 和你指定的 IPv4 地址。
+生成文件与“头显已信任”是两件事，后面还要分别检查。
+如果已经存在文件，程序会停止，不会覆盖。
+IP 变化或证书过期时：先停止服务，妥善保存并移走旧证书及密钥，再用新地址生成。
+旧文件仍只能保存在私密位置，不能移到 public 或准备上传的目录。
+
+六、Windows 检查、构建和启动 HTTPS
+
+逐行执行，每条成功后再执行下一条：
+
+npm.cmd run check
+npm.cmd run build
+npm.cmd run spike:https -- --host 0.0.0.0
+
+check 包含代码检查、类型检查和配置、通信自动测试；它不检查真实头显。
+build 准备当前 Windows 的运行文件，不能用 Mac 的 .next 替代。
+最后一条启动 HTTPS 检查服务，默认端口 8443。
+0.0.0.0 表示接受这台电脑各网卡的连接，不是给浏览器输入的网址。
+窗口会显示与证书匹配的局域网网址；保持窗口打开。
+
+先在同一台 Windows 的浏览器打开：
+https://localhost:8443/spike/xr
+
+确认页面显示 HTTPS，安全环境显示浏览器认可，且没有证书错误。
+电脑没有头显时，进入 VR 按钮仍可能为灰色。
+如果出现证书警告，先核对电脑时间、证书地址和第四节信任步骤，不能据此记为通过。
+
+如果 Windows 防火墙询问网络访问，只为你确认可信的实验室专用网络配置访问。
+不要关闭整个防火墙，也不用配置路由器公网转发。
+若没有弹窗而头显无法访问，请管理员确认该专用网络允许访问本程序的 TCP 8443。
+这些网络设置需要在实验室实际处理，本次没有替你更改。
+
+停止时，在服务窗口按 Control + C。
+下次代码、工具包和证书都没变时，进入项目后只需再次执行最后一条启动命令。
+修改代码后先停止，再检查和构建；版本清单变化时先重新安装工具包。
+
+七、在真实头显里检查
+
+戴上头显，在支持 WebXR 的浏览器中打开：
+https://192.168.50.10:8443/spike/xr
+
+务必替换为实验室电脑实际 IP。头显的 localhost 指头显自己。
+先确认连接为 HTTPS、安全环境被浏览器认可，再看 VR 设备状态。
+满足条件后，在头显浏览器亲自点击“进入 VR”。
+应看到立体绿色方块和地面；转头时视角随头部变化。
+本页使用基于地面的空间，专业上叫 local-floor；浏览器须支持这一能力。
+用头显系统菜单退出，或通过页面提供的退出按钮结束 VR。
+退出后检查普通网页恢复，再尝试第二次进入和退出。
+
+重要区别：Windows 的信任设置不会传给头显。
+不同头显的证书处理方式不同；本说明不保证其能够导入本机根证书。
+遇到浏览器证书警告时，先保留设备型号、浏览器版本和错误文字。
+不要把忽略警告后“能看到网页”当成 VR 成功，也不要关闭浏览器安全保护。
+若设备不能建立可信连接，S1 暂时不通过，按设备官方开发文档解决后再测。
+Meta 官方本机 WebXR 调试参考见文末；它还介绍了其他开发连接方式，当前脚本未配置这些方式。
+需要进一步处理时，提供型号和错误文字即可，不用先尝试所有设置。
+
+八、如果想先在 Mac 做 HTTPS，使用这一节
+
+此节是可选操作，不要求你在 Mac 和 Windows 都安装信任。
+当前 Mac 没有安装 mkcert；本次只用临时测试证书检查了服务，没有改系统信任。
+
+从同一个官方发布页选 Mac 文件：Apple 芯片对应 darwin-arm64，Intel 对应 darwin-amd64。
+可用 uname -m 确认芯片类型；arm64 对应 Apple 芯片，x86_64 对应 Intel。
+改名 mkcert，放到项目 local_assets/tools/ 下。在 Mac 终端执行：
+
+cd "/Users/jeffrey/Desktop/VRStandup"
+chmod +x ./local_assets/tools/mkcert
+./local_assets/tools/mkcert -install
+
+最后一条同样会改变本机证书信任，需要你亲自核对系统提示。
+Mac 实际 IP 可从“系统设置 → 网络 → 当前连接 → 详细信息 → TCP/IP”查看。
+换成 Mac 的实际 IP 后执行：
+
+npm run spike:cert -- --ip 192.168.50.10 --mkcert ./local_assets/tools/mkcert
+npm run check
+npm run build
+npm run spike:https -- --host 0.0.0.0
+
+本机网址和头显网址的规则与 Windows 相同。证书留在生成它的电脑，不随源码转移。
+如果只想在本机检查，可省略 --host 0.0.0.0，默认只监听 127.0.0.1。
+默认使用构建结果；开发调试可在启动命令末尾加 --dev，不能同时在同一份项目里运行另一份开发服务。
+
+九、到了实验室填写的验收记录
+
+日期与验证人：________________________
+Windows 版本 / Node 版本：_____________
+电脑局域网 IP：_______________________
+头显型号 / 浏览器版本：________________
+Windows 安装工具并构建成功：是 / 否 / 未测
+Windows HTTPS 页面无证书错误：是 / 否 / 未测
+头显 HTTPS 页面无证书错误：是 / 否 / 未测
+头显页面显示安全环境被认可：是 / 否 / 未测
+亲自点击后真正进入 VR：是 / 否 / 未测
+方块和地面可见，转头改变视角：是 / 否 / 未测
+退出后网页恢复，再次进入退出正常：是 / 否 / 未测
+错误原文及复现步骤：__________________
+
+只要目标设备项目还有“未测”或失败，就保留待验证状态。
+本机测试已确认：HTTPS 页面返回 200；证书、实验数据、归档抽查网址返回 404。
+本次没有实际安装 mkcert、修改系统信任、开放防火墙或连接真实头显。
+技术证据见 spikes.md，唯一当前状态见 00-阅读顺序与当前状态.txt。
+
+十、代码和保存规则
+
+app/spike/xr/page.tsx：头显检查页入口。
+app/spike/scene-check.tsx：连接状态、按钮和中文提示。
+study/spikes/xr-support.ts：检查浏览器能力，不会自动申请进入 VR。
+study/spikes/scene-preview.ts：共用方块画面和 VR 进入退出，离开时清理资源。
+study/spikes/https-config.ts：检查启动参数和证书地址。
+study/spikes/https-config.test.ts：启动参数的自动测试。
+study/spikes/prepare-cert.ts：调用已安装的 mkcert；不会自动安装信任或覆盖证书。
+study/spikes/https-server.ts：提供检查网页；S2 已添加同端口的测试消息连接，见 06 说明。
+
+tsx 是执行 TypeScript 小工具的工具包，已经固定在项目版本清单里。
+源码、说明和版本清单可以上传；certs、原始资料、实验数据和本机工具不能上传。
+不要把这些文件移到 public。不要传 Mac 的 node_modules、.next 或证书给 Windows。
+spike:cert、spike:https、spike:net 是当前有效命令；指南中 lab 等正式实验命令仍未实现。
+
+十一、官方参考
+
+mkcert 用途与私钥说明：https://github.com/FiloSottile/mkcert
+mkcert 下载：https://github.com/FiloSottile/mkcert/releases/latest
+Next.js 自定义服务：https://nextjs.org/docs/app/guides/custom-server
+Three.js WebXR 管理：https://threejs.org/docs/pages/WebXRManager.html
+Meta 本机 WebXR 调试：https://developers.meta.com/vr/documentation/web/webxr-first-steps/

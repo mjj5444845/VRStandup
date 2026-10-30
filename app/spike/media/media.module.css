@@ -1,0 +1,36 @@
+.page { width: min(100% - 40px, 960px); margin: auto; padding: 40px 0; }
+.header { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.header p { margin-bottom: 36px; }
+.page h1 { font-size: clamp(30px, 5vw, 44px); }
+.intro, .note, .hint { color: var(--muted); line-height: 1.8; }
+.intro { max-width: 680px; margin-bottom: 28px; }
+.check { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.video { display: block; width: 100%; height: clamp(200px, 28vw, 300px); object-fit: contain; background: #152a23; }
+.content { padding: 24px; }
+.status { margin: 0 0 20px; line-height: 1.8; min-height: 29px; }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.buttons button { padding: 11px 18px; border: 1px solid var(--accent); color: var(--accent); background: white; border-radius: 8px; font: inherit; cursor: pointer; }
+.buttons .primary { color: white; background: var(--accent); }
+.buttons button:disabled { opacity: .4; cursor: default; }
+.buttons button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.progress { width: 100%; height: 8px; accent-color: var(--accent); margin: 28px 0 20px; }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 0; }
+.metrics dt { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+.metrics dd { margin: 0; font-size: 26px; font-variant-numeric: tabular-nums; }
+.metrics small { font-size: 12px; color: var(--muted); }
+.hint, .note { font-size: 14px; margin: 20px 0 0; }
+.result { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 16px; }
+.result h2 { font-size: 23px; }
+.result p { font-size: 14px; line-height: 1.8; color: var(--muted); }
+.result details { margin-top: 22px; }
+.result summary { cursor: pointer; color: var(--accent); }
+.tableWrap { overflow: auto; max-height: 320px; }
+.result table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; font-variant-numeric: tabular-nums; }
+.result caption { text-align: left; margin-bottom: 10px; }
+.result th, .result td { padding: 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+@media(max-width: 600px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .page { width: calc(100% - 28px); padding: 24px 0; }
+  .content { padding: 18px; }
+  .header { font-size: 13px; }
+}

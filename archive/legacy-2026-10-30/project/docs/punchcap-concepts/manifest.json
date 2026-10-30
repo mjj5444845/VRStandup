@@ -1,0 +1,97 @@
+{
+  "title": "PunchCap 花字系统 2D 概念与示意图",
+  "date": "2026-10-28",
+  "source_pdf": "/Users/jeffrey/Downloads/花字设计指南.pdf",
+  "method": "4 boards generated with built-in image_gen; 4 diagrams authored as editable SVG with PNG exports.",
+  "status": "Concept proposal, not implemented or user-validated.",
+  "boards": [
+    {
+      "id": "01-two-modes",
+      "title": "双模式舞台概念",
+      "file": "concepts/01-two-modes.png",
+      "source_pages": "指南 p1–6",
+      "description": "同一舞台中的两种观看关系：左图用不完整瓶口补全想象；右图用“人生赢家”皇冠制造自嘲后的身份反差。两幅图代表不同时刻。",
+      "proposal_note": "舞台色调参考当前项目；角色和皇冠造型为本轮提案。",
+      "width": 1586,
+      "height": 992,
+      "editable_svg": null
+    },
+    {
+      "id": "02-xieyi-language",
+      "title": "写意物件语言库",
+      "file": "concepts/02-xieyi-language.png",
+      "source_pages": "指南 p3–4",
+      "description": "瓶口、绳段、留白手机分别只画辨识度最高的部分。重箱场景故意不加图形，让身体继续承担重量和笑点。四格分别呈现独立场景。",
+      "proposal_note": "线宽、颜色的具体值需根据头显距离试读；图中透明度为视觉意向。",
+      "width": 1586,
+      "height": 992,
+      "editable_svg": null
+    },
+    {
+      "id": "03-jianli-techniques",
+      "title": "五种间离手法",
+      "file": "concepts/03-jianli-techniques.png",
+      "source_pages": "指南 p5–6",
+      "description": "反差用“大礼 / 小糖”制造尺寸错位；贴标签用自嘲与皇冠错位；问号插嘴；划掉“报警”展示另一个选项；“前任”保留后回调。",
+      "proposal_note": "五种机制是素材库，不在同一段中全部使用；每段仅选择 1–2 个。",
+      "width": 1586,
+      "height": 992,
+      "editable_svg": null
+    },
+    {
+      "id": "04-crowdwork-storyboard",
+      "title": "观众递话六格分镜",
+      "file": "concepts/04-crowdwork-storyboard.png",
+      "source_pages": "指南 p6–8",
+      "description": "从笑后生成到抓取保留、投向舞台、进入待审、演员接纳和回应。投掷只提交互动请求，演员接纳后才进入表演。",
+      "proposal_note": "腕部保留槽、接收区、控制台外形为提案；分镜说明条不属于场内花字。",
+      "width": 1586,
+      "height": 992,
+      "editable_svg": null
+    },
+    {
+      "id": "05-design-space",
+      "title": "五层设计空间",
+      "file": "diagrams/05-design-space.png",
+      "source_pages": "指南 p1–6、p9",
+      "description": "以文字、非文字、交互、时机、关系五层对照两种模式。共同底线是包袱优先、避免遮脸、同屏最多两个，写意最多一个。",
+      "proposal_note": "表中为原型建议取值，不能理解为已经完成用户验证。",
+      "width": 3200,
+      "height": 2000,
+      "editable_svg": "diagrams/05-design-space.svg"
+    },
+    {
+      "id": "06-timing",
+      "title": "包袱结构与出场时机",
+      "file": "diagrams/06-timing.png",
+      "source_pages": "指南 p2、p4、p6–7、p9",
+      "description": "写意在铺垫中随手势出现，默认在停顿前退出。间离从笑声起点 t₀ 计时，0.5–2 秒后出现，而非等待笑声完全结束。",
+      "proposal_note": "保留指南“包袱时可用写意”的例外，但需演员另行编排并确保不剧透。",
+      "width": 3200,
+      "height": 2000,
+      "editable_svg": "diagrams/06-timing.svg"
+    },
+    {
+      "id": "07-spatial-anchors",
+      "title": "空间锚点与目标边界",
+      "file": "diagrams/07-spatial-anchors.png",
+      "source_pages": "指南 p4–6、p8–9",
+      "description": "手边锚点、头顶 / 身侧标签与脸部避让区形成层次。观众只对舞台投掷或给自己挂载；演员挂载仍由演员规则控制。",
+      "proposal_note": "示意图不按世界坐标比例绘制；脸部避让框与舞台接收区外形是本轮提案。",
+      "width": 3200,
+      "height": 2000,
+      "editable_svg": "diagrams/07-spatial-anchors.svg"
+    },
+    {
+      "id": "08-interaction-loop",
+      "title": "交互闭环与控制台",
+      "file": "diagrams/08-interaction-loop.png",
+      "source_pages": "指南 p6–9",
+      "description": "观众物件先排队，经演员规则筛选后触发预编回应。控制台包含当前阶段、物件队列、分支、舞台数量和清空控制。",
+      "proposal_note": "回执、阶段锁、计数器、控制台内笑声概览均是提案，尚未开发。",
+      "width": 3200,
+      "height": 2000,
+      "editable_svg": "diagrams/08-interaction-loop.svg"
+    }
+  ]
+}

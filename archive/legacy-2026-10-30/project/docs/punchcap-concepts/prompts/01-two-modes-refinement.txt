@@ -1,0 +1,4 @@
+Mode: built-in image_gen edit.
+Reference: first generated 01-two-modes board; selected result saved as concepts/01-two-modes.png.
+
+Edit this concept board with one localized change only: in the LEFT write-imagination panel, remove the two short pale comic rays to the right of the small bottle outline. The bottle must appear calm and motionless, keep its existing incomplete contour, soften only the bottle contour to a quiet approximately 60% visible pale ivory line. Do not add any other marks or outlines. Preserve all exact typography, Chinese text, layout, dimensions, comedian faces and poses, warm theater painting, and the entire right crown panel pixel-identically as much as possible. Do not modify anything else.

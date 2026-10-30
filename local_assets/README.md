@@ -1,20 +1,10 @@
-# Local source assets (not uploaded)
+# 本机原始素材
 
-This directory is the local-only input layer. Everything except this README is
-ignored by Git and excluded from deployment.
+把尚未选用的原始视频、图片、音频和模型放在这里。
+本目录除了这份说明，其余内容默认不进入 Git，也不由 Vercel 命令行上传。
 
-Expected layout:
+只有已经选定、处理好并允许公开的素材，才复制到 `public/study/`，
+并在 `public/study/ASSETS.md` 登记来源与许可。
 
-```text
-local_assets/
-├── mixamo/
-│   ├── characters/   # With Skin character FBX files
-│   ├── idle/         # Without Skin animation FBX files
-│   ├── perform/
-│   ├── sit/
-│   └── output/       # full GLB, manifest and Blender masters
-├── source-packs/     # original Kenney ZIP archives
-└── voice/            # original WAV recordings
-```
-
-Only optimized derivatives are allowed under `public/`.
+参与者实验记录放在 `data/sessions/`，密码放在 `.env.local`，不要混在素材里。
+旧版素材仍在 `archive/legacy-2026-10-30/project/`，不用搬回来。

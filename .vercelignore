@@ -1,16 +1,52 @@
-# Raw local media is intentionally excluded from Vercel uploads.
-standup_video
-videoshortcutpic
-*.zip
-*.fbx
-*.blend
-*.wav
-archive
-local_assets
-tools
+# Local CLI deployment exclusions. Git-based builds have a different source flow.
+# See docs/study/SETUP.md. Never place private files in public/.
 
-# Local development and alternate-platform output.
-.wrangler
-.vinext
-outputs
-work
+# Historical material and local-only source assets.
+archive/
+local_assets/
+raw/
+recordings/
+standup_video/
+videoshortcutpic/
+backups/
+
+# Research data, machine certificates, and actual participant allocation.
+data/
+certs/
+study/config/allocation.json
+.env*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Laboratory services and offline tools are not part of the public website.
+study/server/
+study/tools/
+study/spikes/
+spikes/
+tools/
+
+# Local installations, generated results, and development caches.
+node_modules/
+.next/
+.vinext/
+.wrangler/
+dist/
+out/
+output/
+outputs/
+coverage/
+work/
+*.tsbuildinfo
+*.log
+.DS_Store
+
+# Project notes are kept in GitHub, not uploaded by the deployment CLI.
+docs/
+README.md
+AGENTS.md
+CLAUDE.md
+系统设计与实现指南.md
+questionnaire-pre.md
+questionnaire-post.md

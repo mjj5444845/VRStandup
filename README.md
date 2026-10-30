@@ -1,71 +1,72 @@
-# VR Standup
+# PunchCap
 
-一个使用 [A-Frame](https://aframe.io/) 与 WebXR 构建的浏览器 VR 脱口秀项目。项目基于 Next.js，可在桌面浏览器、移动设备和兼容 WebXR 的头显中运行，并可直接部署到 Vercel。
+使用 **Three.js** 建设的虚拟脱口秀研究系统。**Mac 开发，Windows 11 实验室电脑运行**。
+旧版保存在 `archive/`，新版从独立代码、舞台和视觉方案开始。
 
-当前运行时提供 Ch02 女演员与 Ch06 男演员两种表演者选择，并用四个不同的轻量 Mixamo Avatar 组成八位虚拟观众。用户点击演员时会同步播放对应测试语音；选择会保存在当前设备中。
+## 新手从这里开始
 
-## 本地开发
+先看 [阅读顺序与当前状态](docs/study/00-阅读顺序与当前状态.txt)，然后按顺序操作：
 
-要求 Node.js 22.13 或更高版本。安装依赖并启动开发服务器：
+1. [Mac 开发与运行](docs/study/01-Mac开发与运行.txt)
+2. [Mac 到 Windows 传文件](docs/study/02-Mac到Windows传文件.txt)
+3. [Windows 11 安装与运行](docs/study/03-Windows11安装与运行.txt)
+4. [第一个工作：三维显示检查](docs/study/04-第一个工作-三维显示检查.txt)
+5. [第二个工作：HTTPS 与头显连接](docs/study/05-第二个工作-HTTPS与头显连接.txt)
+6. [第三个工作：两个网页传消息](docs/study/06-第三个工作-两个网页传消息.txt)
+7. [第四个工作：声音与视频同步](docs/study/07-第四个工作-声音与视频同步.txt)
 
-```bash
-npm install
-npm run dev
+以上 `.txt` 文件可用记事本打开。每次完成一个步骤再继续。
+
+## 项目现在能做什么
+
+已有三个基础页面：`/`、`/study`、`/lab`，以及独立的 `/spike` 三维显示检查页。
+检查页显示 Three.js 方块，支持暂停、继续和重新加载；`/spike/xr` 检查安全连接与 VR 能力。
+已提供独立 HTTPS 检查服务和证书准备脚本；正式舞台尚未制作。
+`/spike/network` 可打开实验员端与参与者端，检查消息收发。先构建，再用 `npm run spike:net`
+启动，打开 `http://127.0.0.1:3001/spike/network`；这一步只供当前电脑访问，不需要证书或头显。
+同一服务的 `/spike/media` 使用原创计时画面和节拍声，连续检查 60 秒音画偏差，并下载原始记录。
+Mac 上检查和构建已通过；Windows 与头显尚待实际验证。完整进度只在上面的状态文件维护。
+
+Three.js 负责三维画面；Next.js 负责承载网页和控制台。
+Node.js 让项目在电脑运行，npm 安装工具包，Git 保存修改历史。部署不依赖 Vercel。
+
+## 在当前 Mac 上打开网页
+
+先在终端进入项目目录：
+
+```sh
+cd "/Users/jeffrey/Desktop/VRStandup"
 ```
 
-生产构建：
+当前已安装好工具包，启动时执行：
 
-```bash
-npm run build
+```sh
+npm run dev -- --hostname 127.0.0.1 --port 3000
 ```
 
-部署前请复制 `.env.example` 为对应环境配置，并将 `NEXT_PUBLIC_SITE_URL` 改为实际站点域名，以生成正确的社交分享链接。
+浏览器打开 `http://localhost:3000`。停止时在启动窗口按 `Control + C`。
+首次取得项目或版本清单变化时，先按 Mac 专用说明安装工具包。
+Windows 的路径和命令请用 Windows 专用说明，不直接照搬本段。
 
-## 目录说明
+## 文件放在哪里
 
-- `app/`：页面、A-Frame 场景与全局样式
-- `app/data/avatars.ts`：男女演员、语音和观众模型的统一配置
-- `app/lib/performance/`：脚本、台词、演员绑定和舞台指令类型
-- `app/lib/tts/`：浏览器端 TTS 请求与播放接口（尚未接管当前测试语音）
-- `app/api/tts/`：只在服务端执行的语音生成 API
-- `server/tts/`：可替换的 TTS provider、配置校验与 Moss 适配器
-- `config/tts.example.json`：不含真实密钥的本地 TTS 配置示例
-- `public/`：会直接公开访问的静态资源
-- `public/avatars/active/`：部署所需的两位演员与四位轻量观众 GLB
-- `public/audio/performers/`：由本地 WAV 转码得到的网页测试语音
-- `public/assets/stage/`：从 Kenney 素材包提取的舞台、座椅、桌凳、音箱与绿植 GLB，共享色板及许可证
-- `app/avatar-lab/`：使用 `aframe-extras` animation-mixer 的 GLB clip 切换验证页
-- `tools/mixamo/`：批量生成、瘦身和验证 Mixamo GLB 的工具
-- `local_assets/`：原始 FBX、WAV、ZIP 与完整 Blender 输出；除说明文件外不进入 Git
-- `archive/deprecated_avatars/`：旧 OBJ/MTL 与旧 FBX 的固定过时档案位置
-- `docs/PERFORMANCE_ARCHITECTURE.md`：脚本、动作、灯光与字幕调度的后续实现规划
-- `standup_video/`：仅保存在本地的原始视频素材，不进入 Git 或部署
-- `videoshortcutpic/`：仅保存在本地的视频截图素材，不进入 Git 或部署
-- `.openai/hosting.json`：网站部署能力配置
+| 位置 | 用途 |
+| --- | --- |
+| `app/` | 网页入口、参与者端、实验员端与样式 |
+| `study/` | 按模块建立的数据规则、三维场景、通信、实验服务与工具 |
+| `public/study/` | 已选定且允许公开的正式素材 |
+| `local_assets/` | 本机原始素材，说明文件之外不上传 GitHub |
+| `docs/study/` | 操作说明、技术设计、计划和历史记录 |
+| `archive/` | 旧版历史资料，不由新版加载 |
+| `data/`、`certs/` | 后续实验数据和本机证书，不能上传 GitHub |
 
-原始视频和截图保留在项目根目录，并由 `.gitignore` 与 `.vercelignore` 排除。要在网页中使用时，应先完成转码与体积优化，再将选定文件放入 `public/media/` 或接入对象存储/CDN。
+## 其他说明
 
-角色源压缩包、原始语音和完整 Mixamo 输出只保留在 `local_assets/`，不进入 Git 或部署。
+- [环境与上传规则](docs/study/SETUP.md)：了解工具和文件保存范围。
+- [模块推进计划](docs/study/RESTART_PLAN.md)：查看后续分工和依赖。
+- [完整技术指南](docs/study/SYSTEM_GUIDE.md)：实现各模块时再读对应部分。
+- [助手工作规则](AGENTS.md)：助手在本项目如何开展工作。
+- [变更记录](docs/study/CHANGELOG.md)：查看过去做过哪些修改。
 
-## TTS 接口预留
-
-当前演员卡仍播放 `public/audio/performers/` 中的男女测试语音，TTS 模块不会自动触发，也不会影响现有演示。
-
-需要在本机联调 Moss TTS 时，复制 `config/tts.example.json` 为 `config/tts.local.json`，填写 API Key 与 Voice ID 后重启开发服务。`tts.local.json` 已被 Git 忽略，严禁把真实密钥放进 `app/`、`public/` 或提交记录。在线部署时使用服务端密钥变量 `MOSS_API_KEY` 与 `MOSS_VOICE_ID`；可选变量为 `MOSS_TTS_MODEL` 和 `MOSS_API_BASE_URL`。
-
-服务端入口为 `POST /api/tts`，请求体为 `{ "text": "台词[pause 1.0s]下一句" }`，成功时直接返回 MP3 音频。浏览器端后续可调用 `requestSpeech`、`playSpeech` 或 `speak`；当前页面尚未调用这些函数，方便之后按表演脚本再决定触发与缓存策略。
-
-## Vercel 部署
-
-Vercel 会通过 `vercel.json` 识别 Next.js，并运行 `npm run build` 生成标准 `.next` 输出。GitHub 仓库连接到 Vercel 后，推送 `main` 分支即可触发重新部署。
-
-## 操作方式
-
-- 桌面浏览器：鼠标拖动查看，`WASD` 移动
-- VR 头显：点击“进入 VR 剧场”启动 WebXR 沉浸模式
-- VR 选角：右手柄指向选角台并按下触发键
-- 移动设备：触摸拖动查看场景
-
-## Mixamo 动画角色
-
-访问 `/avatar-lab` 可以在 A-Frame/WebXR 中切换 Ch02 与 Ch06，并验证 16 个独立 animation clips。完整的 11 角色批处理、运行时瘦身和验证说明见 [`tools/mixamo/PIPELINE.md`](tools/mixamo/PIPELINE.md)。
+运行命令以 `package.json` 为准。尚未实现的 `lab` 等实验命令不属于当前启动步骤。
+原始指南、旧素材和旧系统的文件仍在归档中；不上传 GitHub 的资料需要另外备份。

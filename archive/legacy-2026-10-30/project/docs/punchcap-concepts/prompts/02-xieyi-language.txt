@@ -1,0 +1,9 @@
+Use case: stylized-concept
+Asset type: 2D concept board showing the Xieyi symbolic prop language for PunchCap VR standup. Landscape 16:10, high resolution, polished art direction, warm ivory background, dark plum ink, desaturated ivory-blue symbols against dark plum stage thumbnail backgrounds. Exact headline "写意 · 少画一点，让身体完成".
+Composition: 4 equal large panels in a disciplined 2 by 2 grid, broad margins; each panel one single standup actor from waist up, same friendly adult Chinese comedian black jacket, cream t-shirt, clear face and readable hands. Flat vector-like 2D illustration with subtle paper grain and elegant thin contour props, not 3D. Stage panel backdrops muted plum with burgundy side curtains and warm spotlight.
+Panel 01 exact title "拿水 · 只留瓶口". Actor grips imaginary bottle; only thin pale ivory neck and shoulder contour beside the hand, no complete bottle and no realistic product, uniform 60% visible line, smaller than head.
+Panel 02 exact title "牵狗 · 只留一段绳". Actor pinches leash; one short partial curved ivory line from hand suggests leash then ends in empty space; no dog, no complete leash, no cartoon pet.
+Panel 03 exact title "看手机 · 屏幕留白". Actor looking at hand; small minimal ivory rectangular phone-outline next to hand at natural phone distance; phone screen empty, no text, message, hearts, no spoilers.
+Panel 04 exact title "搬重箱 · 不加花字". Actor bending knees and straining holding invisible heavy box, physically clear mime; NO box outline, NO arrows suggesting weight, NO caption object. Empty hands and posture convey weight.
+Each panel number is editorial outside the stage art. Lower footer strip text exact "手边 0–20 cm   |   透明度 50%–70%   |   不超过头部大小   |   淡入淡出 0.2–0.3 s".
+No photographic objects. No glow bloom, no sparkles, no exaggerated comic balloons. This is a vocabulary library: each mini scene is separate and only one prop at a time. Header/body labels accurate simplified Chinese. Footer small "概念提案 · 尺寸与透明度需预实验校准".

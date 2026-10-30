@@ -1,0 +1,160 @@
+PunchCap：Windows 11 实验室电脑安装与运行
+更新：2026-10-30
+
+一、这份说明用在哪台电脑
+
+在实验室的 Windows 11 电脑上执行。
+Mac 负责编写和调试，Windows 11 负责在实验室运行，这叫“跨平台开发与部署”。
+当前先确认普通网页能在 Windows 本机打开。
+本说明先做普通网页验证；HTTPS 与头显检查单独见 05 说明。
+正式实验服务和自动启动尚未配置。
+以下是准备好的操作说明，尚未在你的 Windows 电脑上实测。
+
+每次只执行一个步骤；看到错误时先停下，保留错误文字。
+
+二、先准备 Node.js
+
+它是让项目运行起来的工具，专业上叫“运行环境”。
+为了与 Mac 保持一致，当前使用 Node.js 22.22.1。
+
+在 Windows 浏览器打开官方版本页面：
+https://nodejs.org/download/release/v22.22.1/
+
+先在 Windows“设置 → 系统 → 系统信息”查看“系统类型”。
+普通 Intel/AMD 64 位电脑选择 node-v22.22.1-x64.msi。
+只有显示 ARM 处理器时，选择 node-v22.22.1-arm64.msi。
+双击安装包，保留包含 npm 和添加到 PATH 的默认安装选项。
+当前不需要额外勾选编译原生模块的工具安装项。
+
+安装完成后，关闭已经打开的终端窗口，再重新打开 PowerShell。
+PowerShell 是 Windows 的操作指令窗口；用普通权限打开即可。
+
+逐行输入：
+
+node --version
+npm.cmd --version
+
+第一行应显示 v22.22.1，第二行应显示 npm 的版本号。
+如果提示找不到命令，先确认安装完成，再重新打开 PowerShell。
+.nvmrc 只是项目的版本记录；在 Windows 上不会自动帮你安装或切换 Node.js。
+
+三、放好项目文件
+
+先按“02-Mac到Windows传文件.txt”准备新版源代码。
+这里用 C:\PunchCap 作为示例保存位置。
+文件夹里应直接看到 package.json、package-lock.json、app、study 和 public。
+如果解压后多了一层文件夹，要使用实际包含 package.json 的那一层。
+选择其他位置也可以，下面的路径要跟着改。
+
+在 PowerShell 输入：
+
+Set-Location -LiteralPath "C:\PunchCap"
+
+它的意思是“进入这个项目文件夹”，专业上叫“切换工作目录”。
+Mac 上的 /Users/jeffrey/... 路径不能直接放到这里使用。
+
+四、在 Windows 上安装工具包
+
+输入：
+
+npm.cmd ci --include=dev
+
+它会根据版本清单下载适合 Windows 的工具包，专业上叫“安装依赖”。
+--include=dev 会把检查和打包需要的工具一起装好。
+需要网络下载，第一次可能花一些时间。成功完成后再进入下一步。
+不要用 Mac 已安装的 node_modules 替代这一步。
+
+这里使用 npm.cmd，是直接调用 npm 的 Windows 命令文件。
+这样通常可以避开 PowerShell 拦截 npm.ps1 脚本的问题，不用修改整台电脑的脚本权限。
+后面的命令也统一用 npm.cmd。
+
+五、先检查，再准备运行文件
+
+逐行输入，每行成功后再执行下一行：
+
+npm.cmd run check
+npm.cmd run build
+
+check 检查常见代码问题。
+build 准备正式运行需要的文件，专业上叫“生产构建”。
+build 成功后会生成 Windows 本机的 .next 文件夹。
+不要用从 Mac 复制来的 .next 替代它。
+
+六、在 Windows 本机打开页面
+
+输入：
+
+npm.cmd run start -- --hostname 127.0.0.1 --port 3000
+
+保持这个 PowerShell 窗口打开，然后在这台 Windows 电脑的浏览器访问：
+
+http://localhost:3000
+
+成功标志：看到“脱口秀的另一种现场”，并能打开参与者入口和实验员入口。
+目前参与者端和控制台还是准备中的页面，不能启动正式实验。
+start 使用已经构建好的文件，专业上叫“生产模式”。
+这条指令只允许本机访问，不会让头显连接上来。
+停止时，在启动窗口按 Control + C。
+
+七、之后再次启动
+
+如果没有换代码、更新工具包或升级 Node.js，通常只需要：
+
+Set-Location -LiteralPath "C:\PunchCap"
+npm.cmd run start -- --hostname 127.0.0.1 --port 3000
+
+更换了项目代码后，先停止服务，再重新检查和构建。
+如果 package.json 或 package-lock.json 变化，先重新运行第四步。
+不要一边运行实验，一边覆盖代码或安装工具包。
+
+八、让头显连接是单独的一步
+
+头显中的 localhost 指的是头显自己，不是这台 Windows 电脑。
+头显需要通过 Windows 的局域网地址连接。
+进入 VR 还需要可信的 HTTPS 安全连接，以及相应的局域网访问设置。
+证书准备、专用网络访问和实际设备检查，见“05-第二个工作-HTTPS与头显连接.txt”。
+
+目前已实现 8443 端口的 HTTPS 技术检查服务，命令是 spike:https；它没有正式实验流程。
+普通页面的 3000 端口、HTTPS 检查服务和未来的正式实验服务要分别理解。
+当前不用为这个只供本机查看的步骤额外开放防火墙端口。
+后续还会补充实验数据保存位置、证书配置、每日启动和场后备份步骤。
+无需证书的本机双端通信检查已实现，见“06-第三个工作-两个网页传消息.txt”。
+它使用 spike:net 和 3001 端口，只供 Windows 自己访问，不代替头显验收。
+
+九、当前不用安装哪些东西
+
+仅打开当前网页不需要 Vercel、IIS、Docker、Python 或 Mac 的开发工具。
+Git 是可选的代码同步工具；如果先通过文件包传项目，这一步不必安装 Git。
+普通页面不需要 mkcert；头显连接时按 05 配置。FFmpeg 留待转码阶段。
+
+十、常见情况
+
+1. “找不到 npm”：确认 Node.js 安装带有 npm，重新打开 PowerShell，使用 npm.cmd。
+2. “找不到 package.json”：确认第三步的实际目录，尤其注意解压后多出的一层文件夹。
+3. “找不到 production build”：先停止服务，执行第五步构建，再执行第六步。
+4. “端口被占用”：查看是否有上次未停止的项目窗口，在对应窗口按 Control + C。
+5. Mac 正常而 Windows 失败：保留完整报错；不要直接复制 Mac 工具包或关闭检查来绕过。
+
+十一、验证结果，到了 Windows 后填写
+
+Node.js 显示版本：________________
+npm 显示版本：___________________
+系统类型：x64 / ARM64 / 待确认
+项目实际位置：___________________
+工具包安装成功：是 / 否 / 未执行
+check 通过：是 / 否 / 未执行
+build 通过：是 / 否 / 未执行
+三个入口可打开：是 / 否 / 未执行
+三维显示检查（见 04 说明）：通过 / 未通过 / 未执行
+验证人及日期：___________________
+
+以上填写完成前，Windows 运行状态仍是“待验证”。
+在 Windows 能打开网页，也不代表头显和完整实验已通过验收。
+
+十二、参考
+
+Node.js 固定版本：https://nodejs.org/download/release/v22.22.1/
+npm ci：https://docs.npmjs.com/cli/v10/commands/npm-ci/
+Next.js 系统要求：https://nextjs.org/docs/app/getting-started/installation
+Next.js 自行运行：https://nextjs.org/docs/app/guides/self-hosting
+PowerShell 切换目录：https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-location?view=powershell-5.1

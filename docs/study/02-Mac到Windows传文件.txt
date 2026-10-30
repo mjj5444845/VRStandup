@@ -1,0 +1,109 @@
+PunchCap：Mac 到 Windows 传文件
+更新：2026-10-30
+
+一、先记住一句话
+
+传的是项目源文件，安装好的工具包和运行文件要在 Windows 上重新生成。
+这叫“跨平台部署”。
+
+本轮的 GitHub 保存目标是现有 main 分支，具体检查点以远端提交记录为准。
+下载前确认版本里有“07-第四个工作-声音与视频同步.txt”和 app/spike/media，避免拿到旧系统。
+这份说明先介绍手动传文件的方法；GitHub 取得源文件见第六节。
+
+二、在 Mac 上准备一个单独的传输文件夹
+
+在项目外新建一个空文件夹，例如桌面上的 PunchCap-Windows-源码。
+不要移动或删掉原项目，只把下一步列出的内容复制进去。
+准备好后可以用 U 盘或局域网文件共享传到 Windows。
+这些操作不会自动把文件发布到互联网。
+
+三、复制哪些内容
+
+从当前 VRStandup 项目复制以下四个文件夹：
+
+app
+study
+public
+docs
+
+然后复制以下根目录文件：
+
+package.json
+package-lock.json
+next.config.ts
+tsconfig.json
+eslint.config.mjs
+README.md
+AGENTS.md
+CLAUDE.md
+.npmrc
+.nvmrc
+.gitattributes
+.gitignore
+.env.example
+
+Mac 的访达可能隐藏以点开头的文件。
+在访达按 Command + Shift + 句号，可以切换显示隐藏文件。
+复制完成后，确认 .npmrc、.nvmrc 等文件没有漏掉。
+
+当前 public/study 已含新生成的同步检查 MP4、WAV、校验清单与资产说明，需要一起复制。
+之后放入正式素材时，它们也要随项目复制；public 只放允许公开的内容。
+study/config 下只复制可公开的示例配置，实际的 allocation.json 不放进通用传输包。
+
+四、哪些不要复制到这个通用传输包
+
+node_modules：Mac 下载的工具包，Windows 需要重新安装。
+.next：Mac 打包的运行文件，Windows 需要重新打包。
+.git：本机的代码历史资料；手动传包时不需要。
+archive：旧版归档，继续留在 Mac 查阅和备份，不混进新版运行文件。
+local_assets、raw：原始资料，不属于可直接运行的公开素材。
+data、recordings：参与者记录和录音，不放进通用传输包。
+certs、.env.local：证书与本机私密配置，在目标电脑上单独准备。
+output、outputs、backups：本机输出和备份，不混进新版运行文件。
+
+之后正式实验确实需要的分配表、私密配置等，会按单独步骤放到 Windows 对应位置。
+“不进入通用传输包”不等于删除，也不等于永远不传到实验电脑。
+当前仍是独立技术检查，还没有这些正式实验资料。
+
+五、到 Windows 后
+
+把传输文件夹里的内容放到例如 C:\PunchCap。
+确保 C:\PunchCap 里面直接有 package.json，而不是又套了一个同名文件夹。
+不要在 U 盘或压缩包预览窗口里直接运行。
+
+随后按“03-Windows11安装与运行.txt”执行：
+
+1. 安装匹配的 Node.js。
+2. 进入项目文件夹。
+3. 用 npm.cmd ci --include=dev 安装 Windows 工具包。
+4. 检查和打包。
+5. 在 Windows 浏览器打开页面。
+
+安装和运行都需要在 Windows 的 PowerShell 里进行，不是在 Mac 终端里执行。
+
+六、使用 GitHub 同步时
+
+本轮用户已授权提交并推送。Windows 可从以下仓库的 main 分支取得检查点：
+https://github.com/mjj5444845/VRStandup
+先核对提交记录与本说明开头列出的新版文件，再下载源码或使用 Git 同步。
+即使从 GitHub 取得源代码，Windows 仍要自己安装工具包并构建。
+GitHub 没有原始资料、实际分配表、实验数据和密码，需要的私密资料另外准备。
+文件传输与代码上传按实际需要另行执行；本说明不会自动执行这些操作。
+
+七、以后写代码时共同遵守
+
+文件名大小写保持一致，例如 engine.ts 不能有时写成 Engine.ts。
+代码中不写死这台 Mac 的 /Users/... 或某台 Windows 的 C:\... 路径。
+工具指令需要两边都能运行；各自独有的操作在说明中分别写。
+新增 .gitattributes 统一新文本的换行方式，专业上叫“行尾规范”。
+旧归档保持原始字节，不为了统一格式去重写归档。
+
+八、当前验证范围
+
+只验证了 Mac 上的项目检查、构建及相关配置。
+Windows 11 安装与运行尚待实验室电脑实测。
+后续每次新增实验服务或运行要求，都需要同步更新两边的说明。
+
+参考：
+npm 按版本清单安装：https://docs.npmjs.com/cli/v10/commands/npm-ci/
+Git 行尾设置：https://git-scm.com/docs/gitattributes
