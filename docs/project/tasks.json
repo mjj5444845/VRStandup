@@ -465,11 +465,11 @@
       "stage": "M1",
       "module": "跨平台检查",
       "kind": "feature",
-      "status": "desktop",
+      "status": "complete",
       "title": "Mac 与 Windows 自动检查",
       "purpose": "建立两种系统的持续检查与构建流程。",
       "outcome": "提交前后都能发现平台差异。",
-      "current": "已配置 GitHub Mac/Windows 检查与构建，使用 .nvmrc 和锁文件；本机检查通过，首次云端运行结果待推送后核对。实验室 Windows 11 仍待 P05。",
+      "current": "首次 GitHub 检查 41128304278 已实际通过：macOS 与 Windows 均完成锁文件安装、48 项测试和网页构建；实验室 Windows 11 实机另由 P05 验收。",
       "acceptance": "GitHub 的 macOS 与 Windows 两个运行器实际完成检查与构建并记录结果；实验室目标电脑另由 P05 验收。",
       "dependencies": [
         "E01",

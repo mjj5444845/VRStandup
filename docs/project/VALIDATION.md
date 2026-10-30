@@ -233,9 +233,14 @@ HTTPS/WSS 客户端测试仅使用临时证书信任，不代表头显浏览器�
 | 条件核心测试 | 六项规则测试通过；当前 conditions.ts 行、分支、函数覆盖率均 100%，统一命令要求行覆盖率至少 90% |
 | 浏览器规则测试 | 三项覆盖支持/缺失、不安全环境、图形错误、拒绝和超时 |
 | 工程检查 | 48 项测试、规范、类型和模块边界检查通过；生产构建通过 |
-| GitHub 跨平台检查 | 已建立 Mac/Windows 工作流；实际云端结果待首次推送后核对，不能以配置文件代替通过 |
+| GitHub 跨平台检查 | [首次运行 41128304278](https://github.com/mjj5444845/VRStandup/actions/runs/41128304278) 已成功；macOS 与 Windows 安装、检查与构建均通过 |
 | 尚未验收 | 手机窄屏、Windows 11 实验室电脑、Quest 3、实际出声与正式研究会话 |
 
 本机截图：output/checks/lab-preparation.png。下载仅保留本机，未加入提交。
 工作流使用 GitHub 官方 checkout v7.0.1 与 setup-node v7.1.0，固定到官方提交；来源：
 [checkout](https://github.com/actions/checkout/releases/tag/v7.0.1)、[setup-node](https://github.com/actions/setup-node/releases/tag/v7.1.0)。
+
+GitHub 首次检查对应提交 8f6dc8e：Windows 作业 124312414013、macOS 作业 124312414354，均 success。
+本机原始结果保存在 output/checks/preparation-ci-result.json；不是 Windows 11 实验室电脑或头显检查。
+生产服务的首页、/study、/lab、/checks 均返回 200。服务切换期间旧预览标签进入浏览器错误页，
+浏览器安全策略阻止后续自动读取旧标签，因此没有将生产页面交互重新截图写为通过；交互证据来自切换前的开发预览。
