@@ -13,11 +13,12 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run test:spike",
-    "test:spike": "node --import tsx --test study/spikes/https-config.test.ts study/spikes/network-protocol.test.ts study/spikes/network-hub.test.ts study/spikes/media-check-rules.test.ts study/spikes/media-fixture.test.ts",
+    "test:spike": "node --import tsx --test study/spikes/https-config.test.ts study/spikes/network-protocol.test.ts study/spikes/network-hub.test.ts study/spikes/media-check-rules.test.ts study/spikes/media-fixture.test.ts study/spikes/chroma-key-rules.test.ts",
     "spike:cert": "node --import tsx study/spikes/prepare-cert.ts",
     "spike:https": "node --import tsx study/spikes/https-server.ts",
     "spike:net": "node --import tsx study/spikes/https-server.ts --http --port 3001",
-    "spike:media-fixture": "node --import tsx study/spikes/generate-media-fixture.ts"
+    "spike:media-fixture": "node --import tsx study/spikes/generate-media-fixture.ts",
+    "spike:chroma-fixture": "node --import tsx study/spikes/generate-chroma-fixture.ts"
   },
   "dependencies": {
     "next": "16.4.3",

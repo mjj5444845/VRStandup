@@ -12,8 +12,22 @@
 | `checks/media-clock/click.wav` | S3 每秒一次的节拍声 | 同一脚本按样本位置生成正弦波 | 本项目生成，可随项目公开；没有录音或第三方声音 | 单声道、48 kHz、16 bit PCM、62 秒，与视频共同以 0 秒起算 | 已生成，仅用于技术检查 |
 | `checks/media-clock/fixture.json` | 测试素材的参数与完整性记录 | 同一生成脚本 | 项目元数据，可公开 | 记录时长、格式、字节数、SHA-256 | 已生成 |
 
-媒体、花字、观众、回应、笑声与练习素材分别放在 `media/`、`captions/`、`audience/`、`responses/`、`laughs/`、`tutorial/`。
+后续媒体、花字、观众、回应、笑声与练习素材分别放在 `media/`、`captions/`、`audience/`、`responses/`、`laughs/`、`tutorial/`；有实际素材时再创建目录。
 
 测试素材不从旧归档读取，也不充当正式研究素材。62 秒包含完整 60 秒检查后的 2 秒余量。
 日常运行与 Windows 运行不需要 FFmpeg；现成文件随源码保存。重新生成才需要本机 FFmpeg，
-命令见 `docs/study/07-第四个工作-声音与视频同步.txt`。工具二进制保存在被忽略的本机目录，不上传。
+命令见 `docs/guides/07-第四个工作-声音与视频同步.txt`。工具二进制保存在被忽略的本机目录，不上传。
+
+用户提供的剧场草模与五视图保存在本机 `local_assets/references/vr-comedy-club/`，
+尚未选为公开运行素材。建模说明见 [剧场建模参考](../../docs/design/SCENE_REFERENCE.md)。
+
+## S4 视频去背景样片
+
+| 路径 | 来源与授权依据 | 参数与用途 |
+| --- | --- | --- |
+| `checks/chroma/silhouette.mp4` | `study/spikes/generate-chroma-fixture.ts` 以代码绘制几何轮廓和色块，FFmpeg 编码；项目原创，可随项目公开，无第三方图像、字体、声音或演员录像 | 512×288、24 fps、8 秒、H.264、静音；含起伏绿幕、移动轮廓、柔和边缘与中性色块，只验证功能 |
+| `checks/chroma/fixture.json` | 项目生成的参数与 SHA-256 清单，可公开 | 记录上述样片尺寸、时长、背景色、字节数及校验值 |
+
+这段几何样片不作为人发丝和正式演员的验收依据。
+本机文件选择器读取的视频不会复制进本目录；不上传录像，也不保存文件名或参数报告。
+重新生成方法见 [视频去背景说明](../../docs/guides/08-第五个工作-视频去背景.txt)。

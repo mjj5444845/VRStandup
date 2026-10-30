@@ -1,5 +1,5 @@
 # Local CLI deployment exclusions. Git-based builds have a different source flow.
-# See docs/study/SETUP.md. Never place private files in public/.
+# See docs/guides/SETUP.md. Never place private files in public/.
 
 # Historical material and local-only source assets.
 archive/
@@ -47,6 +47,3 @@ docs/
 README.md
 AGENTS.md
 CLAUDE.md
-系统设计与实现指南.md
-questionnaire-pre.md
-questionnaire-post.md

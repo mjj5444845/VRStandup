@@ -1,0 +1,40 @@
+.page { width: min(100% - 40px, 1120px); margin: 0 auto; padding: 40px 0 60px; }
+.header { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+.header p { margin-bottom: 36px; }
+.intro { max-width: 760px; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+.check { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: white; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--line); }
+.comparison > div { background: white; min-width: 0; }
+.comparison h2 { font-size: 16px; margin: 0; padding: 16px 20px; }
+.comparison video, .viewport { display: block; width: 100%; aspect-ratio: 16 / 10; background: #293e50; object-fit: contain; }
+.controls { padding: 24px; }
+.status { line-height: 1.7; margin-top: 0; }
+.note { font-size: 14px; color: var(--muted); line-height: 1.8; }
+.buttons { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.buttons button, .file { padding: 10px 16px; border: 1px solid var(--accent); border-radius: 8px; background: white; color: var(--accent); font: inherit; }
+.buttons button { cursor: pointer; }
+.buttons button:hover:not(:disabled) { background: #eef4ee; }
+.buttons button:disabled { opacity: .45; cursor: default; }
+.buttons button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.file { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.file input { max-width: 220px; font: inherit; font-size: 13px; }
+.parameters { margin: 24px 0; border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 32px; }
+.parameters legend { padding: 0 8px; }
+.parameters label { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.parameters .slider { display: grid; gap: 8px; }
+.slider > span { display: flex; justify-content: space-between; }
+.slider output { font-variant-numeric: tabular-nums; color: var(--muted); }
+.slider input { width: 100%; accent-color: var(--accent); }
+.slider small { color: var(--muted); }
+.parameters select { font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; }
+.details { margin-top: 24px; font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+.details summary { cursor: pointer; }
+.details pre { padding: 16px; background: var(--paper); overflow: auto; }
+.vr { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 20px; line-height: 1.7; }
+.vr h2 { font-size: 20px; }
+@media(max-width: 680px) {
+  .page { width: calc(100% - 28px); padding-top: 24px; }
+  .comparison, .parameters { grid-template-columns: 1fr; }
+  .controls { padding: 18px; }
+  .header { font-size: 14px; }
+}

@@ -30,3 +30,20 @@ test('synthetic fixture hashes and PCM time axis match the public manifest', asy
   assert.equal(video.toString('ascii', 4, 8), 'ftyp');
   assert.ok(video.indexOf('moov') < video.indexOf('mdat'), 'faststart metadata must precede media payload');
 });
+
+
+test('chroma preview ships an intact synthetic video and its declared key color', async () => {
+  const directory = new URL('../../public/study/checks/chroma/', import.meta.url);
+  const manifest = JSON.parse(await readFile(new URL('fixture.json', directory), 'utf8')) as {
+    durationSeconds: number; keyColor: string; files: { name: string; bytes: number; sha256: string }[];
+  };
+  assert.equal(manifest.durationSeconds, 8);
+  assert.equal(manifest.keyColor, '#00b140');
+  assert.deepEqual(manifest.files.map((file) => file.name), ['silhouette.mp4']);
+  for (const file of manifest.files) {
+    const video = await readFile(new URL(file.name, directory));
+    assert.equal(video.toString('ascii', 4, 8), 'ftyp');
+    assert.equal(video.length, file.bytes);
+    assert.equal(createHash('sha256').update(video).digest('hex'), file.sha256);
+  }
+});

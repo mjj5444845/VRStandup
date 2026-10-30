@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "purpose": "Synthetic S4 preview; not human footage or hair validation",
+  "width": 512,
+  "height": 288,
+  "fps": 24,
+  "durationSeconds": 8,
+  "keyColor": "#00b140",
+  "files": [
+    {
+      "name": "silhouette.mp4",
+      "bytes": 51704,
+      "sha256": "2511af475e870b06d79a9cf2c9849c248fbc2e5a22115398d857870bce189d95"
+    }
+  ]
+}
