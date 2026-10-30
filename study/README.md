@@ -1,6 +1,6 @@
 # 研究系统代码
 
-目前只有 `spikes/` 中的独立技术检查：三维显示、HTTPS 与头显能力、双端通信、音画同步、视频去背景及测试素材生成。
+目前只有 `spikes/` 中的独立技术检查：三维显示、HTTPS 与头显能力、双端通信、音画同步、视频去背景、三维动作与声音回放及测试素材生成。
 这些代码不作为正式实验模块直接导入。
 
 正式模块按开发进度建立，尚未创建的目录不放空占位文件：
@@ -17,3 +17,4 @@
 [当前状态](../docs/project/STATUS.txt) · [开发计划](../docs/project/ROADMAP.md) · [系统设计](../docs/design/SYSTEM_GUIDE.md)
 
 模块依赖和代码规则见根目录 [AGENTS.md](../AGENTS.md)。
+`npm run check:boundaries` 自动检查导入方向，已包含在统一检查中；实现和测试放在 `scripts/architecture/`，不属于实验系统运行代码。

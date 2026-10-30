@@ -1,0 +1,1111 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-30",
+  "stages": [
+    {
+      "id": "PREP",
+      "name": "准备",
+      "title": "环境与规范",
+      "purpose": "让项目可以安装、运行、维护，并明确资料保存范围。"
+    },
+    {
+      "id": "M0",
+      "name": "技术验证",
+      "title": "先验证关键能力",
+      "purpose": "用独立小实验验证连接、录制回放、性能与中文显示，降低正式开发风险。"
+    },
+    {
+      "id": "M1",
+      "name": "工程基础",
+      "title": "避免改坏项目",
+      "purpose": "建立自动测试、模块边界与跨平台检查。"
+    },
+    {
+      "id": "M2",
+      "name": "核心规则",
+      "title": "统一系统规则",
+      "purpose": "先写不依赖画面的数据、条件、时间和流程规则。"
+    },
+    {
+      "id": "M3",
+      "name": "录制与素材",
+      "title": "准备演员内容",
+      "purpose": "把 VR 表演整理为可校验、可复现的模型、动作与声音。"
+    },
+    {
+      "id": "M4",
+      "name": "实验控制",
+      "title": "连接实验两端",
+      "purpose": "让实验员和参与者按同一流程通信，可靠保存事件。"
+    },
+    {
+      "id": "M5",
+      "name": "剧场与模型",
+      "title": "搭建观看现场",
+      "purpose": "建立正式剧场、三维演员播放器与观众，逐项精修模型。"
+    },
+    {
+      "id": "M6",
+      "name": "花字表现",
+      "title": "让花字按计划出现",
+      "purpose": "按条件与时间，让花字出现在演员身旁并跟随三维位置。"
+    },
+    {
+      "id": "M7",
+      "name": "交互与回应",
+      "title": "让观众参与表演",
+      "purpose": "实现抓取、拉伸、投掷、挂载和预录回应。"
+    },
+    {
+      "id": "M8",
+      "name": "数据采集",
+      "title": "记录实验结果",
+      "purpose": "统一保存评分、问卷、朝向与实验录音。"
+    },
+    {
+      "id": "M9",
+      "name": "整体验收",
+      "title": "连成完整实验",
+      "purpose": "串联流程、核对数据并完成预实验。"
+    },
+    {
+      "id": "REF",
+      "name": "历史参考",
+      "title": "保留已有积累",
+      "purpose": "视频技术检查保留查阅，不计入当前三维演员主线完成数。"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P01",
+      "stage": "PREP",
+      "module": "开发环境",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "Mac 开发环境",
+      "purpose": "安装并固定运行项目所需的工具和依赖。",
+      "outcome": "开发者可以在 Mac 上安装、修改和运行同一份源码。",
+      "current": "Node.js、npm 与依赖已安装，版本清单已保存。",
+      "acceptance": "本机安装、静态检查、类型检查与构建可执行。",
+      "dependencies": []
+    },
+    {
+      "id": "P02",
+      "stage": "PREP",
+      "module": "资料管理",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "上传范围与私密资料规则",
+      "purpose": "区分代码、公开素材、原始资料、实验数据与证书。",
+      "outcome": "代码可以保存到 GitHub，私密资料不会混入公开目录。",
+      "current": "已设置忽略规则，原始资料默认仅留本机。",
+      "acceptance": "核对待上传清单，原始录像、数据、密码和证书不进入 Git。",
+      "dependencies": []
+    },
+    {
+      "id": "P03",
+      "stage": "PREP",
+      "module": "历史归档",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "保留旧工程与原始内容",
+      "purpose": "保存旧版本，确保新版可以独立重建。",
+      "outcome": "后续可追溯旧设计和素材来源，同时保持新版边界清楚。",
+      "current": "旧版已归档，207 个源文件校验一致，新版不导入归档代码。",
+      "acceptance": "归档完整性可核对，原问卷内容不变。",
+      "dependencies": []
+    },
+    {
+      "id": "P04",
+      "stage": "PREP",
+      "module": "运行说明",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "Mac 与 Windows 操作说明",
+      "purpose": "写清安装、传文件、构建、运行与故障处理步骤。",
+      "outcome": "换电脑或交接项目时有可照做的操作依据。",
+      "current": "已提供分平台文本说明；文档完成不代表 Windows 已运行通过。",
+      "acceptance": "两种平台命令、准备条件和成功标志明确。",
+      "dependencies": [
+        "P01",
+        "P02"
+      ]
+    },
+    {
+      "id": "P05",
+      "stage": "PREP",
+      "module": "部署环境",
+      "kind": "foundation",
+      "status": "planned",
+      "title": "Windows 11 实验室运行验收",
+      "purpose": "在目标实验室电脑实际安装、构建并打开页面。",
+      "outcome": "确认程序确实能离开开发 Mac，在实验室运行。",
+      "current": "尚未在目标 Windows 11 电脑实测。",
+      "acceptance": "按 Windows 说明安装、构建和启动，并保存实际结果。",
+      "dependencies": [
+        "P04"
+      ]
+    },
+    {
+      "id": "P06",
+      "stage": "PREP",
+      "module": "项目维护",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "目录、README 与助手规则",
+      "purpose": "整理代码、操作文档、设计资料和有效工作规则。",
+      "outcome": "项目结构可理解，接手者能找到当前入口和设计。",
+      "current": "目录已分类，README 已重写，失效项目规则已清理。",
+      "acceptance": "链接和目录一致，旧归档保持原样。",
+      "dependencies": [
+        "P03"
+      ]
+    },
+    {
+      "id": "P07",
+      "stage": "PREP",
+      "module": "场景参考",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "整理剧场设计参考包",
+      "purpose": "核对五视图、GLB、尺寸和座位位置。",
+      "outcome": "后续建模有统一空间基线，可以保留布局逐项替换资产。",
+      "current": "24 个座位、4 张圆桌及坐标问题已核对，原包保留本机。",
+      "acceptance": "能找到原包、资产位置和坐标说明；不把草模当作精修成品。",
+      "dependencies": [
+        "P02"
+      ]
+    },
+    {
+      "id": "P08",
+      "stage": "PREP",
+      "module": "演员方案",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "确认三维演员预录与回放方案",
+      "purpose": "明确演员提前用 VR 录动作和声音，再由三维模型重演。",
+      "outcome": "录制、花字锚点和素材流程按同一方案开发。",
+      "current": "已确认三维演员主线，ADR-0011 和当前指南已更新。",
+      "acceptance": "视频面板和二维手部标注不再作为主线必需方案。",
+      "dependencies": []
+    },
+    {
+      "id": "P09",
+      "stage": "PREP",
+      "module": "独立备份",
+      "kind": "foundation",
+      "status": "planned",
+      "title": "备份本机原始资料",
+      "purpose": "为未上传 Git 的模型原包、录像与数据建立独立副本。",
+      "outcome": "电脑故障时仍能恢复 GitHub 不包含的原始内容。",
+      "current": "目前只有本机保留，独立备份尚未完成。",
+      "acceptance": "原始资料有独立备份，并实际确认能够读取。",
+      "dependencies": [
+        "P02",
+        "P03"
+      ]
+    },
+    {
+      "id": "P10",
+      "stage": "PREP",
+      "module": "开发展示",
+      "kind": "foundation",
+      "status": "complete",
+      "title": "开发进度看板",
+      "purpose": "集中展示每项任务的归属、作用、完成意义与实际进度。",
+      "outcome": "打开网页就能了解系统建设范围，找到已实现功能和下一步工作。",
+      "current": "首页已展示 65 项任务；搜索、组合筛选、阶段展开、七项模型精修与历史参考分类已在 Mac 浏览器检查。",
+      "acceptance": "任务覆盖当前计划，状态和证据一致，筛选、入口与窄屏显示正常。",
+      "dependencies": [
+        "P06"
+      ],
+      "route": "/"
+    },
+    {
+      "id": "T01",
+      "stage": "M0",
+      "module": "三维显示",
+      "kind": "spike",
+      "status": "desktop",
+      "title": "基础三维显示检查",
+      "purpose": "验证浏览器能显示 Three.js 画面并正确初始化、暂停和释放。",
+      "outcome": "正式场景开发有已验证的基础显示路径。",
+      "current": "Mac 已检查方块、暂停、重载和再次进入；Windows 待测。",
+      "acceptance": "目标浏览器能显示；重载和离开后不留下重复画面。",
+      "dependencies": [
+        "P01"
+      ],
+      "route": "/spike"
+    },
+    {
+      "id": "T02",
+      "stage": "M0",
+      "module": "安全连接",
+      "kind": "spike",
+      "status": "desktop",
+      "title": "HTTPS 与 VR 能力检查",
+      "purpose": "为头显提供安全网页，并检测浏览器是否允许进入 VR。",
+      "outcome": "头显具备访问实验系统的连接入口。",
+      "current": "服务与页面已完成，Mac 临时证书请求通过；头显信任待测。",
+      "acceptance": "真实头显认可证书并能进入、退出 VR。",
+      "dependencies": [
+        "T01"
+      ],
+      "route": "/spike/xr"
+    },
+    {
+      "id": "T03",
+      "stage": "M0",
+      "module": "Quest 3 调试",
+      "kind": "spike",
+      "status": "paused",
+      "title": "恢复 Quest 3 连接并进入 VR",
+      "purpose": "把设备识别进一步验证到头显浏览器实际进入场景。",
+      "outcome": "后续录制、交互和性能可以在真实设备上验收。",
+      "current": "按用户要求暂缓；开发者模式已开，但网页 VR 尚未跑通。",
+      "acceptance": "确认连接与授权，使用头显浏览器成功进入和退出场景。",
+      "dependencies": [
+        "T02"
+      ],
+      "route": "/spike/xr"
+    },
+    {
+      "id": "T04",
+      "stage": "M0",
+      "module": "双端通信",
+      "kind": "spike",
+      "status": "desktop",
+      "title": "电脑与参与者网页收发消息",
+      "purpose": "验证网页与 WebSocket 共用端口，两端能交换指令。",
+      "outcome": "正式控制台和参与者端有可靠通信基础。",
+      "current": "Mac 两页收发、断开重连及 HTTPS/WSS 检查已通过；设备待测。",
+      "acceptance": "目标设备完成收发、重连，开发热更新不受影响。",
+      "dependencies": [
+        "T02"
+      ],
+      "route": "/spike/network"
+    },
+    {
+      "id": "T05",
+      "stage": "M0",
+      "module": "三维回放",
+      "kind": "spike",
+      "status": "desktop",
+      "title": "模拟动作与声音同步回放",
+      "purpose": "用 12 秒原创动作和声音检查插值、播放、暂停、继续与视角。",
+      "outcome": "验证三维演员按统一声音进度重演的基本路径。",
+      "current": "Mac 已完成 6 个节拍、暂停续播、三种视角和资源清理检查。",
+      "acceptance": "完整回放并保留原始记录；模拟结果与真实录制验收明确区分。",
+      "dependencies": [
+        "P08",
+        "T01"
+      ],
+      "route": "/spike/replay"
+    },
+    {
+      "id": "T06",
+      "stage": "M0",
+      "module": "真实录制",
+      "kind": "spike",
+      "status": "planned",
+      "title": "真实头部、双手与声音录制验证",
+      "purpose": "实际记录一小段 VR 表演，检查保存后能否正确重演。",
+      "outcome": "演员素材可以从真实设备进入系统。",
+      "current": "尚未实现真实录制器；当前回放只使用测试数据。",
+      "acceptance": "真实短片段有有效追踪、校准、时间对应关系和可复查回放。",
+      "dependencies": [
+        "T03",
+        "T05"
+      ]
+    },
+    {
+      "id": "T07",
+      "stage": "M0",
+      "module": "同步验收",
+      "kind": "research",
+      "status": "confirm",
+      "title": "确定动作与声音同步指标",
+      "purpose": "明确采样频率、测量方法与可接受误差。",
+      "outcome": "后续同步结果有可解释的判断依据。",
+      "current": "三维指标待实测后确认；不能直接套用视频的 40 毫秒阈值。",
+      "acceptance": "记录指标依据，区分程序提交时间与物理输出、采集延迟。",
+      "dependencies": [
+        "T05",
+        "T06"
+      ]
+    },
+    {
+      "id": "T08",
+      "stage": "M0",
+      "module": "启动体验",
+      "kind": "spike",
+      "status": "planned",
+      "title": "一次操作开启声音与 VR",
+      "purpose": "验证用户进入时能按预期解锁声音和 XR 会话。",
+      "outcome": "观众进入后可顺利开始观看，无需排查权限和静音。",
+      "current": "三维方案的联合解锁尚未验证。",
+      "acceptance": "目标头显验证启动、失败提示及退出恢复。",
+      "dependencies": [
+        "T03",
+        "T05"
+      ]
+    },
+    {
+      "id": "T09",
+      "stage": "M0",
+      "module": "设备性能",
+      "kind": "spike",
+      "status": "planned",
+      "title": "三维演员与场景帧率验证",
+      "purpose": "在演员、观众、花字和射线同时存在时测量负载。",
+      "outcome": "确定正式场景可承受的模型、材质和效果预算。",
+      "current": "尚未在真实头显测试完整负载。",
+      "acceptance": "平均帧率达到头显刷新率的 90%，保留设备和负载记录。",
+      "dependencies": [
+        "T03",
+        "T05"
+      ]
+    },
+    {
+      "id": "T10",
+      "stage": "M0",
+      "module": "中文显示",
+      "kind": "spike",
+      "status": "planned",
+      "title": "头显内中文面板检查",
+      "purpose": "确认头显浏览器能清楚绘制评分和问卷中文。",
+      "outcome": "正式评分和问卷能在 VR 内阅读和作答。",
+      "current": "尚未在头显验证 Canvas 中文。",
+      "acceptance": "中文无方块字，题目和选项在头显内清晰。",
+      "dependencies": [
+        "T03"
+      ]
+    },
+    {
+      "id": "E01",
+      "stage": "M1",
+      "module": "现有检查",
+      "kind": "foundation",
+      "status": "desktop",
+      "title": "维护当前自动检查与构建",
+      "purpose": "持续检查类型、代码规范和已实现验证的逻辑。",
+      "outcome": "已有功能修改后能及时发现回归。",
+      "current": "Mac 当前检查和生产构建通过；不等同于完整工程基线。",
+      "acceptance": "每次代码变更执行检查和构建，失败不得记为通过。",
+      "dependencies": [
+        "P01"
+      ]
+    },
+    {
+      "id": "E02",
+      "stage": "M1",
+      "module": "模块边界",
+      "kind": "feature",
+      "status": "complete",
+      "title": "建立代码分层边界检查",
+      "purpose": "自动防止规则、三维、网页与服务相互越界依赖。",
+      "outcome": "新增模块保持可测试、可替换，减少相互牵连。",
+      "current": "已实现并接入统一检查；检查当前 43 个源码文件，8 项架构测试覆盖允许/违规引用、别名、转发、动态导入及测试隔离。Mac 已运行，Windows 运行待跨平台检查。",
+      "acceptance": "违规引用报告文件和行号并以失败状态退出；允许引用通过，检查程序的正反测试通过。",
+      "dependencies": [
+        "T05"
+      ]
+    },
+    {
+      "id": "E03",
+      "stage": "M1",
+      "module": "跨平台检查",
+      "kind": "feature",
+      "status": "planned",
+      "title": "Mac 与 Windows 自动检查",
+      "purpose": "建立两种系统的持续检查与构建流程。",
+      "outcome": "提交前后都能发现平台差异。",
+      "current": "尚未配置跨平台自动检查。",
+      "acceptance": "两平台都实际完成测试和构建并记录结果。",
+      "dependencies": [
+        "P05",
+        "E01",
+        "E02"
+      ]
+    },
+    {
+      "id": "C01",
+      "stage": "M2",
+      "module": "数据规则",
+      "kind": "feature",
+      "status": "planned",
+      "title": "统一数据类型与配置校验",
+      "purpose": "定义模型、动作、音频、片段和事件的数据结构。",
+      "outcome": "各模块使用一致数据，错误素材进入播放前即可发现。",
+      "current": "正式录制数据格式尚未确定，现有格式仅供模拟检查。",
+      "acceptance": "格式有版本、单位、时间与有效性校验，错误输入有中文提示。",
+      "dependencies": [
+        "T06",
+        "T07",
+        "E02"
+      ]
+    },
+    {
+      "id": "C02",
+      "stage": "M2",
+      "module": "条件规则",
+      "kind": "feature",
+      "status": "planned",
+      "title": "A／B／C／D 条件规则表",
+      "purpose": "集中定义花字模式、抓取、投掷和回应差异。",
+      "outcome": "实验条件不会散落在页面里，便于核对公平性。",
+      "current": "已有设计规则，正式核心代码未实现。",
+      "acceptance": "各条件行为与研究方案一致，有独立规则测试。",
+      "dependencies": [
+        "C01"
+      ]
+    },
+    {
+      "id": "C03",
+      "stage": "M2",
+      "module": "动作时间线",
+      "kind": "feature",
+      "status": "planned",
+      "title": "三维轨迹插值与事件排程",
+      "purpose": "按片段时间取得姿态并安排笑声、花字和回应窗口。",
+      "outcome": "动作、声音与效果按照同一顺序运行。",
+      "current": "临时回放已演示插值，正式核心模块尚未实现。",
+      "acceptance": "覆盖端点、朝向、缺失追踪、重复时间和稳定事件顺序。",
+      "dependencies": [
+        "C01",
+        "T05"
+      ]
+    },
+    {
+      "id": "C04",
+      "stage": "M2",
+      "module": "实验分配",
+      "kind": "research",
+      "status": "confirm",
+      "title": "确认分配顺序与段子组匹配",
+      "purpose": "核对条件顺序、段子轮换及预评分匹配依据。",
+      "outcome": "参与者安排有研究依据，减少顺序和素材差异。",
+      "current": "具体分配表与预评分阈值待研究方案确认。",
+      "acceptance": "确定顺序表、阈值来源与分配校验方法。",
+      "dependencies": [
+        "P08"
+      ]
+    },
+    {
+      "id": "C05",
+      "stage": "M2",
+      "module": "会话规则",
+      "kind": "feature",
+      "status": "planned",
+      "title": "正式协议、分配与会话状态机",
+      "purpose": "把实验阶段、身份、指令和异常处理写成统一规则。",
+      "outcome": "控制台和参与者始终知道当前进行到哪一步。",
+      "current": "独立通信页不包含正式研究协议和状态机。",
+      "acceptance": "分配平衡、协议校验、阶段转换与中止路径测试有效。",
+      "dependencies": [
+        "C01",
+        "C02",
+        "C04"
+      ]
+    },
+    {
+      "id": "C06",
+      "stage": "M2",
+      "module": "问卷依据",
+      "kind": "research",
+      "status": "confirm",
+      "title": "确认正式题目与量表",
+      "purpose": "区分前后问卷、条件后问卷和评分要求。",
+      "outcome": "后续界面收集的是研究真正需要的数据。",
+      "current": "已有前后问卷草稿，不能直接替代条件后 VR 问卷。",
+      "acceptance": "题目、量表、出现时机和版本得到确认。",
+      "dependencies": []
+    },
+    {
+      "id": "A01",
+      "stage": "M3",
+      "module": "演员录制",
+      "kind": "feature",
+      "status": "planned",
+      "title": "正式录制器与空间校准",
+      "purpose": "保存演员动作和声音，并记录地面、方向、站位和比例。",
+      "outcome": "真实表演可以稳定复用，不随每次录制改变位置。",
+      "current": "尚无真实录制器与校准流程。",
+      "acceptance": "录制可开始、停止、保存，且缺失和空间重设可追溯。",
+      "dependencies": [
+        "T06",
+        "C01"
+      ]
+    },
+    {
+      "id": "A02",
+      "stage": "M3",
+      "module": "素材校验",
+      "kind": "feature",
+      "status": "planned",
+      "title": "动作、音频与片段清单",
+      "purpose": "整理时间对应关系、版本、校验值和有效范围。",
+      "outcome": "可以复现同一表演，避免动作、声音或模型错配。",
+      "current": "原始演员素材与正式清单尚未建立。",
+      "acceptance": "文件完整、时间可对齐，异常素材不能进入正式实验。",
+      "dependencies": [
+        "A01",
+        "C01"
+      ]
+    },
+    {
+      "id": "A03",
+      "stage": "M3",
+      "module": "演员驱动",
+      "kind": "feature",
+      "status": "planned",
+      "title": "模型骨骼与动作映射",
+      "purpose": "确定头部、双手数据如何驱动选定演员模型。",
+      "outcome": "从测试点升级为可重复表演的虚拟演员。",
+      "current": "当前仅有几何占位；骨骼、身体推算与比例仍待验证。",
+      "acceptance": "记录模型版本、驱动映射和比例，检查姿势及穿模。",
+      "dependencies": [
+        "A02"
+      ]
+    },
+    {
+      "id": "A04",
+      "stage": "M3",
+      "module": "表现能力",
+      "kind": "research",
+      "status": "confirm",
+      "title": "评估全身、表情和口型",
+      "purpose": "确认设备能录什么，哪些需要推算或额外方案。",
+      "outcome": "演员表现范围与技术能力一致，不把估算当实录。",
+      "current": "尚未确定全身、面部和口型采集方案。",
+      "acceptance": "明确实录与推算来源，再逐项安排实现和验收。",
+      "dependencies": [
+        "T06",
+        "A03"
+      ]
+    },
+    {
+      "id": "A05",
+      "stage": "M3",
+      "module": "回应素材",
+      "kind": "feature",
+      "status": "planned",
+      "title": "预录回应片段与锚点确认",
+      "purpose": "准备同一演员的动作声音回应，并确认花字位置。",
+      "outcome": "互动回应有可用内容，花字能贴合表演意图。",
+      "current": "尚无正式回应素材与演员确认清单。",
+      "acceptance": "回应与模型、校准兼容，片段及锚点得到确认。",
+      "dependencies": [
+        "A02",
+        "A03"
+      ]
+    },
+    {
+      "id": "L01",
+      "stage": "M4",
+      "module": "实验服务",
+      "kind": "feature",
+      "status": "planned",
+      "title": "正式 HTTPS 与消息服务",
+      "purpose": "把验证中的连接能力整理为正式实验服务。",
+      "outcome": "一台实验室电脑提供页面、消息与实验运行入口。",
+      "current": "当前仅有临时检查服务。",
+      "acceptance": "正式服务按协议校验身份、版本与消息。",
+      "dependencies": [
+        "C05",
+        "T04"
+      ]
+    },
+    {
+      "id": "L02",
+      "stage": "M4",
+      "module": "实验流程",
+      "kind": "feature",
+      "status": "planned",
+      "title": "实验会话与阶段推进",
+      "purpose": "根据参与者安排管理轮次、开始、结束与中止。",
+      "outcome": "实验员能按方案稳定推进整场实验。",
+      "current": "正式流程尚未实现。",
+      "acceptance": "模拟双端能够走完流程并正确处理中止。",
+      "dependencies": [
+        "L01",
+        "C05"
+      ]
+    },
+    {
+      "id": "L03",
+      "stage": "M4",
+      "module": "可靠通信",
+      "kind": "feature",
+      "status": "planned",
+      "title": "时钟同步、断线重连与补发",
+      "purpose": "对齐两端事件时间，保留断线期间的记录。",
+      "outcome": "网络波动后仍能恢复流程并追溯事件。",
+      "current": "临时页有手动重连；正式自动重连和补发未实现。",
+      "acceptance": "验证时钟偏移、队列补发、重连身份与异常提示。",
+      "dependencies": [
+        "L01",
+        "C05"
+      ]
+    },
+    {
+      "id": "L04",
+      "stage": "M4",
+      "module": "实验记录",
+      "kind": "feature",
+      "status": "planned",
+      "title": "事件日志与文件保存",
+      "purpose": "由服务端统一记录事件和保存实验文件。",
+      "outcome": "实验结束后能够核对数据来源与完整性。",
+      "current": "正式持久化日志和保存接口尚未实现。",
+      "acceptance": "写入实验数据目录，保留时间和身份，测试不污染真实数据。",
+      "dependencies": [
+        "L01",
+        "C01"
+      ]
+    },
+    {
+      "id": "L05",
+      "stage": "M4",
+      "module": "控制台界面",
+      "kind": "feature",
+      "status": "planned",
+      "title": "实验员控制台",
+      "purpose": "提供参与者安排、阶段、回应、备注和异常提示。",
+      "outcome": "实验员可以操作实验，而非手动拼接指令。",
+      "current": "/lab 目前为占位页，尚不能启动实验。",
+      "acceptance": "完成一次模拟会话，显示状态与服务端一致。",
+      "dependencies": [
+        "L02",
+        "L03",
+        "L04"
+      ],
+      "route": "/lab"
+    },
+    {
+      "id": "V01",
+      "stage": "M5",
+      "module": "三维引擎",
+      "kind": "feature",
+      "status": "planned",
+      "title": "正式渲染引擎与素材加载",
+      "purpose": "集中管理场景、声音、输入、帧循环和资源释放。",
+      "outcome": "正式模块可以组合运行，不叠加画面或声音。",
+      "current": "已有独立检查，正式引擎未实现。",
+      "acceptance": "反复进入、退出与换片段均正确释放资源。",
+      "dependencies": [
+        "C01",
+        "A02",
+        "L01"
+      ]
+    },
+    {
+      "id": "V02",
+      "stage": "M5",
+      "module": "剧场空间",
+      "kind": "art",
+      "status": "planned",
+      "title": "统一场景坐标、分组与物体中心",
+      "purpose": "把参考草模整理为可替换资产的稳定布局。",
+      "outcome": "更换精细模型时不必重新摆放整个场地。",
+      "current": "已发现原 GLB 使用 Z 向上、位置写入顶点；尚未实际整理。",
+      "acceptance": "统一方向、尺寸和摆放点，核对 24 个座位位置。",
+      "dependencies": [
+        "P07"
+      ]
+    },
+    {
+      "id": "V03",
+      "stage": "M5",
+      "module": "座椅精修",
+      "kind": "art",
+      "status": "planned",
+      "title": "精细样椅与全场座椅",
+      "purpose": "制作软垫、椅背、椅腿及材质样例，再扩展全场。",
+      "outcome": "座椅具有可信外观，同时保留座高、占地和布局。",
+      "current": "尚未制作样椅，布料或皮革细节待样例确认。",
+      "acceptance": "先确认一把样椅，再复用到全场并检查穿插。",
+      "dependencies": [
+        "V02"
+      ]
+    },
+    {
+      "id": "V04",
+      "stage": "M5",
+      "module": "墙地面精修",
+      "kind": "art",
+      "status": "planned",
+      "title": "墙面、地板与收口细节",
+      "purpose": "完善砖墙、护墙板、木地板及边缘。",
+      "outcome": "场地材质比例统一，空间有完整的视觉结构。",
+      "current": "尚未制作精修墙地面。",
+      "acceptance": "纹理比例正确，门洞、通道与主要视线保留。",
+      "dependencies": [
+        "V02"
+      ]
+    },
+    {
+      "id": "V05",
+      "stage": "M5",
+      "module": "灯光精修",
+      "kind": "art",
+      "status": "planned",
+      "title": "舞台灯、观众暖光与局部灯",
+      "purpose": "分开设置舞台主光、壁灯、桌灯与观众区照明。",
+      "outcome": "演员、花字与场景层次清楚，画面不过曝。",
+      "current": "参考图的照明未完整保存在 GLB，实际灯光尚未重建。",
+      "acceptance": "在头显核对可读性、亮度与性能，不能只检查灯具模型。",
+      "dependencies": [
+        "V02",
+        "T09"
+      ]
+    },
+    {
+      "id": "V06",
+      "stage": "M5",
+      "module": "装饰精修",
+      "kind": "art",
+      "status": "planned",
+      "title": "幕布、地毯、海报与道具细节",
+      "purpose": "完善音箱、控制台及剧场装饰。",
+      "outcome": "形成完整场所感，同时保留交互与观看空间。",
+      "current": "尚未精修装饰资产。",
+      "acceptance": "不遮挡演员、花字、出入口和主要视线。",
+      "dependencies": [
+        "V03",
+        "V04"
+      ]
+    },
+    {
+      "id": "V07",
+      "stage": "M5",
+      "module": "正式演员模型",
+      "kind": "art",
+      "status": "planned",
+      "title": "接入并精修三维演员",
+      "purpose": "将已验证的动作驱动接到正式演员模型。",
+      "outcome": "观众看到具有稳定比例和表现的三维演员。",
+      "current": "当前仅有测试点和静态躯干占位。",
+      "acceptance": "核对头手驱动、身体推算、比例与穿模；表情口型分项验收。",
+      "dependencies": [
+        "A03",
+        "V01"
+      ]
+    },
+    {
+      "id": "V08",
+      "stage": "M5",
+      "module": "模型交付",
+      "kind": "art",
+      "status": "planned",
+      "title": "模型导出、来源登记与实机检查",
+      "purpose": "整理模型与贴图来源，导出 GLB 并核对跨设备效果。",
+      "outcome": "资产可以在网页稳定加载，来源和性能可追溯。",
+      "current": "正式精修模型尚未导出或实机验收。",
+      "acceptance": "Mac、Windows、Quest 3 核对布局、外观、帧率与清理。",
+      "dependencies": [
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07"
+      ]
+    },
+    {
+      "id": "V09",
+      "stage": "M5",
+      "module": "演员播放器",
+      "kind": "feature",
+      "status": "planned",
+      "title": "正式动作与声音播放器",
+      "purpose": "按统一音频时间播放真实动作，处理暂停续播与结束。",
+      "outcome": "真实演员片段可以在实验中可靠重复播放。",
+      "current": "模拟回放已验证，正式素材加载和播放器未实现。",
+      "acceptance": "真实片段对齐动作与声音，保存同步和异常记录。",
+      "dependencies": [
+        "A02",
+        "T07",
+        "V01"
+      ]
+    },
+    {
+      "id": "V10",
+      "stage": "M5",
+      "module": "参与者与观众",
+      "kind": "feature",
+      "status": "planned",
+      "title": "参与者座位与虚拟观众",
+      "purpose": "建立固定座位、独立观看视角和观众动作。",
+      "outcome": "观众在一致的实验空间中观看，笑声与观众表现配合。",
+      "current": "/study 为占位页，正式座位和观众尚未实现。",
+      "acceptance": "视线、座位边界、观众动作与性能在头显验收。",
+      "dependencies": [
+        "V01",
+        "V02",
+        "V09"
+      ],
+      "route": "/study"
+    },
+    {
+      "id": "F01",
+      "stage": "M6",
+      "module": "花字锚点",
+      "kind": "feature",
+      "status": "planned",
+      "title": "跟随三维手部的花字锚点",
+      "purpose": "将花字绑定到回放手部、头部或舞台位置。",
+      "outcome": "花字能配合演员动作，不再依赖二维视频标注。",
+      "current": "三维锚点方案已确定，正式模块未实现。",
+      "acceptance": "偏移、坐标变换和缺失追踪处理正确。",
+      "dependencies": [
+        "V09",
+        "C03"
+      ]
+    },
+    {
+      "id": "F02",
+      "stage": "M6",
+      "module": "花字呈现",
+      "kind": "feature",
+      "status": "planned",
+      "title": "花字显示、消失与资源管理",
+      "purpose": "控制贴图、淡入、生存时间和同屏数量。",
+      "outcome": "花字按统一规则出现，不积累过多资源或遮挡。",
+      "current": "尚未实现正式花字层。",
+      "acceptance": "生存时间与同屏上限符合规则，结束后完整回收。",
+      "dependencies": [
+        "F01",
+        "C03"
+      ]
+    },
+    {
+      "id": "F03",
+      "stage": "M6",
+      "module": "条件与素材",
+      "kind": "feature",
+      "status": "planned",
+      "title": "花字素材、条件过滤与事件",
+      "purpose": "准备写意/间离素材，按条件显示并记录事件。",
+      "outcome": "各实验条件差异可核对，出现时间可分析。",
+      "current": "没有正式花字素材及过滤运行代码。",
+      "acceptance": "按 A–D 条件正确筛选，时间窗与显示事件可追溯。",
+      "dependencies": [
+        "F02",
+        "C02",
+        "A05"
+      ]
+    },
+    {
+      "id": "I01",
+      "stage": "M7",
+      "module": "手柄交互",
+      "kind": "feature",
+      "status": "planned",
+      "title": "手柄射线与抓取、松开",
+      "purpose": "识别可交互花字并保持抓取时的位置。",
+      "outcome": "观众可以用手柄查看和操纵允许交互的花字。",
+      "current": "正式手柄交互尚未实现。",
+      "acceptance": "只操作可交互对象，松开和退出时状态正确。",
+      "dependencies": [
+        "F03",
+        "T03"
+      ]
+    },
+    {
+      "id": "I02",
+      "stage": "M7",
+      "module": "双手操作",
+      "kind": "feature",
+      "status": "planned",
+      "title": "双手拉伸与尺寸限制",
+      "purpose": "根据两手距离调整花字大小。",
+      "outcome": "观众可在统一范围内改变花字大小。",
+      "current": "尚未实现双手拉伸。",
+      "acceptance": "缩放范围、双手切换和松开路径正确。",
+      "dependencies": [
+        "I01"
+      ]
+    },
+    {
+      "id": "I03",
+      "stage": "M7",
+      "module": "投掷与挂载",
+      "kind": "feature",
+      "status": "planned",
+      "title": "投掷、落点与自身挂载",
+      "purpose": "计算释放速度、舞台落点和允许的挂载行为。",
+      "outcome": "D 条件具备可记录的空间互动。",
+      "current": "尚未实现正式投掷、舞台判定与挂载。",
+      "acceptance": "条件限制、轨迹、落点与事件一致，挂载仅作用于参与者自身。",
+      "dependencies": [
+        "I01",
+        "I02",
+        "C02"
+      ]
+    },
+    {
+      "id": "I04",
+      "stage": "M7",
+      "module": "预录回应",
+      "kind": "feature",
+      "status": "planned",
+      "title": "回应选择、动作切换与主片段续播",
+      "purpose": "由控制台在允许窗口触发同一演员的预录回应。",
+      "outcome": "异步表演也能按实验规则回应观众互动。",
+      "current": "尚未实现回应播放与姿势衔接。",
+      "acceptance": "回应窗口和次数正确，动作、声音和花字一起切换并恢复。",
+      "dependencies": [
+        "I03",
+        "A05",
+        "V09",
+        "L05"
+      ]
+    },
+    {
+      "id": "D01",
+      "stage": "M8",
+      "module": "评分与问卷",
+      "kind": "feature",
+      "status": "planned",
+      "title": "VR 内评分和问卷界面",
+      "purpose": "在头显内展示题目、接收选项并提交。",
+      "outcome": "参与者在实验流程中完成规定测量。",
+      "current": "正式界面尚未实现，题目与量表待确认。",
+      "acceptance": "题目版本、条件与答案对应正确，中文可读。",
+      "dependencies": [
+        "C06",
+        "T10",
+        "V10"
+      ]
+    },
+    {
+      "id": "D02",
+      "stage": "M8",
+      "module": "观看朝向",
+      "kind": "feature",
+      "status": "planned",
+      "title": "朝向采样与演员视线角度",
+      "purpose": "记录观众朝向及其与三维演员头部方向的关系。",
+      "outcome": "可分析观众观看舞台和演员的情况。",
+      "current": "正式朝向采样与视线角度计算尚未实现。",
+      "acceptance": "使用回放头部位置，时间可对齐，缺失区间可识别。",
+      "dependencies": [
+        "V09",
+        "V10",
+        "L04"
+      ]
+    },
+    {
+      "id": "D03",
+      "stage": "M8",
+      "module": "实验录音",
+      "kind": "feature",
+      "status": "planned",
+      "title": "领夹麦录音与保存",
+      "purpose": "记录观众实验过程的音频与起止时间。",
+      "outcome": "实验录音可以与会话事件对齐分析。",
+      "current": "尚未实现，需与演员预录声音分开管理。",
+      "acceptance": "录音、上传、保存与会话起止可核对，文件仅留授权位置。",
+      "dependencies": [
+        "L04",
+        "L05"
+      ]
+    },
+    {
+      "id": "D04",
+      "stage": "M8",
+      "module": "统一数据",
+      "kind": "feature",
+      "status": "planned",
+      "title": "评分、问卷、朝向与录音对齐",
+      "purpose": "把不同数据放到同一实验时间轴核对。",
+      "outcome": "研究结果可复查，不出现答案、条件或时间错位。",
+      "current": "正式数据整合与核验尚未实现。",
+      "acceptance": "参与者、轮次、片段和时间一致，异常有记录。",
+      "dependencies": [
+        "D01",
+        "D02",
+        "D03",
+        "L03"
+      ]
+    },
+    {
+      "id": "Q01",
+      "stage": "M9",
+      "module": "完整流程",
+      "kind": "feature",
+      "status": "planned",
+      "title": "串联练习、轮次与异常中止",
+      "purpose": "把各模块接成一次完整实验。",
+      "outcome": "实验员可以按研究方案完成整场流程。",
+      "current": "正式完整流程尚未接通。",
+      "acceptance": "从准备到结束可跑通，失败与中止路径可恢复和追溯。",
+      "dependencies": [
+        "I04",
+        "D04"
+      ]
+    },
+    {
+      "id": "Q02",
+      "stage": "M9",
+      "module": "场后核查",
+      "kind": "feature",
+      "status": "planned",
+      "title": "检查数据完整性与独立备份",
+      "purpose": "自动核对会话文件、事件和录音是否齐全。",
+      "outcome": "实验结束后能及时发现缺项并保护数据。",
+      "current": "正式场后检查工具尚未实现。",
+      "acceptance": "真实会话文件通过核查，原始资料备份可读。",
+      "dependencies": [
+        "Q01",
+        "P09"
+      ]
+    },
+    {
+      "id": "Q03",
+      "stage": "M9",
+      "module": "预实验",
+      "kind": "feature",
+      "status": "planned",
+      "title": "完成 3–5 人预实验",
+      "purpose": "用真实设备、演员片段和流程暴露整体问题。",
+      "outcome": "正式开展研究前有可复查的稳定性和体验依据。",
+      "current": "尚未开始预实验。",
+      "acceptance": "完整跑通，问题关闭或记录处理理由。",
+      "dependencies": [
+        "Q01",
+        "Q02",
+        "V08",
+        "E03"
+      ]
+    },
+    {
+      "id": "R01",
+      "stage": "REF",
+      "module": "视频同步",
+      "kind": "reference",
+      "status": "reference",
+      "title": "音频主时钟与视频跟随",
+      "purpose": "保留先前视频方案的同步方法与检查记录。",
+      "outcome": "后续需要视频功能时有可查阅的实验依据。",
+      "current": "Mac 完整 60 秒，1799 次采样，最大视频偏差约 36 毫秒；不能替代三维动作验收。",
+      "acceptance": "不将旧视频通过线或结果直接套到三维动作。",
+      "dependencies": [],
+      "route": "/spike/media"
+    },
+    {
+      "id": "R02",
+      "stage": "REF",
+      "module": "色键抠像",
+      "kind": "reference",
+      "status": "reference",
+      "title": "视频去绿色背景检查",
+      "purpose": "保留原片对照、边缘参数和显卡色块检查。",
+      "outcome": "视频技术积累仍可查阅，但不阻塞三维演员主线。",
+      "current": "Mac 原创样片与参数功能已检查；当前演员主线不需要绿幕。",
+      "acceptance": "明确标为历史参考，不计入正式演员系统完成数。",
+      "dependencies": [],
+      "route": "/spike/chroma"
+    }
+  ]
+}

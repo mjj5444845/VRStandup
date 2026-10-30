@@ -5,9 +5,10 @@
 ## 项目方向
 
 - 用户最新明确要求优先；设计细节见 `docs/design/SYSTEM_GUIDE.md`，推进顺序见 `docs/project/ROADMAP.md`。
+- 演员主方案为实验室 VR 动作与声音预录、三维虚拟演员异步回放，见 `docs/design/PERFORMER_RECORDING.md` 与 ADR-0011。不得继续把绿幕视频或二维手部轨迹作为正式演员必需方案。
 - 新系统使用官方 Three.js。Next.js 承载网页和控制台，WebXR 负责头显连接。
 - Mac 用于开发；Windows 11 实验室电脑用于运行。部署不依赖 Vercel 或云服务器。
-- 当前完成程度统一记录在 `docs/project/STATUS.txt`；规划不等于已实现。
+- 总体状态记录在 `docs/project/STATUS.txt`，逐项任务与首页看板共用 `docs/project/tasks.json`。任务变化时同步修改当前进展、状态和日期；规划不等于已实现。
 - 旧版已经归档，原先的新旧共存、旧文件冻结和五文件追加限制不再适用。
 
 ## 与用户协作
@@ -40,10 +41,12 @@
 | `study/server/` | 实验室服务与日志；可用本层、core、Node 和 ws，不导入 xr/web |
 | `study/tools/` | 离线处理与核查；可用本层、core 和 Node，不导入 xr/web |
 | `app/study/` | 参与者页面；薄封装，调用 xr/web |
-| `app/lab/` | 控制台页面；薄封装，调用 web/core；后续标注页可调用色键预览模块 |
+| `app/lab/` | 控制台页面；薄封装，调用 web/core |
 
 页面可使用 React、Next.js 和页面自身样式。临时技术验证代码独立放在 `study/spikes/` 与 `app/spike/`，
-正式模块不导入它们。目录边界测试将在 M1 建立，当前不能宣称已有自动保障。
+正式模块不导入它们。`npm run check:boundaries` 检查这些导入边界，已接入 `npm run check`。
+规则实现与正反测试在 `scripts/architecture/`；修改模块职责时同步更新规则、测试和说明。
+该检查针对源码导入，不代替 DOM 全局变量、运行时文件读取或性能验证。
 
 ## Mac 与 Windows 兼容
 
@@ -65,7 +68,7 @@
 - 代码注释使用英文，用户界面和操作说明使用中文。
 - 代码或工程配置变化后运行 `npm run check` 和 `npm run build`。
 - 仅修改说明时检查链接、命令、平台标注与当前文件是否一致，不用重复跑无关测试。
-- 当前 `check` 包含静态检查、类型检查、启动配置、独立通信、音画同步、色键规则及素材完整性测试；不代表正式模块测试或设备检查通过。
+- 当前 `check` 包含静态检查、类型检查、启动配置、独立通信、音画同步、色键、模拟三维回放规则、素材完整性、看板任务清单和模块边界测试；不代表正式模块测试或设备检查通过。
 
 ## agent 与 skill 文件
 

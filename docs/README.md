@@ -15,22 +15,26 @@
 
 | 文档 | 页面 |
 | --- | --- |
+| [模块边界检查](guides/10-第七个工作-模块边界检查.txt) | `npm run check:boundaries`（本机命令） |
+| [三维动作与声音回放](guides/09-第六个工作-三维动作与声音回放.txt) | `/spike/replay` |
 | [三维显示](guides/04-第一个工作-三维显示检查.txt) | `/spike` |
 | [HTTPS 与头显连接](guides/05-第二个工作-HTTPS与头显连接.txt) | `/spike/xr` |
 | [双端通信](guides/06-第三个工作-两个网页传消息.txt) | `/spike/network` |
 | [音画同步](guides/07-第四个工作-声音与视频同步.txt) | `/spike/media` |
-| [视频去背景](guides/08-第五个工作-视频去背景.txt) | `/spike/chroma` |
+| [视频去背景](guides/08-第五个工作-视频去背景.txt)（视频方案参考） | `/spike/chroma` |
 
 ## 设计与研究资料
 
 - [系统设计](design/SYSTEM_GUIDE.md)：目标架构、模块、研究流程和验收要求。
+- [演员录制与回放](design/PERFORMER_RECORDING.md)：VR 预录动作与声音、三维模型重演及下一项验证。
 - [剧场建模参考](design/SCENE_REFERENCE.md)：参考包位置、空间尺寸、坐标差异及视觉细化顺序。
 - [前测问卷](research/questionnaire-pre.md) · [后测问卷](research/questionnaire-post.md)：保留原有草稿，尚未确认最终题目。
 - [技术决策](decisions/)：选择 Three.js、归档旧版等决定及其原因。
 
 ## 进度与维护
 
-- [当前状态](project/STATUS.txt)：已完成与待验证事项的统一记录。
+- [任务清单](project/tasks.json)：首页看板的数据来源，逐项记录归属、用途、状态与验收标准。
+- [当前状态](project/STATUS.txt)：总体进度与设备验证情况。
 - [开发计划](project/ROADMAP.md)：从准备环境到完整实验的模块顺序。
 - [检查记录](project/VALIDATION.md)：每项技术检查的过程、结果和限制。
 - [变更记录](project/CHANGELOG.md)：按时间保存的修改历史。

@@ -1,4 +1,4 @@
-// Source: SYSTEM_GUIDE.md, M0 S3 and the video-follow section. Keep these exact
+// Source: docs/design/reference/VIDEO_PANEL_GUIDE.md, M0 S3/video-follow. Keep these exact
 // study limits distinct from engineering timeouts used to load test media.
 export const MEDIA_LIMITS = {
   durationMs: 60_000,
