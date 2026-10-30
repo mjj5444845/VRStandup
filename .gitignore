@@ -86,3 +86,7 @@ punchcap-replay-check-*.json
 *.log
 *.swp
 *.swo
+
+# Browser-local preparation reports.
+punchcap-browser-preparation.json
+punchcap-lab-preparation.json

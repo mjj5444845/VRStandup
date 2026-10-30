@@ -1,0 +1,40 @@
+GitHub 跨平台自动检查
+更新：2026-10-30
+
+一、它有什么用
+
+每次推送后，让 GitHub 在一台 macOS 和一台 Windows 运行器上自动安装、检查、构建。
+这叫“持续集成”（CI）：及时发现改动引入的问题，以及两种系统之间的差异。
+它不部署网站，不上传演员录制资料，也不代替实验室 Windows 11 的安装验收。
+
+二、检查内容
+
+配置位置：.github/workflows/check.yml。
+触发方式：推送 main 或 codex/ 开头的分支、发起拉取请求，或在 GitHub 手动运行。
+两个系统分别执行：
+1. 读取 .nvmrc 指定 Node.js 版本。
+2. npm ci：按锁文件安装。
+3. npm run check：规范、类型、模块边界及各项测试；核心规则检查至少 90% 的行覆盖率。
+4. npm run build：构建所有网页。
+
+只读取仓库，不需要新增密码、密钥或网站部署账号。
+没有把本机 .next、node_modules、原始资料或实验数据上传为运行输入。
+若需要更新 Node 版本，先在本机验证，再修改 .nvmrc 与相关说明。
+
+三、查看结果
+
+打开 https://github.com/mjj5444845/VRStandup/actions/workflows/check.yml。
+选择对应提交，分别查看 Check / macos-latest 与 Check / windows-latest。
+两项均为成功才算这一提交的跨平台自动检查通过；等待、失败或取消不能算成功。
+这两个系统是 GitHub 托管运行器，不是实验室电脑，也没有 Quest 3。
+
+四、失败时怎么处理
+
+展开失败步骤，查看第一处错误。
+安装错误：核对 Node 版本、锁文件与网络下载。
+测试错误：先在本机复现对应检查，修正后重新检查并推送。
+构建错误：核对路径大小写、平台写法、类型与网页构建日志。
+若 GitHub 没有启动运行，核对仓库 Actions 是否允许及工作流是否存在；不要把“配置文件已上传”写成“检查通过”。
+
+本机仍保留 npm run check 和 npm run build。Windows PowerShell 用 npm.cmd 替代 npm。
+本轮实际云端结果与运行链接记录在 docs/project/VALIDATION.md；实验室验收见 P05。

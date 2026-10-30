@@ -217,3 +217,25 @@ HTTPS/WSS 客户端测试仅使用临时证书信任，不代表头显浏览器�
 操作说明见 `docs/guides/10-第七个工作-模块边界检查.txt`。
 
 本轮看板截图仅保留本机：`output/checks/dashboard-boundaries-complete.png`。
+
+## 独立准备网页、条件规则与跨平台配置
+
+日期：2026-10-30。环境：当前 Mac、Codex 内置浏览器，936 × 900 视口。
+
+| 检查 | 结果与依据 |
+| --- | --- |
+| /study 实际能力检测 | 安全连接、WebGL 2、声音接口可用；沉浸式 VR 当前不可用，与普通 Mac 场景一致 |
+| 参与者记录下载 | 实际读到 punchcap-browser-preparation.json，四项结果正确，experimentReady 为 false；无参与者资料 |
+| /lab 条件行为 | D + 间离 + 可投掷素材允许投掷；改为其他挂载对象或回应两次后，挂载/再回应禁止；B 下的间离花字全部禁止 |
+| 人工清单 | 勾选两项显示 2/4；重置后 0/4、条件回 A、浏览器结果清空，下载恢复禁用 |
+| 实验员记录下载 | 实际读到 punchcap-lab-preparation.json，包含两项勾选、B 预览和当前能力结果，experimentReady 为 false |
+| /checks | 实际列出六个有效检查入口；历史视频明确注明，936 像素宽无横向溢出 |
+| 条件核心测试 | 六项规则测试通过；当前 conditions.ts 行、分支、函数覆盖率均 100%，统一命令要求行覆盖率至少 90% |
+| 浏览器规则测试 | 三项覆盖支持/缺失、不安全环境、图形错误、拒绝和超时 |
+| 工程检查 | 48 项测试、规范、类型和模块边界检查通过；生产构建通过 |
+| GitHub 跨平台检查 | 已建立 Mac/Windows 工作流；实际云端结果待首次推送后核对，不能以配置文件代替通过 |
+| 尚未验收 | 手机窄屏、Windows 11 实验室电脑、Quest 3、实际出声与正式研究会话 |
+
+本机截图：output/checks/lab-preparation.png。下载仅保留本机，未加入提交。
+工作流使用 GitHub 官方 checkout v7.0.1 与 setup-node v7.1.0，固定到官方提交；来源：
+[checkout](https://github.com/actions/checkout/releases/tag/v7.0.1)、[setup-node](https://github.com/actions/setup-node/releases/tag/v7.1.0)。

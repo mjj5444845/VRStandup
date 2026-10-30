@@ -1,12 +1,4 @@
 import Link from 'next/link';
-
-export default function LabPage() {
-  return (
-    <main className="entry">
-      <p className="brand">PUNCHCAP / 实验员端</p>
-      <h1>实验控制台</h1>
-      <p className="description">控制台正在建设中，当前尚不能启动实验。</p>
-      <Link className="back" href="/">返回首页</Link>
-    </main>
-  );
-}
+import { Workbench } from './workbench';
+export const metadata={title:'实验员工作台 · VR Standup'};
+export default function LabPage(){return <main className="workspace"><header className="work-nav"><Link className="work-brand" href="/">VR Standup<small>PUNCHCAP</small></Link><nav aria-label="项目导航"><Link href="/">开发看板</Link><Link href="/study">参与者准备</Link><Link href="/lab" aria-current="page">实验员工作台</Link><Link href="/checks">技术检查</Link></nav></header><section className="work-hero"><p className="work-eyebrow">实验员入口 / 本机准备</p><h1>把准备做清楚，<br/>再开始一场实验。</h1><p>核对条件差异、检查当前浏览器并整理准备清单。这里已经可以用于开发准备，正式会话控制与实验记录仍待接入。</p><span className="work-pill">条件与准备工具可用 · 正式实验尚未开放</span></section><Workbench/><footer className="work-footer">人工准备记录仅下载到本机，不作为研究会话或设备验收记录。<Link href="/checks">打开独立技术检查 →</Link></footer></main>;}

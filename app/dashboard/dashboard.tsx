@@ -29,7 +29,7 @@ function TaskRow({ task, catalog }: { task: Task; catalog: Catalog }) {
           <summary>完成标准与前置工作 <span aria-hidden="true">＋</span></summary>
           <div><p><strong>完成标准</strong>{task.acceptance}</p><p><strong>前置工作</strong>{task.dependencies.length ? task.dependencies.map((id) => { const parent = catalog.tasks.find((item) => item.id === id); return `${id} ${parent?.title ?? ''}`; }).join('；') : '可独立准备，无额外任务依赖。'}</p></div>
         </details>
-        {task.route && task.route !== '/' && <Link className={styles.taskLink} href={task.route}>{task.status === 'reference' ? '查看参考页' : task.status === 'planned' ? '查看占位页' : '打开检查页'}<Arrow diagonal /></Link>}
+        {task.route && task.route !== '/' && <Link className={styles.taskLink} href={task.route}>{task.status === 'reference' ? '查看参考页' : task.route === '/lab' || task.route === '/study' || task.route === '/checks' ? '打开项目页面' : task.status === 'planned' ? '查看占位页' : '打开检查页'}<Arrow diagonal /></Link>}
       </div>
     </article>
   );
@@ -85,7 +85,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
       </aside>
 
       <main className={styles.main}>
-        <header className={styles.topbar}><span className={styles.breadcrumb}>项目工作台 <span>/</span> 开发总览</span><div><span className={styles.date}>状态截至 {catalog.updatedAt}</span><Link className={styles.previewButton} href="/spike/replay">打开回放检查<Arrow diagonal /></Link></div></header>
+        <header className={styles.topbar}><span className={styles.breadcrumb}>项目工作台 <span>/</span> 开发总览</span><div><Link className={styles.previewButton} href="/lab">项目工作台<Arrow diagonal /></Link><span className={styles.date}>状态截至 {catalog.updatedAt}</span><Link className={styles.previewButton} href="/spike/replay">打开回放检查<Arrow diagonal /></Link></div></header>
         <section className={styles.hero} aria-labelledby="dashboard-title">
           <p className={styles.eyebrow}>从技术验证，到完整实验</p>
           <h1 id="dashboard-title">开发进度看板<span className={styles.phaseTag}>当前阶段 M0</span></h1>
@@ -100,8 +100,8 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
         <section className={styles.contextGrid} aria-label="当前开发情况">
           <div className={styles.focusCard}>
             <div className={styles.panelEyebrow}><span className={styles.focusDot} />当前进展</div>
-            <h2>模拟回放与分层检查已就绪，<br />真实录制等待头显恢复。</h2>
-            <p>12 秒模拟回放已验证，自动模块边界检查已接入。真实演员录制与正式模型仍待实现。</p>
+            <h2>准备网页与条件规则已就绪，<br />真实录制等待头显恢复。</h2>
+            <p>参与者准备、实验员工作台和独立检查目录已可用；模拟回放与模块分层已验证，正式剧场和实验服务仍待接入。</p>
             <div className={styles.focusLinks}><button onClick={() => choose({ stage: 'M0', kind: 'all', status: 'all', query: '' })}>查看技术验证任务<Arrow /></button><button onClick={() => choose({ stage: 'M5', kind: 'art', status: 'all', query: '' })}>模型精修计划 · 7 项<Arrow /></button></div>
           </div>
           <div className={styles.boundaries}>
