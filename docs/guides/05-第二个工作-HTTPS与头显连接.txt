@@ -1,5 +1,5 @@
 PunchCap：第二个工作——HTTPS 与头显连接
-更新：2026-10-30
+更新：2026-11-03
 
 一、这一步要完成什么
 
@@ -8,8 +8,10 @@ PunchCap：第二个工作——HTTPS 与头显连接
 本步骤对应 M0 的 S1：先确认连接方式可行，再做正式舞台。
 这里没有正式实验流程、研究数据记录、录音或实验通信。
 
-代码和 Mac 本机 HTTPS 请求已检查。Windows、证书安装、头显进入和退出尚未实测。
-只有在目标 Windows 和真实头显上完成第九节，才能将 S1 记为通过。
+代码和 Mac 本机 HTTPS 请求已检查。2026-11-03 在指定 Windows 11 实验室电脑上，
+Quest 3 通过 USB 转发打开本机页面，用户确认两次进入、退出 VR 及转头观察正常。
+USB 路径与局域网可信 HTTPS 分开验收；证书信任及局域网部署尚未通过。
+只有在目标 Windows 和真实头显上完成对应连接路径的检查，才能将该路径记为通过。
 
 二、先在当前 Mac 看检查页，不用安装证书
 
@@ -20,7 +22,49 @@ PunchCap：第二个工作——HTTPS 与头显连接
 页面分别说明连接方式、安全环境和 VR 设备状态。
 普通电脑没有可用头显时，“进入 VR”保持灰色，这是正常结果。
 localhost 即使使用 HTTP，浏览器也可能认可其为本机安全环境；这不代表已完成 HTTPS 验证。
-本节只是预览。头显中不能使用电脑的 localhost 地址。
+本节只是预览。未配置 USB 转发时，头显不能直接使用电脑的 localhost 地址。
+
+二补充、Windows 与 Quest 的 USB 本机检查（2026-11-03 已实测）
+
+此路径适合已经通过 USB 调试授权的 Quest 3，不需要更改系统证书信任或防火墙。
+它用于本机开发验收，不能代替下文的局域网 HTTPS/WSS 验收。
+
+本次实验室项目路径为 D:\VRStandup。便携式 Google Platform-Tools 37.0.1
+保存在 local_assets/tools/platform-tools/，不随 Git 上传。工具来自 Google 官方：
+https://developer.android.com/tools/releases/platform-tools
+
+先在项目目录构建并保持服务运行：
+
+npm.cmd run build
+npm.cmd run spike:net
+
+另开 PowerShell，仍进入项目目录，逐条执行：
+
+& ".\local_assets\tools\platform-tools\adb.exe" devices -l
+& ".\local_assets\tools\platform-tools\adb.exe" reverse tcp:3001 tcp:3001
+& ".\local_assets\tools\platform-tools\adb.exe" reverse --list
+
+第一条应显示 Quest_3，状态为 device。若为 unauthorized，需由你在头显确认此电脑的
+USB 调试请求；助手不能用“系统识别到 USB”替代授权或进入 VR 结果。
+
+戴上 Quest，手动打开头显自带浏览器，在地址栏输入：
+
+http://localhost:3001/spike/xr
+
+这里的 localhost 经 USB 转发连接到电脑的 3001 服务。浏览器实际认可本机安全环境后，
+才可能提供 WebXR。以页面能力结果和真实进入 VR 为准，不关闭浏览器安全保护。
+本次通过 ADB 发出的打开网页请求没有可靠地显示页面；手动输入上述地址后成功。
+不要把 Windows/Quest 远程桌面面板、Link 桌面或投屏当成本页已打开。
+
+检查方块、地面与转头，再进入和退出两次。通信检查两端都使用 localhost:3001，
+Quest 打开 /spike/network/participant，电脑打开 /spike/network/console。
+同步与回放页分别为 /spike/media、/spike/replay，结果各自保存。
+
+断开 USB、头显重启或服务停止后可能需要重新建立转发。需要主动移除本项目转发时：
+
+& ".\local_assets\tools\platform-tools\adb.exe" reverse --remove tcp:3001
+
+不要清除其他项目的转发或重置整台设备。实际本轮结果见 docs/project/VALIDATION.md。
 
 三、Windows 先准备好网页和网络
 
@@ -177,7 +221,7 @@ Windows HTTPS 页面无证书错误：是 / 否 / 未测
 
 只要目标设备项目还有“未测”或失败，就保留待验证状态。
 本机测试已确认：HTTPS 页面返回 200；证书、实验数据、归档抽查网址返回 404。
-本次没有实际安装 mkcert、修改系统信任、开放防火墙或连接真实头显。
+本轮没有安装 mkcert、修改系统信任或开放防火墙；真实 Quest 3 已经通过 USB 转发完成进入/退出检查。
 技术证据见 docs/project/VALIDATION.md，唯一当前状态见 docs/project/STATUS.txt。
 
 十、代码和保存规则

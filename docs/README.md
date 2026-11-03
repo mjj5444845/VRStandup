@@ -21,6 +21,7 @@
 | 文档 | 页面 |
 | --- | --- |
 | [模块边界检查](guides/10-第七个工作-模块边界检查.txt) | `npm run check:boundaries`（本机命令） |
+| [真实动作与声音录制](guides/13-真实动作与声音录制检查.txt) | `/spike/record` |
 | [三维动作与声音回放](guides/09-第六个工作-三维动作与声音回放.txt) | `/spike/replay` |
 | [三维显示](guides/04-第一个工作-三维显示检查.txt) | `/spike` |
 | [HTTPS 与头显连接](guides/05-第二个工作-HTTPS与头显连接.txt) | `/spike/xr` |

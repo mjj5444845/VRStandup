@@ -1,4 +1,4 @@
-import { audioPositionMs, chooseVideoCorrection, evaluateMediaCheck, MEDIA_LIMITS, type FollowRate, type MediaVerdict } from './media-check-rules';
+import { audioPositionMs, chooseVideoCorrection, evaluateMediaCheck, MEDIA_LIMITS, VIDEO_CORRECTION_START_MS, type FollowRate, type MediaVerdict } from './media-check-rules';
 
 type Phase = 'idle' | 'preparing' | 'ready' | 'starting' | 'playing' | 'finished' | 'error';
 export type MediaSample = { audioMs: number; videoMs: number; driftMs: number; rate: FollowRate; seeking: boolean };
@@ -8,6 +8,7 @@ export type MediaReport = {
   browser: string;
   method: 'video-frame-callback' | 'video-current-time';
   limits: typeof MEDIA_LIMITS;
+  correctionStartMs: number;
   elapsedMs: number;
   maxAbsMs: number;
   maxSampleGapMs: number;
@@ -88,7 +89,7 @@ export function createMediaCheck(video: HTMLVideoElement, onChange: (snapshot: M
     const verdict = evaluateMediaCheck({ elapsedMs, maxAbsMs, samples: samples.length, interrupted });
     const report: MediaReport = {
       version: 1, createdAt: new Date().toISOString(), browser: navigator.userAgent, method,
-      limits: MEDIA_LIMITS, elapsedMs, maxAbsMs, maxSampleGapMs, firstVideoMs, seekCount,
+      limits: MEDIA_LIMITS, correctionStartMs: VIDEO_CORRECTION_START_MS, elapsedMs, maxAbsMs, maxSampleGapMs, firstVideoMs, seekCount,
       interrupted, verdict, samples: [...samples],
     };
     publish({ phase: 'finished', elapsedMs, rate: 1, report, maxAbsMs, sampleCount: samples.length,

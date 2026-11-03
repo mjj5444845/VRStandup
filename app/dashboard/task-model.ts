@@ -1,6 +1,6 @@
 export const STATUS = {
   complete: { label: '已完成', description: '这一项交付已完成；不代表所属阶段或整套系统已验收。' },
-  desktop: { label: 'Mac 已验证', description: '已有代码和 Mac 结果；Windows、Quest 3 或正式场景仍需各自验收。' },
+  desktop: { label: '部分环境已验证', description: '已有部分平台或连接方式的实测结果；未完成的设备、连接方式与正式场景仍需分别验收。' },
   planned: { label: '待开展', description: '已经进入计划，尚未完成这一项的开发或实际检查。' },
   confirm: { label: '待确认', description: '需要先确认研究依据、素材格式或设备能力，才能落实实现。' },
   paused: { label: '已暂缓', description: '按当前安排暂缓，已有进展和未通过项都保留。' },

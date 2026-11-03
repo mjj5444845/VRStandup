@@ -39,6 +39,8 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
   const [filters, setFilters] = useState<Filters>({ ...EMPTY_FILTERS });
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(['M0']));
   const totals = useMemo(() => summarize(catalog.tasks), [catalog]);
+  const windowsVerified = catalog.tasks.find((task) => task.id === 'P05')?.status === 'complete';
+  const questVerified = catalog.tasks.find((task) => task.id === 'T03')?.status === 'complete';
   const filtered = useMemo(() => filterTasks(catalog, filters), [catalog, filters]);
   const visibleStages = catalog.stages.filter((stage) => filtered.some((task) => task.stage === stage.id));
   const allExpanded = visibleStages.length > 0 && visibleStages.every((stage) => expanded.has(stage.id));
@@ -59,7 +61,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
   const cards = [
     { value: totals.mainline, label: '主线任务', note: `另保留 ${totals.reference} 项历史参考`, type: 'total' },
     { value: totals.complete, label: '已完成交付', note: '任务自身已交付，阶段仍单独验收', type: 'complete' },
-    { value: totals.desktop, label: 'Mac 已验证', note: '其他平台与正式场景需分别验证', type: 'desktop' },
+    { value: totals.desktop, label: '部分环境已验证', note: '查看任务内的平台、连接方式与待验收项', type: 'desktop' },
     { value: totals.pending, label: '待推进任务', note: `含 ${totals.confirm} 项待确认、${totals.paused} 项已暂缓`, type: 'pending' },
   ];
 
@@ -80,7 +82,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
           </button>)}
         </nav>
         <div className={styles.sidebarFoot}>
-          <span className={styles.environmentLabel}>运行安排</span><p>Mac 开发<span>→</span>Windows 11 实验室</p><p className={styles.headsetNote}><span />Quest 3 · 连接调试已暂缓</p>
+          <span className={styles.environmentLabel}>运行安排</span><p>Mac 开发<span>→</span>Windows 11 实验室</p><p className={styles.headsetNote}><span />Quest 3 · {questVerified ? 'USB 进入与退出 VR 已实测' : '连接结果见 T03 任务'}</p>
         </div>
       </aside>
 
@@ -100,15 +102,15 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
         <section className={styles.contextGrid} aria-label="当前开发情况">
           <div className={styles.focusCard}>
             <div className={styles.panelEyebrow}><span className={styles.focusDot} />当前进展</div>
-            <h2>准备网页与条件规则已就绪，<br />真实录制等待头显恢复。</h2>
+            <h2>{questVerified ? <>Quest 3 连接已恢复，<br />真实录制仍待实现。</> : <>准备网页与条件规则已就绪，<br />设备验收见下方任务。</>}</h2>
             <p>参与者准备、实验员工作台和独立检查目录已可用；模拟回放与模块分层已验证，正式剧场和实验服务仍待接入。</p>
             <div className={styles.focusLinks}><button onClick={() => choose({ stage: 'M0', kind: 'all', status: 'all', query: '' })}>查看技术验证任务<Arrow /></button><button onClick={() => choose({ stage: 'M5', kind: 'art', status: 'all', query: '' })}>模型精修计划 · 7 项<Arrow /></button></div>
           </div>
           <div className={styles.boundaries}>
             <h2>验收范围</h2>
             <div><span>Mac 本机检查</span><b className={styles.verified}>已有结果</b></div>
-            <div><span>Windows 11 运行</span><b>待实测</b></div>
-            <div><span>Quest 3 进入与退出 VR</span><b className={styles.waiting}>已暂缓</b></div>
+            <div><span>Windows 11 运行</span><b className={windowsVerified ? styles.verified : styles.waiting}>{windowsVerified ? '安装运行已验证' : '待实测'}</b></div>
+            <div><span>Quest 3 进入与退出 VR</span><b className={questVerified ? styles.verified : styles.waiting}>{questVerified ? 'USB 已实测' : '结果见 T03'}</b></div>
             <div><span>正式完整实验</span><b>尚未开放</b></div>
             <p>当前显示项目记录，不是实时设备监控。</p>
           </div>
@@ -130,7 +132,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
               <button className={styles.stageHeading} aria-expanded={isOpen} aria-controls={`stage-${stage.id}`} onClick={() => toggle(stage.id)}>
                 <span className={styles.stageNumber}>{stage.id === 'PREP' ? '准备' : stage.id === 'REF' ? '参考' : stage.id}</span>
                 <span className={styles.stageText}><span className={styles.stageTitle}>{stage.name}<span>{stage.title}</span></span><span className={styles.stagePurpose}>{stage.purpose}</span></span>
-                <span className={styles.stageProgress}><b>{tasks.length} 项任务</b><small>{stage.id === 'REF' ? '不计入主线统计' : `${stats.complete} 已完成 · ${stats.desktop} Mac 已验证`}</small></span>
+                <span className={styles.stageProgress}><b>{tasks.length} 项任务</b><small>{stage.id === 'REF' ? '不计入主线统计' : `${stats.complete} 已完成 · ${stats.desktop} 部分验证`}</small></span>
                 <span className={styles.chevron} aria-hidden="true">{isOpen ? '−' : '＋'}</span>
               </button>
               <div id={`stage-${stage.id}`} className={styles.stageBody} hidden={!isOpen}>{isOpen && tasks.map((task) => <TaskRow key={task.id} task={task} catalog={catalog} />)}</div>

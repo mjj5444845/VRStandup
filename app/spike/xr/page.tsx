@@ -15,7 +15,7 @@ export default function XrCheckPage() {
       </p>
       <SceneCheck enableVR />
       <p className={styles.note}><Link href="/spike/network">下一步：两个网页传消息 ↗</Link></p>
-      <p className={styles.note}>在头显中请使用实验电脑提供的 HTTPS 地址。这里尚未接入正式实验流程或数据记录。</p>
+      <p className={styles.note}>局域网访问请使用实验电脑提供的可信 HTTPS 地址；USB 调试转发可在头显使用 localhost。以浏览器实际认可的安全环境与 VR 进入结果为准。这里尚未接入正式实验流程或数据记录。</p>
     </main>
   );
 }

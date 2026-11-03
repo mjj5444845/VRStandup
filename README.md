@@ -2,7 +2,7 @@
 
 基于 Three.js 与 WebXR 开发的虚拟脱口秀研究系统。目标是让演员预录动作和声音，由三维虚拟演员在剧场中回放，参与者观看并与花字互动。
 
-当前可用：开发进度看板、参与者浏览器准备、实验员准备工作台，以及三维回放等独立技术检查。正式演员录制、剧场与完整实验流程仍在开发；视频检查仅保留为历史参考。
+当前可用：开发进度看板、参与者浏览器准备、实验员准备工作台，以及真实头部/双手/声音录制和三维回放的独立技术检查。正式演员录制系统、剧场与完整实验流程仍在开发；视频检查仅保留为历史参考。
 
 使用 macOS 开发，目标运行环境为 Windows 11 实验室电脑，无需依赖 Vercel。
 
@@ -26,7 +26,7 @@ npm run spike:net
 ```
 
 打开 [开发进度看板](http://127.0.0.1:3001/)、[参与者准备](http://127.0.0.1:3001/study)、[实验员工作台](http://127.0.0.1:3001/lab) 或 [技术检查目录](http://127.0.0.1:3001/checks)。
-独立检查也可以直接打开 [三维动作回放](http://127.0.0.1:3001/spike/replay)、[通信检查](http://127.0.0.1:3001/spike/network)、[音画同步检查](http://127.0.0.1:3001/spike/media) 或 [视频去背景检查](http://127.0.0.1:3001/spike/chroma)。头显连接需使用 HTTPS，配置方法见 [头显连接指南](docs/guides/05-第二个工作-HTTPS与头显连接.txt)。
+独立检查也可以直接打开 [真实动作与声音录制](http://127.0.0.1:3001/spike/record)、[模拟三维动作回放](http://127.0.0.1:3001/spike/replay)、[通信检查](http://127.0.0.1:3001/spike/network)、[音画同步检查](http://127.0.0.1:3001/spike/media) 或 [视频去背景检查](http://127.0.0.1:3001/spike/chroma)。头显局域网访问使用可信 HTTPS；已授权的 USB 调试可转发到头显 localhost，配置与实测范围见 [头显连接指南](docs/guides/05-第二个工作-HTTPS与头显连接.txt)。
 
 ## 项目结构
 
@@ -48,6 +48,7 @@ npm run spike:net
 ## 文档
 
 - [准备页与工作台使用](docs/guides/11-准备网页与条件规则.txt) · [跨平台自动检查](docs/guides/12-GitHub跨平台自动检查.txt)
+- [真实动作与声音录制检查](docs/guides/13-真实动作与声音录制检查.txt)：Quest 校准、采集、本机保存和重新读取回放。
 - [文档目录](docs/README.md)：按用途查找操作说明和设计资料。
 - [任务清单](docs/project/tasks.json)（首页数据来源） · [当前状态](docs/project/STATUS.txt) · [开发计划](docs/project/ROADMAP.md) · [检查记录](docs/project/VALIDATION.md)
 - [系统设计](docs/design/SYSTEM_GUIDE.md) · [演员录制与回放](docs/design/PERFORMER_RECORDING.md) · [剧场建模参考](docs/design/SCENE_REFERENCE.md)

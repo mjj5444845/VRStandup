@@ -4,7 +4,7 @@ import {
   WebGLRenderer, type BufferGeometry, type Material,
 } from 'three';
 import { createReplayAudio, createReplayFixture } from './replay-fixture';
-import { INITIAL_TRANSPORT, JOINTS, pauseTransport, sampleReplay, startTransport, transportTime, type Joint, type PoseFrame, type Transport } from './replay-rules';
+import { INITIAL_TRANSPORT, JOINTS, pauseStalledTransport, pauseTransport, sampleReplay, startTransport, transportTime, type Joint, type PoseFrame, type Transport } from './replay-rules';
 
 export type View = 'front' | 'left' | 'right';
 export type MarkerRecord = { markerMs: number; sampledAtMs: number; submittedAtMs: number; submissionDelayMs: number };
@@ -162,7 +162,7 @@ export function createReplayCheck(container: HTMLElement, onChange: (state: Repl
       catch (error) { next.disconnect(); throw error; }
       source = next;
       transport = nextTransport;
-      starting = false; previousFrameMs = undefined;
+      starting = false; previousFrameMs = transport.offsetMs;
       if (wasPaused) resumes++;
       message = '正在回放。每次节拍声对应右手抬高和上方圆灯闪亮。';
       publish(true);
@@ -186,6 +186,18 @@ export function createReplayCheck(container: HTMLElement, onChange: (state: Repl
   function tick() {
     if (disposed || failed) return;
     try {
+      if (transport.phase === 'playing') {
+        const clockMs = transport.offsetMs + Math.max(0, (context?.currentTime ?? transport.anchorS) - transport.anchorS) * 1000;
+        const previousMs = previousFrameMs ?? transport.offsetMs;
+        maxFrameGapMs = Math.max(maxFrameGapMs, clockMs - previousMs);
+        const stalled = pauseStalledTransport(transport, previousMs, clockMs, clip.durationMs);
+        if (stalled) {
+          interruptions++;
+          transport = stalled;
+          pause('画面出现超过 250 毫秒的停顿，已暂停在最后可靠进度。请保持页面在前台后点击继续；本轮保留中断记录。');
+          return;
+        }
+      }
       const timeMs = position();
       const frame = sampleReplay(clip, timeMs);
       apply(frame);

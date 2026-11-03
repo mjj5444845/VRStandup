@@ -9,7 +9,9 @@ export type XrSupport = {
 /** Report actual browser capabilities without requesting an immersive session. */
 export async function inspectXrSupport(): Promise<XrSupport> {
   const result: XrSupport = {
-    connection: window.location.protocol === 'https:' ? 'HTTPS 加密连接' : 'HTTP 预览，头显连接需使用 HTTPS',
+    connection: window.location.protocol === 'https:' ? 'HTTPS 加密连接'
+      : window.isSecureContext ? 'HTTP 本机安全环境（可用于 USB 转发检查）'
+      : 'HTTP 非安全连接，局域网头显访问需使用可信 HTTPS',
     secure: window.isSecureContext,
     supported: false,
     message: '',

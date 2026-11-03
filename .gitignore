@@ -74,6 +74,7 @@ next-env.d.ts
 # Local media-check reports and unfinished fixture generation.
 punchcap-media-check-*.json
 punchcap-replay-check-*.json
+punchcap-recording-check-*.json
 /public/study/checks/media-clock/.generate-*/
 /public/study/checks/chroma/.generate-*/
 

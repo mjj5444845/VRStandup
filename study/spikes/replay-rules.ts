@@ -110,3 +110,17 @@ export function pauseTransport(transport: Transport, contextS: number, durationM
   const offsetMs = transportTime(transport, contextS, durationMs);
   return { phase: offsetMs >= durationMs ? 'ended' : 'paused', offsetMs, anchorS: contextS };
 }
+
+// Match the media check's scheduling guard. This is an interruption detector,
+// not a motion/audio synchronization acceptance threshold.
+export const MAX_REPLAY_FRAME_GAP_MS = 250;
+
+/** Resume at the last observed frame instead of silently skipping a rendering stall. */
+export function pauseStalledTransport(transport: Transport, previousMs: number, currentMs: number, durationMs: number): Transport | null {
+  if (![previousMs, currentMs, durationMs].every(Number.isFinite)
+    || previousMs < 0 || currentMs < previousMs || durationMs <= 0 || previousMs > durationMs) {
+    throw new Error('回放画面时钟无效。');
+  }
+  if (transport.phase !== 'playing' || currentMs - previousMs <= MAX_REPLAY_FRAME_GAP_MS) return null;
+  return { ...transport, phase: 'paused', offsetMs: previousMs };
+}
