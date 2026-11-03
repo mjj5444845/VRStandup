@@ -389,11 +389,11 @@
       "stage": "M0",
       "module": "启动体验",
       "kind": "spike",
-      "status": "planned",
+      "status": "automated",
       "title": "一次操作开启声音与 VR",
       "purpose": "验证用户进入时能按预期解锁声音和 XR 会话。",
       "outcome": "观众进入后可顺利开始观看，无需排查权限和静音。",
-      "current": "三维方案的联合解锁尚未验证。",
+      "current": "2026-11-03：联合启用声音与requestSession已接入，声音上下文跨片段复用并有自动资源检查；真实Quest一次操作、退出再入仍按H01验收。",
       "acceptance": "目标头显验证启动、失败提示及退出恢复。",
       "dependencies": [
         "T03",
@@ -409,7 +409,7 @@
       "title": "三维演员与场景帧率验证",
       "purpose": "在演员、观众、花字和射线同时存在时测量负载。",
       "outcome": "确定正式场景可承受的模型、材质和效果预算。",
-      "current": "尚未在真实头显测试完整负载。",
+      "current": "2026-11-03：完整场景已集成帧数/经过时间/刷新率/绘制次数记录，报告提示低于90%刷新率目标。自动夹具不代表真实头显性能，H02待测。",
       "acceptance": "平均帧率达到头显刷新率的 90%，保留设备和负载记录。",
       "dependencies": [
         "T03",
@@ -425,7 +425,7 @@
       "title": "头显内中文面板检查",
       "purpose": "确认头显浏览器能清楚绘制评分和问卷中文。",
       "outcome": "正式评分和问卷能在 VR 内阅读和作答。",
-      "current": "用户已在 Quest 沉浸式录制原型看见 Canvas 中文校准提示；评分、问卷全文和选项可读性及作答面板仍待实现与验收。",
+      "current": "2026-11-03：VR题目/选项面板与Noto Sans SC字体已接入；旧HUD实测保留，当前完整问卷可读性与作答按H03集中验收。",
       "acceptance": "中文无方块字，题目和选项在头显内清晰。",
       "dependencies": [
         "T03"
@@ -740,121 +740,128 @@
       "stage": "M5",
       "module": "三维引擎",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "正式渲染引擎与素材加载",
       "purpose": "集中管理场景、声音、输入、帧循环和资源释放。",
       "outcome": "正式模块可以组合运行，不叠加画面或声音。",
-      "current": "已有独立检查，正式引擎未实现。",
+      "current": "2026-11-03：正式 Three.js 单帧循环、按需 GLB/图片/字体加载、WebXR 输入与销毁已实现；实际交付模型读取及共享资源释放自动检查通过。Quest 满负载集中验收。",
       "acceptance": "反复进入、退出与换片段均正确释放资源。",
       "dependencies": [
         "C01",
         "A02",
         "L01"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V02",
       "stage": "M5",
       "module": "剧场空间",
       "kind": "art",
-      "status": "planned",
+      "status": "automated",
       "title": "统一场景坐标、分组与物体中心",
       "purpose": "把参考草模整理为可替换资产的稳定布局。",
       "outcome": "更换精细模型时不必重新摆放整个场地。",
-      "current": "已发现原 GLB 使用 Z 向上、位置写入顶点；尚未实际整理。",
+      "current": "2026-11-03：Soft Clay Club 运行场景采用米制/Y 向上；四桌各三椅加后排十二椅，与设计表及实际 GLB 24 个节点逐一比对通过。演员旋转朝向与记录坐标统一；旧参考包宽深/门洞和实机视线待核对。",
       "acceptance": "统一方向、尺寸和摆放点，核对 24 个座位位置。",
       "dependencies": [
         "P07"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V03",
       "stage": "M5",
       "module": "座椅精修",
       "kind": "art",
-      "status": "planned",
+      "status": "desktop",
       "title": "精细样椅与全场座椅",
       "purpose": "制作软垫、椅背、椅腿及材质样例，再扩展全场。",
       "outcome": "座椅具有可信外观，同时保留座高、占地和布局。",
-      "current": "尚未制作样椅，布料或皮革细节待样例确认。",
+      "current": "2026-11-03 已确认样椅原 GLB 保持原 SHA-256，复用到整套候选的 24 座；同模型三视图和源件齐全，Windows 读取通过。原包宽深比对、真实坐姿穿插、正式接入与 Quest 待验收。 本轮已接入运行入口并通过交付GLB/坐标/动画与释放自动检查；可公开工作副本随本次上传，精细外观、真实身体/口型与Quest验收继续保留。",
       "acceptance": "先确认一把样椅，再复用到全场并检查穿插。",
       "dependencies": [
         "V02"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V04",
       "stage": "M5",
       "module": "墙地面精修",
       "kind": "art",
-      "status": "planned",
+      "status": "desktop",
       "title": "墙面、地板与收口细节",
       "purpose": "完善砖墙、护墙板、木地板及边缘。",
       "outcome": "场地材质比例统一，空间有完整的视觉结构。",
-      "current": "尚未制作精修墙地面。",
+      "current": "2026-11-03 已完成奶油墙、浅木地板和绿色护墙板模块及三组颜色/法线/粗糙度图，1 米纹理比例；踢脚线、门框、顶棚及源件已交付。Windows 读取通过；原包门洞、通道、视线与 Quest 待验收。 本轮已接入运行入口并通过交付GLB/坐标/动画与释放自动检查；可公开工作副本随本次上传，精细外观、真实身体/口型与Quest验收继续保留。",
       "acceptance": "纹理比例正确，门洞、通道与主要视线保留。",
       "dependencies": [
         "V02"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V05",
       "stage": "M5",
       "module": "灯光精修",
       "kind": "art",
-      "status": "planned",
+      "status": "desktop",
       "title": "舞台灯、观众暖光与局部灯",
       "purpose": "分开设置舞台主光、壁灯、桌灯与观众区照明。",
       "outcome": "演员、花字与场景层次清楚，画面不过曝。",
-      "current": "参考图的照明未完整保存在 GLB，实际灯光尚未重建。",
+      "current": "2026-11-03 已交付舞台灯、壁灯、桌灯、灯架及独立暖光候选预设，离线场景预览可读。灯具模型与真实光源分开；未做校准光度或 Quest 亮度/性能实测。 本轮已接入运行入口并通过交付GLB/坐标/动画与释放自动检查；可公开工作副本随本次上传，精细外观、真实身体/口型与Quest验收继续保留。",
       "acceptance": "在头显核对可读性、亮度与性能，不能只检查灯具模型。",
       "dependencies": [
         "V02",
         "T09"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V06",
       "stage": "M5",
       "module": "装饰精修",
       "kind": "art",
-      "status": "planned",
+      "status": "desktop",
       "title": "幕布、地毯、海报与道具细节",
       "purpose": "完善音箱、控制台及剧场装饰。",
       "outcome": "形成完整场所感，同时保留交互与观看空间。",
-      "current": "尚未精修装饰资产。",
+      "current": "2026-11-03 已完成幕布、地毯、三张原创海报、后墙招牌、话筒/支架、音箱、道具架、控制台、书本和盆栽。GLB/源件/同模型三视图及中文 SVG/PNG 已交付，Windows 读取通过；正式视线与跨设备验收待测。 本轮已接入运行入口并通过交付GLB/坐标/动画与释放自动检查；可公开工作副本随本次上传，精细外观、真实身体/口型与Quest验收继续保留。",
       "acceptance": "不遮挡演员、花字、出入口和主要视线。",
       "dependencies": [
         "V03",
         "V04"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V07",
       "stage": "M5",
       "module": "正式演员模型",
       "kind": "art",
-      "status": "planned",
+      "status": "desktop",
       "title": "接入并精修三维演员",
       "purpose": "将已验证的动作驱动接到正式演员模型。",
       "outcome": "观众看到具有稳定比例和表现的三维演员。",
-      "current": "当前仅有测试点和静态躯干占位。",
+      "current": "2026-11-03 已完成 Soft Clay Club 演员和五种观众可编辑原型，各 51 骨骼、6 段制作动画、3 个表情形变；蒙皮、节点唯一和正式映射驱动器模拟变换通过。分块蒙皮原型未替代真人录制、身体推算、口型或正式接入验收。 本轮已接入运行入口并通过交付GLB/坐标/动画与释放自动检查；可公开工作副本随本次上传，精细外观、真实身体/口型与Quest验收继续保留。",
       "acceptance": "核对头手驱动、身体推算、比例与穿模；表情口型分项验收。",
       "dependencies": [
         "A03",
         "V01"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V08",
       "stage": "M5",
       "module": "模型交付",
       "kind": "art",
-      "status": "planned",
+      "status": "desktop",
       "title": "模型导出、来源登记与实机检查",
       "purpose": "整理模型与贴图来源，导出 GLB 并核对跨设备效果。",
       "outcome": "资产可以在网页稳定加载，来源和性能可追溯。",
-      "current": "正式精修模型尚未导出或实机验收。",
+      "current": "2026-11-03 本机整套候选包含 36 个自包含 GLB、36 张三视图总板、208 张预览、源件、资产卡、字体与声音许可。Windows Edge 离线切换全部模型及六段动作/六声音读取通过。整场 617 网格/646124 三角面；Mac、Quest、正式接入与优化仍待验收。 本轮已接入运行入口并通过交付GLB/坐标/动画与释放自动检查；可公开工作副本随本次上传，精细外观、真实身体/口型与Quest验收继续保留。",
       "acceptance": "Mac、Windows、Quest 3 核对布局、外观、帧率与清理。",
       "dependencies": [
         "V03",
@@ -862,257 +869,272 @@
         "V05",
         "V06",
         "V07"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V09",
       "stage": "M5",
       "module": "演员播放器",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "正式动作与声音播放器",
       "purpose": "按统一音频时间播放真实动作，处理暂停续播与结束。",
       "outcome": "真实演员片段可以在实验中可靠重复播放。",
-      "current": "模拟回放已验证，正式素材加载和播放器未实现。",
+      "current": "2026-11-03：私密素材库校验后按音频主时钟驱动头手、暂停/恢复/回应/结束，Soft Clay Club 演员表面缺失保护已实现。自动流程通过；真人物理同步、身体推算与姿势衔接品质待验收。",
       "acceptance": "真实片段对齐动作与声音，保存同步和异常记录。",
       "dependencies": [
         "A02",
         "T07",
         "V01"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "V10",
       "stage": "M5",
       "module": "参与者与观众",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "参与者座位与虚拟观众",
       "purpose": "建立固定座位、独立观看视角和观众动作。",
       "outcome": "观众在一致的实验空间中观看，笑声与观众表现配合。",
-      "current": "/study 已有浏览器准备检查与操作引导，见 P11；正式剧场、座位与观众尚未实现。",
+      "current": "2026-11-03：正式运行入口已载入五种观众，按24座摆放且隐藏当前参与者位置的人物；坐姿/笑声动作按媒体时间采样，位置和动态检查通过。参与者座位目前固定默认20号，正式分配与舒适度待确认。",
       "acceptance": "视线、座位边界、观众动作与性能在头显验收。",
       "dependencies": [
         "V01",
         "V02",
         "V09"
       ],
-      "route": "/study"
+      "route": "/study/demo"
     },
     {
       "id": "F01",
       "stage": "M6",
       "module": "花字锚点",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "跟随三维手部的花字锚点",
       "purpose": "将花字绑定到回放手部、头部或舞台位置。",
       "outcome": "花字能配合演员动作，不再依赖二维视频标注。",
-      "current": "三维锚点方案已确定，正式模块未实现。",
+      "current": "2026-11-03：头手锚点随三维采样、米制比例及演员朝向统一；追踪缺失隐藏、姿态恢复后重现，规则和交互事件自动检查通过。",
       "acceptance": "偏移、坐标变换和缺失追踪处理正确。",
       "dependencies": [
         "V09",
         "C03"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "F02",
       "stage": "M6",
       "module": "花字呈现",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "花字显示、消失与资源管理",
       "purpose": "控制贴图、淡入、生存时间和同屏数量。",
       "outcome": "花字按统一规则出现，不积累过多资源或遮挡。",
-      "current": "尚未实现正式花字层。",
+      "current": "2026-11-03：媒体主时钟控制显示/过期、最多两项与回应前后缓存，几何/材质/共享纹理分层释放已实现；实机连续换片待测。",
       "acceptance": "生存时间与同屏上限符合规则，结束后完整回收。",
       "dependencies": [
         "F01",
         "C03"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "F03",
       "stage": "M6",
       "module": "条件与素材",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "花字素材、条件过滤与事件",
       "purpose": "准备写意/间离素材，按条件显示并记录事件。",
       "outcome": "各实验条件差异可核对，出现时间可分析。",
-      "current": "没有正式花字素材及过滤运行代码。",
+      "current": "2026-11-03：已接入8款原创花字PNG、统一条件权限和显示/交互事件；工程配置明确引用资产编号，缺失编号拒绝冒充成功。正式语义与时点审核待确认。",
       "acceptance": "按 A–D 条件正确筛选，时间窗与显示事件可追溯。",
       "dependencies": [
         "F02",
         "C02",
         "A05"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "I01",
       "stage": "M7",
       "module": "手柄交互",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "手柄射线与抓取、松开",
       "purpose": "识别可交互花字并保持抓取时的位置。",
       "outcome": "观众可以用手柄查看和操纵允许交互的花字。",
-      "current": "正式手柄交互尚未实现。",
+      "current": "2026-11-03：手柄射线/扳机抓取松开及桌面辅助操作已实现，条件限制和交互证据校验通过；Quest 输入可达性待测。",
       "acceptance": "只操作可交互对象，松开和退出时状态正确。",
       "dependencies": [
         "F03",
         "T03"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "I02",
       "stage": "M7",
       "module": "双手操作",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "双手拉伸与尺寸限制",
       "purpose": "根据两手距离调整花字大小。",
       "outcome": "观众可在统一范围内改变花字大小。",
-      "current": "尚未实现双手拉伸。",
+      "current": "2026-11-03：双手距离拉伸和桌面滚轮/按钮已实现；0.5–2.5工程比例边界、追踪缺失保护自动检查通过。实机舒适范围待测。",
       "acceptance": "缩放范围、双手切换和松开路径正确。",
       "dependencies": [
         "I01"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "I03",
       "stage": "M7",
       "module": "投掷与挂载",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "投掷、落点与自身挂载",
       "purpose": "计算释放速度、舞台落点和允许的挂载行为。",
       "outcome": "D 条件具备可记录的空间互动。",
-      "current": "尚未实现正式投掷、舞台判定与挂载。",
+      "current": "2026-11-03：重力投掷、舞台/地面/越界落点、自身挂载及落点记录已实现；确定性碰撞自动检查通过。实际手柄速度与贴身位置待测。",
       "acceptance": "条件限制、轨迹、落点与事件一致，挂载仅作用于参与者自身。",
       "dependencies": [
         "I01",
         "I02",
         "C02"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "I04",
       "stage": "M7",
       "module": "预录回应",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "回应选择、动作切换与主片段续播",
       "purpose": "由控制台在允许窗口触发同一演员的预录回应。",
       "outcome": "异步表演也能按实验规则回应观众互动。",
-      "current": "尚未实现回应播放与姿势衔接。",
+      "current": "2026-11-03：舞台落点在D条件与允许窗口内自动切入已登记回应，最多两次，主进度保留；真实服务自动验证两次回应与第三次不触发。工程回应为测试动作/节拍，真人衔接与语义选择待审核。",
       "acceptance": "回应窗口和次数正确，动作、声音和花字一起切换并恢复。",
       "dependencies": [
         "I03",
         "A05",
         "V09",
         "L05"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "D01",
       "stage": "M8",
       "module": "评分与问卷",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "VR 内评分和问卷界面",
       "purpose": "在头显内展示题目、接收选项并提交。",
       "outcome": "参与者在实验流程中完成规定测量。",
-      "current": "正式界面尚未实现，题目与量表待确认。",
+      "current": "2026-11-03：桌面与VR中文单选/数值/文本问卷、必填范围校验和版本化答案已实现；暂停禁答且保留同页输入。中文字体随包，长文本VR改用桌面输入；真实量表与头显可读性待验收。",
       "acceptance": "题目版本、条件与答案对应正确，中文可读。",
       "dependencies": [
         "C06",
         "T10",
         "V10"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "D02",
       "stage": "M8",
       "module": "观看朝向",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "朝向采样与演员视线角度",
       "purpose": "记录观众朝向及其与三维演员头部方向的关系。",
       "outcome": "可分析观众观看舞台和演员的情况。",
-      "current": "正式朝向采样与视线角度计算尚未实现。",
+      "current": "2026-11-03：媒体时间+经过时间下10Hz采样三维头姿，记录缺失和桌面/XR来源；从双方三维位置重算视线夹角，禁止客户端直接报角度。自动几何检查通过，真实定位待测。",
       "acceptance": "使用回放头部位置，时间可对齐，缺失区间可识别。",
       "dependencies": [
         "V09",
         "V10",
         "L04"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "D03",
       "stage": "M8",
       "module": "实验录音",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "领夹麦录音与保存",
       "purpose": "记录观众实验过程的音频与起止时间。",
       "outcome": "实验录音可以与会话事件对齐分析。",
-      "current": "尚未实现，需与演员预录声音分开管理。",
+      "current": "2026-11-03：明确用户操作后启用MediaRecorder，按播放/暂停分段、保存至场次私密目录；失败副本保留供下载/重试。模拟录音和实际HTTP保存校验通过，领夹麦设备测试待测。",
       "acceptance": "录音、上传、保存与会话起止可核对，文件仅留授权位置。",
       "dependencies": [
         "L04",
         "L05"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "D04",
       "stage": "M8",
       "module": "统一数据",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "评分、问卷、朝向与录音对齐",
       "purpose": "把不同数据放到同一实验时间轴核对。",
       "outcome": "研究结果可复查，不出现答案、条件或时间错位。",
-      "current": "正式数据整合与核验尚未实现。",
+      "current": "2026-11-03：问卷、朝向、互动、性能、录音时间标记统一轮次/片段上下文；报告与CSV、文件哈希、重复保存、损坏拒绝和匿名导出校验通过。真实麦克风延迟另测。",
       "acceptance": "参与者、轮次、片段和时间一致，异常有记录。",
       "dependencies": [
         "D01",
         "D02",
         "D03",
         "L03"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "Q01",
       "stage": "M9",
       "module": "完整流程",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "串联练习、轮次与异常中止",
       "purpose": "把各模块接成一次完整实验。",
       "outcome": "实验员可以按研究方案完成整场流程。",
-      "current": "正式完整流程尚未接通。",
+      "current": "2026-11-03：前测→练习→四轮→条件后问卷→后测完整工程流程已接通，退出/中断保护与重连恢复沿用持久日志；真实WS/HTTP完整自动流程通过。正式模式仍待研究审核。",
       "acceptance": "从准备到结束可跑通，失败与中止路径可恢复和追溯。",
       "dependencies": [
         "I04",
         "D04"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "Q02",
       "stage": "M9",
       "module": "场后核查",
       "kind": "feature",
-      "status": "planned",
+      "status": "automated",
       "title": "检查数据完整性与独立备份",
       "purpose": "自动核对会话文件、事件和录音是否齐全。",
       "outcome": "实验结束后能及时发现缺项并保护数据。",
-      "current": "正式场后检查工具尚未实现。",
+      "current": "2026-11-03：场后报告检查播放/问卷/朝向/性能/要求录音，终态私密备份与哈希验证、全新服务恢复自动检查通过；同机副本不等于独立介质备份，目标盘验收待测。",
       "acceptance": "真实会话文件通过核查，原始资料备份可读。",
       "dependencies": [
         "Q01",
         "P09"
-      ]
+      ],
+      "route": "/study/demo"
     },
     {
       "id": "Q03",

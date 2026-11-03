@@ -44,6 +44,7 @@ export function Dashboard({ catalog, systemOrigin }: { catalog: Catalog; systemO
   const totals = useMemo(() => summarize(catalog.tasks), [catalog]);
   const windowsVerified = catalog.tasks.find((task) => task.id === 'P05')?.status === 'complete';
   const questVerified = catalog.tasks.find((task) => task.id === 'T03')?.status === 'complete';
+  const integratedReady = ['V01','V02','V09','V10','F01','F02','F03','I01','I02','I03','I04','D01','D02','D03','D04','Q01','Q02'].every(id => ['automated','complete'].includes(catalog.tasks.find(t => t.id === id)?.status ?? ''));
   const m4Ready = catalog.tasks.filter(task => task.stage === 'M4').every(task => ['automated', 'complete'].includes(task.status));
   const filtered = useMemo(() => filterTasks(catalog, filters), [catalog, filters]);
   const visibleStages = catalog.stages.filter((stage) => filtered.some((task) => task.stage === stage.id));
@@ -94,7 +95,7 @@ export function Dashboard({ catalog, systemOrigin }: { catalog: Catalog; systemO
         <header className={styles.topbar}><span className={styles.breadcrumb}>项目工作台 <span>/</span> 开发总览</span><div><SystemLink className={styles.previewButton} href="/" origin={systemOrigin}>系统入口<Arrow diagonal /></SystemLink><span className={styles.date}>状态截至 {catalog.updatedAt}</span><a className={styles.previewButton} href="https://github.com/mjj5444845/VRStandup/blob/main/docs/project/NEXT_STEPS.md">下一步工作<Arrow diagonal /></a></div></header>
         <section className={styles.hero} aria-labelledby="dashboard-title">
           <p className={styles.eyebrow}>从技术验证，到完整实验</p>
-          <h1 id="dashboard-title">开发进度看板<span className={styles.phaseTag}>{m4Ready ? '软件开发至 M4 · 待集中验收' : '技术验证与正式模块开发'}</span></h1>
+          <h1 id="dashboard-title">开发进度看板<span className={styles.phaseTag}>{integratedReady ? 'M5–M9 工程流程已接通 · 待集中验收' : m4Ready ? '软件开发至 M4 · 待集中验收' : '技术验证与正式模块开发'}</span></h1>
           <p className={styles.description}>每项任务归属于哪里、为什么要做、完成意味着什么，都在这里。<br className={styles.desktopBreak} />统计按任务条目计算，平台与设备验收分别标注。</p>
           <div className={styles.systemFlow} aria-label="系统主流程">
             {['演员预录动作与声音', '三维演员异步回放', '观众与花字互动', '实验数据与测量'].map((step, i) => <span key={step}><b>{String(i + 1).padStart(2, '0')}</b>{step}{i < 3 && <Arrow />}</span>)}
@@ -106,8 +107,8 @@ export function Dashboard({ catalog, systemOrigin }: { catalog: Catalog; systemO
         <section className={styles.contextGrid} aria-label="当前开发情况">
           <div className={styles.focusCard}>
             <div className={styles.panelEyebrow}><span className={styles.focusDot} />当前进展</div>
-            <h2>{m4Ready ? <>软件开发已推进到 M4，<br />实机项目集中验收。</> : <>录制与基础验证已有结果，<br />正式模块继续推进。</>}</h2>
-            <p>正式录制、私密素材整理、会话服务、重连与日志已有独立入口；真实剧场、最终资产、研究确认与设备验收分别记录。</p>
+            <h2>{integratedReady ? <>Soft Clay Club 已接入，<br />完整工程流程可预演。</> : m4Ready ? <>软件开发已推进到 M4，<br />实机项目集中验收。</> : <>录制与基础验证已有结果，<br />正式模块继续推进。</>}</h2>
+            <p>录制、私密素材库、剧场、互动、问卷与报告已串联。研究配置、真人表演、全身/口型和集中实机验收继续逐项确认。</p>
             <div className={styles.focusLinks}><button onClick={() => choose({ stage: 'M0', kind: 'all', status: 'all', query: '' })}>查看技术验证任务<Arrow /></button><button onClick={() => choose({ stage: 'M5', kind: 'art', status: 'all', query: '' })}>模型精修计划 · 7 项<Arrow /></button></div>
           </div>
           <div className={styles.boundaries}>

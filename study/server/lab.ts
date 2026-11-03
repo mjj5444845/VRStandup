@@ -4,6 +4,9 @@ import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { WebSocket, WebSocketServer } from 'ws';
 import type { IncomingMessage } from 'node:http';
 import type { Duplex } from 'node:stream';
+import { applyEvidence } from '../core/execution';
+import { validateMeasurementAudio } from '../core/measurement';
+import { backupSession } from '../storage/measurements';
 import { applyAction, connectionChanged, createSession, type Session } from '../core/session';
 import { MAX_MESSAGE_BYTES, parseHello, parseRequest, type Hello, type Receipt, type Request, type ServerMessage } from '../core/protocol';
 import { readBundle } from '../storage/assets';
@@ -69,6 +72,7 @@ export async function createLab(options: { dataRoot: string; assetRoot: string; 
       assert(who.role === 'operator' && !stored, '当前身份不能创建，或场次编号已经存在。');
       assert(command.mode !== 'study' || options.allowStudy, 'M4 只开放工程预演；正式研究还需要 M5–M9 与集中验收。');
       const state = createSession(command.sessionId, command.participantId, command.plan, command.mode, Date.now());
+      if (command.integrated) state.execution = { kind: 'integrated', practiceMs: 0, responseMs: 0, answers: [], audioRequired: command.audioRequired ?? false };
       if (options.verifyAssets !== false) for (const clip of state.plan.clips) { const b = await readBundle(options.assetRoot, clip.id); assert(canonicalJson(b.manifest) === canonicalJson(clip), `配置与本机素材 ${clip.id} 不一致。`); }
       const joinKey = randomBytes(24).toString('base64url'), credentials: Credentials = { participantHash: sha256(joinKey), participantKey: joinKey, boundClientId: null };
       // Keys live only in private credentials, never in the audit journal or snapshots.
@@ -79,7 +83,7 @@ export async function createLab(options: { dataRoot: string; assetRoot: string; 
     }
     assert(stored, '场次不存在。');
     let receipt: Receipt, next: Session;
-    try { next = applyAction(stored.state, command, who.role, Date.now()); receipt = { v: 1, type: 'receipt', id: req.id, ok: true, snapshot: next }; }
+    try { if (command.kind === 'capture') { assert(who.role === 'participant', '只有参与者端可以提交播放、作答与采样记录。'); next = applyEvidence(stored.state, command.evidence, Date.now()); } else next = applyAction(stored.state, command, who.role, Date.now()); receipt = { v: 1, type: 'receipt', id: req.id, ok: true, snapshot: next }; }
     catch (error) { next = stored.state; receipt = { v: 1, type: 'receipt', id: req.id, ok: false, error: error instanceof Error ? error.message : '操作失败', snapshot: next }; }
     if (receipt.ok && command.kind === 'resetParticipant') {
       const newKey = randomBytes(24).toString('base64url'); stored.credentials = { boundClientId: null, participantHash: sha256(newKey), participantKey: newKey }; await atomicJson(path.join(stored.directory, 'credentials.json'), stored.credentials);
@@ -127,5 +131,21 @@ export async function createLab(options: { dataRoot: string; assetRoot: string; 
     for (const s of sessions.values()) if (s.state.connected) await commit(s, connectionChanged(s.state, false, Date.now()), { type: 'server-stopping' });
     identities.clear(); live.clear(); for (const socket of server.clients) socket.terminate(); await new Promise<void>(resolve => server.close(() => resolve())); await serial;
   }
-  return { upgrade, close, sessions: () => [...sessions.values()].map(s => s.state), operatorAuthorized: (key: string) => secureEqual(key, options.operatorKey), participantAuthorized: (sessionId: string, key: string) => { const s = sessions.get(sessionId); return Boolean(s && secureEqual(sha256(key), s.credentials.participantHash)); }, journal: (sessionId: string) => sessions.get(sessionId)?.journal.entries() ?? [] };
+  async function recordAudio(sessionId: string, value: unknown, clientId: string, participantKey: string) {
+    return schedule(async () => {
+      const stored = sessions.get(sessionId), a = validateMeasurementAudio(value); assert(stored && stored.state.execution && a.sessionId === sessionId && a.participantId === stored.state.participantId, '录音会话身份不符。');
+      assert(stored.credentials.boundClientId === clientId && secureEqual(sha256(participantKey), stored.credentials.participantHash), '录音身份已被替换，原件保留待复查。');
+      const state = stored.state, round = state.plan.assignments.find(p => p.participantId === state.participantId)!.rounds[a.round];
+      assert(a.clipId === round.clipId || a.clipId === state.plan.practiceClipId, '录音主片段不符。');
+      for (const marker of a.markers) { const clip = state.plan.clips.find(c => c.id === marker.context.clipId); assert(clip && marker.mediaMs <= clip.durationMs && (clip.id === a.clipId || clip.id === state.plan.practiceClipId || (state.plan.responses[round.clipId] ?? []).includes(clip.id)), '录音标记引用了其他片段。'); }
+      const prior = stored.journal.entries().find(e => object(e.event) && e.event.type === 'measurement-audio' && object(e.event.audio) && e.event.audio.id === a.id);
+      if (prior) { assert(object(prior.event) && canonicalJson(prior.event.audio) === canonicalJson(a), '录音回执内容不一致。'); return; }
+      await commit(stored, state, { type: 'measurement-audio', audio: a });
+    });
+  }
+  async function backup(sessionId: string, destination: string) {
+    let result: Awaited<ReturnType<typeof backupSession>> | undefined;
+    await schedule(async () => { const s = sessions.get(sessionId); assert(s && ['completed', 'aborted'].includes(s.state.stage), '仅在场次结束后备份，避免活动文件变化。'); result = await backupSession(root, sessionId, destination); }); return result!;
+  }
+  return { recordAudio, backup, upgrade, close, sessions: () => [...sessions.values()].map(s => s.state), operatorAuthorized: (key: string) => secureEqual(key, options.operatorKey), participantAuthorized: (sessionId: string, key: string, clientId?: string) => { const s = sessions.get(sessionId); return Boolean(s && secureEqual(sha256(key), s.credentials.participantHash) && (clientId === undefined || s.credentials.boundClientId === clientId)); }, journal: (sessionId: string) => sessions.get(sessionId)?.journal.entries() ?? [] };
 }

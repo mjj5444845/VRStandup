@@ -137,3 +137,12 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .formal button:disabled { opacity: .48; cursor: not-allowed; }
 .formal button:focus-visible, .formal input:focus-visible, .formal textarea:focus-visible, .formal select:focus-visible { outline: 3px solid #86a8ce; outline-offset: 3px; }
 .formal details { margin: 18px 0; line-height: 1.7; }
+.run-system { display: grid; gap: 18px; margin: 25px 0; }
+.run-banner { display: flex; flex-wrap: wrap; gap: 12px; padding: 15px 20px; background: #e5eedc; border: 1px solid #c4d4b6; border-radius: 8px; font-size: 13px; }
+.run-banner span { color: #596c51; }
+.run-scene { width: 100%; height: min(62vh, 620px); min-height: 320px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #c5cabb; }
+.run-scene:empty::before { content: '正在准备三维场景…'; display: block; padding: 40px; }
+.run-questionnaire fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 15px 20px; margin: 20px 0; }
+.run-questionnaire legend { font-size: 15px; line-height: 1.8; padding: 0 8px; }
+.formal .run-option { display: flex; align-items: center; gap: 12px; }
+.formal .run-option input[type="radio"] { width: 20px; height: 20px; margin: 0; }

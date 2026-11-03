@@ -5,7 +5,7 @@ export function Portal() {
   return <main className={styles.portal}>
     <header className={styles.header}><Link className={styles.brand} href="/">PUNCHCAP<span>虚拟脱口秀</span></Link><a href="https://mjj5444845.github.io/VRStandup/">开发进度 ↗</a></header>
     <section className={styles.hero}>
-      <div><p className={styles.eyebrow}>一场表演 · 你的观看视角</p><h1>走进剧场，<br/>让笑点发生。</h1><p className={styles.intro}>戴上头显，在虚拟剧场中观看演员表演，体验文字与空间交织的互动。</p><Link className={styles.primary} href="/study">我是参与者 <span aria-hidden="true">→</span></Link><p className={styles.availability}><span/>设备准备与流程预演可用 · 正式实验尚未开放</p></div>
+      <div><p className={styles.eyebrow}>一场表演 · 你的观看视角</p><h1>走进剧场，<br/>让笑点发生。</h1><p className={styles.intro}>戴上头显，在虚拟剧场中观看演员表演，体验文字与空间交织的互动。</p><Link className={styles.primary} href="/study">我是参与者 <span aria-hidden="true">→</span></Link><p><Link href="/study/demo">先参观 Soft Clay Club 并体验完整预演 ↗</Link></p><p className={styles.availability}><span/>设备准备与流程预演可用 · 正式实验尚未开放</p></div>
       <div className={styles.scene} role="img" aria-label="舞台与观众席的简化示意"><div className={styles.beam}/><div className={styles.stage}><span>PUNCHCAP</span><div className={styles.microphone}/></div><div className={styles.seats}>{Array.from({length:24},(_,i)=><i key={i}/>)}</div><span className={styles.sceneNote}>同一场表演，自己的位置。</span></div>
     </section>
     <section className={styles.roles} aria-label="选择使用身份">

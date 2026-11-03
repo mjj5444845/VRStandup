@@ -23,7 +23,7 @@ async function main() {
   const app = next({ dev, dir: root, hostname: host, port }); await app.prepare(); const request = app.getRequestHandler(), upgrade = app.getUpgradeHandler();
   const running = await startLabServer({ host, port, tls, operatorKey, dataRoot: path.resolve(values.get('--data') ?? 'data/sessions'), assetRoot: path.resolve(values.get('--assets') ?? 'local_assets/performances'), page: (req, res) => { void request(req, res); }, upgradePage: upgrade });
   console.log(`实验室服务已启动：${tls ? 'https' : 'http'}://${host}:${running.port}/lab/session`); console.log(`本机访问密钥文件：${access}。原始凭据不会打印到日志。`);
-  console.log('当前开放 M4 工程预演；正式剧场与集中实机验收完成前不能运行正式研究。');
+  console.log('当前开放 Soft Clay Club 完整工程预演；真人表演、研究配置及集中实机验收完成前不能运行正式研究。');
   let stopping = false; const close = async () => { if (stopping) return; stopping = true; await running.close(); await app.close(); };
   process.once('SIGINT', () => { void close(); }); process.once('SIGTERM', () => { void close(); });
 }

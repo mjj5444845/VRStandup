@@ -1,0 +1,299 @@
+{
+  "schema": "punchcap-public-club-v1",
+  "version": "v1",
+  "source": "Soft Clay Club v1 candidate; user authorized runtime integration and upload on 2026-11-03",
+  "files": [
+    {
+      "file": "models/scene-empty.glb",
+      "bytes": 1981236,
+      "sha256": "89fde7cfaa61a96fd217b10008f9b80a2a6ced31066b5a318922a806847c8074"
+    },
+    {
+      "file": "models/actor.glb",
+      "bytes": 4312872,
+      "sha256": "5754f997a9dba861d398e6041723168d98c6e743084ef5cda0da351b1ff8b1e3"
+    },
+    {
+      "file": "models/audience-01.glb",
+      "bytes": 4422708,
+      "sha256": "7b7df25f29a8f0515af9322f926f01ba3a6766432dd53d926bb7bec06a496b26"
+    },
+    {
+      "file": "models/audience-02.glb",
+      "bytes": 4422708,
+      "sha256": "8ffd14ce9ca6e47dcc274f8b9a91c8d9a0d8edd9b06f9075812e5f418c3d699e"
+    },
+    {
+      "file": "models/audience-03.glb",
+      "bytes": 4422700,
+      "sha256": "7a01b440ace35a144ae83f5acf4f2995ada2ecfd73f8ca4c85614a89d7fc35d9"
+    },
+    {
+      "file": "models/audience-04.glb",
+      "bytes": 4312880,
+      "sha256": "a427963e374867c836a77ee06d74d6af054dc34b2e1adcfbf108b9484b336fc2"
+    },
+    {
+      "file": "models/audience-05.glb",
+      "bytes": 4422712,
+      "sha256": "14ed766601da53bc43a954d7f1597064281456e8778ac0ff8a68bdeecaaf88ea"
+    },
+    {
+      "file": "graphics/expressive-wow.png",
+      "bytes": 17891,
+      "sha256": "5061c0e462d97d59ba660acfa11ed156368bb9779f12c09553a375cba9a08521"
+    },
+    {
+      "file": "graphics/expressive-eh.png",
+      "bytes": 20909,
+      "sha256": "5cd9ff943c904edaa594adbc58b6b47f02b7837f13892116c387bc59c9ea077a"
+    },
+    {
+      "file": "graphics/expressive-got-it.png",
+      "bytes": 21763,
+      "sha256": "eb7f656589a76cc12172d7f1caed31d4377cb3e5a89c5409a63917b1095e0f71"
+    },
+    {
+      "file": "graphics/expressive-steady.png",
+      "bytes": 24293,
+      "sha256": "7a605195c09a83bec19a2c5237823205e9d56aef76bd25da09deb648dbaab16d"
+    },
+    {
+      "file": "graphics/distancing-plan.png",
+      "bytes": 34455,
+      "sha256": "18691a3dda1fa8759a47ab0f6daf9bdcec23b756a1b535a627d8fda40c24d12a"
+    },
+    {
+      "file": "graphics/distancing-mood.png",
+      "bytes": 30218,
+      "sha256": "1823d718a0aec5be6411a699a36537ddb62af4e5d8bef419003f5bb5edc09486"
+    },
+    {
+      "file": "graphics/distancing-logic.png",
+      "bytes": 29727,
+      "sha256": "8df7a9a6dd0aaea11af2e7c269540c57b2d207378c3af6fcd72fa806dddd5fe1"
+    },
+    {
+      "file": "graphics/distancing-twist.png",
+      "bytes": 28906,
+      "sha256": "4f3d3f12e5c03e861b2683d14f1bda932c8557eb0b9e3cea1c552b4c80eb7544"
+    },
+    {
+      "file": "audio/working/laugh-soft.wav",
+      "bytes": 564524,
+      "sha256": "9adbe5b6f78244a04d8c15318fc2d20d64eeb0ef4aa666017ca39e95554ef324"
+    },
+    {
+      "file": "audio/working/laugh-burst.wav",
+      "bytes": 1058444,
+      "sha256": "30c3ea38fc63fca0444058b1065d39cefe449a70dd082de77e033307c0de8e6f"
+    },
+    {
+      "file": "audio/working/laugh-short.wav",
+      "bytes": 370488,
+      "sha256": "957ae6aaccff843bc834dc467dfa5bb628dc727e746932f1e7052b245e27f477"
+    },
+    {
+      "file": "audio/working/applause-short.wav",
+      "bytes": 529244,
+      "sha256": "997e3a3e324f23cebcfcc4c569ae04830b2f7667cb2c11dec9830785a4babb44"
+    },
+    {
+      "file": "audio/working/applause-medium.wav",
+      "bytes": 705644,
+      "sha256": "7e35886759d30c05f488fc37153f00a03ecdbb3b618c45fcc212d00a5b86f48b"
+    },
+    {
+      "file": "audio/working/applause-long.wav",
+      "bytes": 1199564,
+      "sha256": "67bac94dc0705c417367d7850c9da9463c869552a95791e702ad6bd531972add"
+    },
+    {
+      "file": "fonts/NotoSansSC-Variable.ttf",
+      "bytes": 17772300,
+      "sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da"
+    },
+    {
+      "file": "fonts/OFL.txt",
+      "bytes": 4388,
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "file": "rigs/actor-mapping.json",
+      "bytes": 491,
+      "sha256": "984967da56947102631c2197b903565aa82a38f99d5f30704bb4adce42f8a6de"
+    },
+    {
+      "file": "scene-layout.json",
+      "bytes": 2884,
+      "sha256": "a0a9c8a6b39633c3f1b1b0f493ce27e1d945481a40010641e9eb50fb37e64d9f"
+    },
+    {
+      "file": "lighting.json",
+      "bytes": 693,
+      "sha256": "33ea5f74aef5545c807a3104031a913437e67e6d3e3f9ecb886cb576aef9688c"
+    }
+  ],
+  "graphics": [
+    {
+      "id": "expressive-wow",
+      "text": "哇！",
+      "kind": "expressive",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": false
+    },
+    {
+      "id": "expressive-eh",
+      "text": "啊？",
+      "kind": "expressive",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": false
+    },
+    {
+      "id": "expressive-got-it",
+      "text": "懂了！",
+      "kind": "expressive",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": false
+    },
+    {
+      "id": "expressive-steady",
+      "text": "稳住",
+      "kind": "expressive",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": false
+    },
+    {
+      "id": "distancing-plan",
+      "text": "这就叫规划",
+      "kind": "distancing",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": true
+    },
+    {
+      "id": "distancing-mood",
+      "text": "情绪稳定中",
+      "kind": "distancing",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": true
+    },
+    {
+      "id": "distancing-logic",
+      "text": "逻辑正在加载",
+      "kind": "distancing",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": true
+    },
+    {
+      "id": "distancing-twist",
+      "text": "反转来了",
+      "kind": "distancing",
+      "conditionRule": "effective interaction is controlled by study/core/conditions.ts; no event timing fixed here",
+      "defaultThrowable": true
+    }
+  ],
+  "audio": [
+    {
+      "id": "laugh-soft",
+      "file": "audio/working/laugh-soft.wav",
+      "source": "audio/originals/crowd-laughter-43.wav",
+      "startSeconds": 0.15,
+      "endSeconds": 3.35,
+      "duration": 3.2,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peakDbfs": -3.6743808428852063,
+      "rmsDbfs": -23.75283230050494,
+      "clippedSamples": 0,
+      "processing": "trim, 120 ms fades, peak ceiling only; no research loudness target applied",
+      "sourceType": "provider AI-generated sound effect, not human recording",
+      "license": "CC0-1.0",
+      "approval": "candidate; listening and study suitability pending"
+    },
+    {
+      "id": "laugh-burst",
+      "file": "audio/working/laugh-burst.wav",
+      "source": "audio/originals/crowd-laughter-47.wav",
+      "startSeconds": 0.2,
+      "endSeconds": 6.2,
+      "duration": 6,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peakDbfs": -1.7237229523256667,
+      "rmsDbfs": -19.796788263107544,
+      "clippedSamples": 0,
+      "processing": "trim, 120 ms fades, peak ceiling only; no research loudness target applied",
+      "sourceType": "provider AI-generated sound effect, not human recording",
+      "license": "CC0-1.0",
+      "approval": "candidate; listening and study suitability pending"
+    },
+    {
+      "id": "laugh-short",
+      "file": "audio/working/laugh-short.wav",
+      "source": "audio/originals/crowd-laughter-43.wav",
+      "startSeconds": 0.35,
+      "endSeconds": 2.45,
+      "duration": 2.1000226757369616,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peakDbfs": -3.6743808428852063,
+      "rmsDbfs": -22.73961762492044,
+      "clippedSamples": 0,
+      "processing": "trim, 120 ms fades, peak ceiling only; no research loudness target applied",
+      "sourceType": "provider AI-generated sound effect, not human recording",
+      "license": "CC0-1.0",
+      "approval": "candidate; listening and study suitability pending"
+    },
+    {
+      "id": "applause-short",
+      "file": "audio/working/applause-short.wav",
+      "source": "audio/originals/crowd-applause-59.wav",
+      "startSeconds": 0.15,
+      "endSeconds": 3.15,
+      "duration": 3,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peakDbfs": -1.9423098530946838,
+      "rmsDbfs": -26.581782652378152,
+      "clippedSamples": 0,
+      "processing": "trim, 120 ms fades, peak ceiling only; no research loudness target applied",
+      "sourceType": "provider AI-generated sound effect, not human recording",
+      "license": "CC0-1.0",
+      "approval": "candidate; listening and study suitability pending"
+    },
+    {
+      "id": "applause-medium",
+      "file": "audio/working/applause-medium.wav",
+      "source": "audio/originals/crowd-applause-59.wav",
+      "startSeconds": 1,
+      "endSeconds": 5,
+      "duration": 4,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peakDbfs": -1.9423098530946838,
+      "rmsDbfs": -26.892011405294816,
+      "clippedSamples": 0,
+      "processing": "trim, 120 ms fades, peak ceiling only; no research loudness target applied",
+      "sourceType": "provider AI-generated sound effect, not human recording",
+      "license": "CC0-1.0",
+      "approval": "candidate; listening and study suitability pending"
+    },
+    {
+      "id": "applause-long",
+      "file": "audio/working/applause-long.wav",
+      "source": "audio/originals/crowd-applause-59.wav",
+      "startSeconds": 0,
+      "endSeconds": 6.8,
+      "duration": 6.8,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peakDbfs": -1.9423098530946838,
+      "rmsDbfs": -28.13685404889612,
+      "clippedSamples": 0,
+      "processing": "trim, 120 ms fades, peak ceiling only; no research loudness target applied",
+      "sourceType": "provider AI-generated sound effect, not human recording",
+      "license": "CC0-1.0",
+      "approval": "candidate; listening and study suitability pending"
+    }
+  ]
+}

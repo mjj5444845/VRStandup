@@ -1,0 +1,209 @@
+{
+  "seatCount": 24,
+  "tableCount": 4,
+  "seats": [
+    {
+      "id": "Table_1_Chair_1",
+      "position": [
+        -2.16,
+        0,
+        -1.08
+      ]
+    },
+    {
+      "id": "Table_1_Chair_2",
+      "position": [
+        -1.55,
+        0,
+        -0.59
+      ]
+    },
+    {
+      "id": "Table_1_Chair_3",
+      "position": [
+        -0.94,
+        0,
+        -1.08
+      ]
+    },
+    {
+      "id": "Table_2_Chair_1",
+      "position": [
+        0.94,
+        0,
+        -1.08
+      ]
+    },
+    {
+      "id": "Table_2_Chair_2",
+      "position": [
+        1.55,
+        0,
+        -0.59
+      ]
+    },
+    {
+      "id": "Table_2_Chair_3",
+      "position": [
+        2.16,
+        0,
+        -1.08
+      ]
+    },
+    {
+      "id": "Table_3_Chair_1",
+      "position": [
+        -2.16,
+        0,
+        0.65
+      ]
+    },
+    {
+      "id": "Table_3_Chair_2",
+      "position": [
+        -1.55,
+        0,
+        1.14
+      ]
+    },
+    {
+      "id": "Table_3_Chair_3",
+      "position": [
+        -0.94,
+        0,
+        0.65
+      ]
+    },
+    {
+      "id": "Table_4_Chair_1",
+      "position": [
+        0.94,
+        0,
+        0.65
+      ]
+    },
+    {
+      "id": "Table_4_Chair_2",
+      "position": [
+        1.55,
+        0,
+        1.14
+      ]
+    },
+    {
+      "id": "Table_4_Chair_3",
+      "position": [
+        2.16,
+        0,
+        0.65
+      ]
+    },
+    {
+      "id": "Rear_R1_C1",
+      "position": [
+        -2.23,
+        0,
+        2.56
+      ]
+    },
+    {
+      "id": "Rear_R1_C2",
+      "position": [
+        -1.338,
+        0,
+        2.56
+      ]
+    },
+    {
+      "id": "Rear_R1_C3",
+      "position": [
+        -0.446,
+        0,
+        2.56
+      ]
+    },
+    {
+      "id": "Rear_R1_C4",
+      "position": [
+        0.446,
+        0,
+        2.56
+      ]
+    },
+    {
+      "id": "Rear_R1_C5",
+      "position": [
+        1.338,
+        0,
+        2.56
+      ]
+    },
+    {
+      "id": "Rear_R1_C6",
+      "position": [
+        2.23,
+        0,
+        2.56
+      ]
+    },
+    {
+      "id": "Rear_R2_C1",
+      "position": [
+        -2.23,
+        0,
+        3.62
+      ]
+    },
+    {
+      "id": "Rear_R2_C2",
+      "position": [
+        -1.338,
+        0,
+        3.62
+      ]
+    },
+    {
+      "id": "Rear_R2_C3",
+      "position": [
+        -0.446,
+        0,
+        3.62
+      ]
+    },
+    {
+      "id": "Rear_R2_C4",
+      "position": [
+        0.446,
+        0,
+        3.62
+      ]
+    },
+    {
+      "id": "Rear_R2_C5",
+      "position": [
+        1.338,
+        0,
+        3.62
+      ]
+    },
+    {
+      "id": "Rear_R2_C6",
+      "position": [
+        2.23,
+        0,
+        3.62
+      ]
+    }
+  ],
+  "room": [
+    10.4,
+    3.6,
+    10.4
+  ],
+  "stage": [
+    6.4,
+    0.36,
+    2.28
+  ],
+  "source": "docs/design/SCENE_REFERENCE.md and scene-seats.csv; seat yaw, door dimensions and body clearance remain candidate"
+}

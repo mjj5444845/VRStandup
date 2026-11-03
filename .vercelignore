@@ -47,3 +47,7 @@ punchcap-recording-check-*.json
 
 punchcap-take-*.json
 punchcap-session-*.json
+punchcap-run-*.json
+punchcap-report-*.json
+punchcap-report-*.csv
+punchcap-measurement-*

@@ -2,7 +2,7 @@
 
 基于 Three.js 与 WebXR 开发的虚拟脱口秀研究系统。目标是让演员预录动作和声音，由三维虚拟演员在剧场中回放，参与者观看并与花字互动。
 
-当前软件已开发到 M4：统一数据规则、演员录制与私密素材库、会话服务、可靠通信、日志和控制台预演。每阶段先自动检查，设备项目留到集中验收；最终研究配置、真实资产、剧场与完整测量界面尚待确认和后续接入。
+当前M5–M9工程流程已接通：录制与私密素材库、Soft Clay Club三维剧场、花字互动、四轮问卷、实验录音与完整性报告。每阶段先自动检查，设备集中验收；正式研究配置、真人表演、全身/口型和预实验继续单独确认。
 
 使用 macOS 开发，Windows 11 实验室电脑运行会话与私密数据服务。
 
@@ -72,3 +72,5 @@ npm run spike:net
 - [文档目录](docs/README.md)：按用途查找操作说明和设计资料。
 - [任务清单](docs/project/tasks.json)（看板数据来源） · [当前状态](docs/project/STATUS.txt) · [开发计划](docs/project/ROADMAP.md) · [检查记录](docs/project/VALIDATION.md)
 - [系统设计](docs/design/SYSTEM_GUIDE.md) · [演员录制与回放](docs/design/PERFORMER_RECORDING.md) · [剧场建模参考](docs/design/SCENE_REFERENCE.md)
+
+完整工程流程与已接入资产的当前说明见 [交付范围](docs/project/FULL-SYSTEM-DELIVERY.md) 和 [运行指南](docs/guides/18-完整系统与场景预演.txt)。
