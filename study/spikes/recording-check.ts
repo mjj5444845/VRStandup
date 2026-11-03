@@ -1,13 +1,14 @@
 import { BoxGeometry, CanvasTexture, Color, GridHelper, HemisphereLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, PlaneGeometry, Scene, SphereGeometry, WebGLRenderer } from 'three';
-import { base64Bytes, makeCalibration, pcmWave, RECORDING_SECONDS, sampleRecording, validateRecording, waveBytes, type Calibration, type CapturedFrame, type CapturedPose, type InputDevice, type RecordedTake } from './recording-rules';
+import { base64Bytes, hasRecordingFrameGap, makeCalibration, MAX_RECORDING_FRAME_GAP_MS, pcmWave, RECORDING_SECONDS, sampleRecording, validateRecording, waveBytes, type Calibration, type CapturedFrame, type CapturedPose, type InputDevice, type RecordedTake } from './recording-rules';
 import { INITIAL_TRANSPORT, pauseStalledTransport, pauseTransport, startTransport, transportTime, type Pose, type Transport } from './replay-rules';
+import { createPcmCapture, type CaptureResult } from './recording-capture';
 
 type Phase = 'idle' | 'preparing' | 'ready' | 'recording' | 'stopping' | 'captured' | 'playing' | 'paused' | 'error';
 export type RecordingState = {
-  phase: Phase; message: string; inVR: boolean; calibrated: boolean; elapsedMs: number; frames: number;
-  summary: { source: RecordedTake['source']; durationMs: number; frames: number; head: number; left: number; right: number; estimated: number; interrupted: boolean; rms: number } | null;
+  phase: Phase; message: string; inVR: boolean; calibrated: boolean; microphoneActive: boolean; elapsedMs: number; frames: number;
+  summary: { source: RecordedTake['source']; durationMs: number; frames: number; head: number; left: number; right: number; estimated: number; interrupted: boolean; rms: number; stopReason: string; bufferedPrefix: boolean } | null;
 };
-export const INITIAL_RECORDING: RecordingState = { phase: 'idle', message: '先准备麦克风，再进入 VR 校准和录制。', inVR: false, calibrated: false, elapsedMs: 0, frames: 0, summary: null };
+export const INITIAL_RECORDING: RecordingState = { phase: 'idle', message: '先准备麦克风，再进入 VR 校准和录制。', inVR: false, calibrated: false, microphoneActive: false, elapsedMs: 0, frames: 0, summary: null };
 export type RecordingCheck = {
   prepare: () => Promise<void>; cancelPreparation: () => void; enterVR: () => Promise<void>; exitVR: () => Promise<void>;
   calibrate: () => void; start: () => void; stop: () => void; play: () => Promise<void>; pause: () => void;
@@ -30,24 +31,23 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
   const painter = panelCanvas.getContext('2d'); if (!painter) { renderer.dispose(); throw new Error('Canvas unavailable'); }
   const texture = new CanvasTexture(panelCanvas), panelMaterial = new MeshBasicMaterial({ map: texture });
   const panel = new Mesh(geometries[2], panelMaterial); panel.position.set(0, 1.55, -2); scene.add(panel);
-  let state = { ...INITIAL_RECORDING }, disposed = false, generation = 0, publishedAt = 0, panelText = '';
+  let state = { ...INITIAL_RECORDING }, disposed = false, generation = 0, publishedAt = 0, panelText = '', placePrompt = true;
   let session: XRSession | undefined, pendingVR: Promise<void> | undefined, reference: XRReferenceSpace | undefined, calibration: Calibration | undefined, captureCalibration: Calibration | undefined, latestHead: CapturedPose | null = null;
   let context: AudioContext | undefined, stream: MediaStream | undefined, input: MediaStreamAudioSourceNode | undefined, worklet: AudioWorkletNode | undefined, mute: GainNode | undefined;
   let take: RecordedTake | null = null, frames: CapturedFrame[] = [], events: RecordedTake['events'] = [], devices: InputDevice[] = [];
   const sourceIds = new Map<XRInputSource, string>();
-  let chunks: Float32Array[] = [], sampleCount = 0, startFrame = 0, interrupted = false, stopReason = '', processing: RecordedTake['audio']['processing'] = { echoCancellation: null, noiseSuppression: null, autoGainControl: null };
+  let startFrame = 0, capture: ReturnType<typeof createPcmCapture> | undefined, processing: RecordedTake['audio']['processing'] = { echoCancellation: null, noiseSuppression: null, autoGainControl: null };
   let transport: Transport = { ...INITIAL_TRANSPORT }, source: AudioBufferSourceNode | undefined, decoded: AudioBuffer | undefined, previousReplayMs = 0;
-  let stopTimer: ReturnType<typeof setTimeout> | undefined;
 
   function publish(patch: Partial<RecordingState> = {}, force = true) {
     if (disposed) return;
-    state = { ...state, ...patch, inVR: Boolean(session), calibrated: Boolean(calibration) };
+    state = { ...state, ...patch, inVR: Boolean(session), calibrated: Boolean(calibration), microphoneActive: stream?.getAudioTracks().some(track => track.readyState === 'live') ?? false };
     const now = performance.now(); if (!force && now - publishedAt < 150) return;
     publishedAt = now; onChange(state);
     const instruction = state.phase === 'error' ? '本轮未完成：扣扳机退出，查看提示'
       : state.phase === 'stopping' ? '正在收齐声音，请稍候…'
       : state.phase === 'recording' ? '录制中：15 秒自动结束'
-      : state.phase === 'captured' ? '录制结束：扣扳机退出 VR，下载文件'
+      : state.phase === 'captured' ? state.summary?.interrupted ? '本轮有中断：扣扳机退出后下载复查' : '录制结束：扣扳机退出 VR，下载文件'
       : !calibration ? '平视前方，扣一次扳机校准'
       : '已校准，再扣一次扳机开始录制';
     const text = `${instruction}|${state.elapsedMs.toFixed(0)}|${state.phase}`;
@@ -63,10 +63,11 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
     if (!context || !['recording', 'stopping'].includes(state.phase)) return;
     events.push({ tMs: Math.max(0, (context.currentTime - startFrame / context.sampleRate) * 1000), type, detail: detail.slice(0, 200) });
   }
+  function stopTracks() { stream?.getTracks().forEach(track => { track.onended = null; track.onmute = null; track.stop(); }); }
   function releaseMic() {
-    stream?.getTracks().forEach(track => { track.onended = null; track.onmute = null; track.stop(); }); stream = undefined;
+    capture?.cancel(); capture = undefined; stopTracks(); stream = undefined;
     input?.disconnect(); input = undefined;
-    if (worklet) { worklet.port.onmessage = null; worklet.port.close(); worklet.disconnect(); worklet = undefined; }
+    if (worklet) { worklet.onprocessorerror = null; worklet.port.onmessage = null; worklet.port.close(); worklet.disconnect(); worklet = undefined; }
     mute?.disconnect(); mute = undefined;
   }
   function stopSource() { if (source) { source.stop(); source.disconnect(); source = undefined; } }
@@ -83,17 +84,12 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
     publish({ phase: 'paused', elapsedMs: position(), message: '已暂停。切换观察角度不会改变进度。' });
   }
   function fail(message: string) {
-    clearTimeout(stopTimer); generation++; releaseMic(); stopSource();
+    generation++; releaseMic(); stopSource();
     if (context) { context.onstatechange = null; void context.close().catch(() => {}); context = undefined; }
     publish({ phase: 'error', message });
   }
   function stop(reason = 'user', abnormal = false) {
-    if (state.phase !== 'recording') return;
-    clearTimeout(stopTimer);
-    stopReason = reason; interrupted ||= abnormal; event(abnormal ? 'interrupted' : 'stop', reason);
-    publish({ phase: 'stopping', message: '正在收齐声音采样，请稍候…' });
-    worklet?.port.postMessage({ type: 'stop' });
-    stopTimer = setTimeout(() => fail('声音采样未能完整结束，请重新准备；本轮没有生成可用文件。'), 2000);
+    if (['recording', 'stopping'].includes(state.phase)) capture?.stop(reason, abnormal);
   }
   function summarize(value: RecordedTake, samples?: Float32Array) {
     const wave = waveBytes(value), view = new DataView(wave.buffer);
@@ -101,36 +97,39 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
     return { source: value.source, durationMs: value.durationMs, frames: value.frames.length, head: value.frames.filter(f => f.head).length,
       left: value.frames.filter(f => f.leftHand).length, right: value.frames.filter(f => f.rightHand).length,
       estimated: value.frames.filter(f => [f.head, f.leftHand, f.rightHand].some(p => p?.emulatedPosition)).length,
-      interrupted: value.interrupted, rms: Math.sqrt(energy / value.audio.frames) };
+      interrupted: value.interrupted, rms: Math.sqrt(energy / value.audio.frames), stopReason: value.stopReason,
+      bufferedPrefix: value.events.some(e => e.type === 'buffered-prefix') };
   }
-  function finishAudio(data: { frames: number; sampleRate: number; startFrame: number; reason: string }) {
+  function finishAudio(data: CaptureResult) {
     if (!context || !captureCalibration || !['recording', 'stopping'].includes(state.phase)) return;
-    clearTimeout(stopTimer);
-    if (data.reason !== 'user' && data.reason !== 'limit') { interrupted = true; stopReason = data.reason; }
-    if (data.startFrame !== startFrame || data.frames !== sampleCount || data.sampleRate !== context.sampleRate || !sampleCount) { fail('声音块计数或时钟不一致，本轮未通过完整性检查。'); return; }
-    const samples = new Float32Array(sampleCount); let offset = 0;
-    chunks.forEach(chunk => { samples.set(chunk, offset); offset += chunk.length; }); chunks = [];
-    const durationMs = sampleCount / context.sampleRate * 1000;
+    const samples = data.samples, durationMs = samples.length / context.sampleRate * 1000;
+    const capturedFrames = frames.filter(f => f.tMs <= durationMs), trackingGap = hasRecordingFrameGap(capturedFrames, durationMs);
+    const interrupted = data.interrupted || trackingGap, stopReason = trackingGap && !data.interrupted ? 'xr-frame-gap' : data.stopReason;
+    const captureEvents = events.filter(e => e.tMs <= durationMs);
+    if (trackingGap) captureEvents.push({ tMs: durationMs, type: 'tracking-coverage-gap', detail: 'Pose samples do not cover the audio without a long gap.' });
+    captureEvents.push({ tMs: durationMs, type: data.finalization === 'buffered-prefix' ? 'buffered-prefix' : 'capture-end', detail: data.audioStopReason });
     const candidate: RecordedTake = {
       schema: 'punchcap-recording-check-v1', source: 'device-capture', id: crypto.randomUUID(), createdAt: new Date().toISOString(), browser: navigator.userAgent,
       referenceSpace: 'local-floor', coordinates: 'right-handed-y-up-metres', durationMs, calibration: captureCalibration,
-      frames: frames.filter(f => f.tMs <= durationMs), devices: [...devices], interrupted, stopReason: stopReason || data.reason,
-      events: events.filter(e => e.tMs <= durationMs),
-      audio: { clock: 'audio-context-pcm-frames', sampleRate: context.sampleRate, frames: sampleCount, startContextFrame: startFrame,
+      frames: capturedFrames, devices: [...devices], interrupted, stopReason,
+      events: captureEvents,
+      audio: { clock: 'audio-context-pcm-frames', sampleRate: context.sampleRate, frames: samples.length, startContextFrame: startFrame,
         wavBase64: base64Bytes(pcmWave(samples, context.sampleRate)), baseLatencySeconds: context.baseLatency ?? null, processing },
     };
-    releaseMic(); decoded = undefined; transport = { ...INITIAL_TRANSPORT };
+    generation++; releaseMic(); decoded = undefined; transport = { ...INITIAL_TRANSPORT };
     try {
       take = validateRecording(candidate);
-      publish({ phase: 'captured', elapsedMs: durationMs, summary: summarize(take, samples),
-        message: interrupted ? '本轮有中断，记录已保留。退出 VR 后下载检查，不能记为完整录制。' : '本轮已录制。退出 VR 后先下载，再试听和读取文件回放。' });
+      publish({ phase: 'captured', elapsedMs: durationMs, frames: take.frames.length, summary: summarize(take, samples),
+        message: interrupted ? '本轮有中断，已保留有效片段并关闭麦克风。退出 VR 后下载复查；下轮需重新准备和校准。' : '本轮已录制，麦克风已关闭。退出 VR 后先下载，再试听和读取文件回放。' });
     } catch { fail('片段过短或动作/声音不完整，没有生成可回放文件。请重新准备。'); }
   }
   async function prepare() {
     if (disposed || session || ['preparing', 'recording', 'stopping', 'playing'].includes(state.phase)) return;
     const id = ++generation; releaseMic(); stopSource();
     const old = context; context = undefined; if (old) { old.onstatechange = null; void old.close().catch(() => {}); }
-    calibration = undefined; sourceIds.clear(); devices = []; decoded = undefined; take = null;
+    calibration = undefined; captureCalibration = undefined; latestHead = null; placePrompt = true;
+    sourceIds.clear(); devices = []; decoded = undefined; take = null;
+    show({ head: null, leftHand: null, rightHand: null });
     publish({ ...INITIAL_RECORDING, phase: 'preparing', message: '请按浏览器提示允许麦克风。声音只保存在本页。' });
     let pendingStream: MediaStream | undefined, pendingContext: AudioContext | undefined;
     try {
@@ -146,28 +145,27 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
       await pendingContext.audioWorklet.addModule('/study/checks/recording/pcm-capture.js');
       if (disposed || generation !== id) { pendingStream.getTracks().forEach(t => t.stop()); await pendingContext.close().catch(() => {}); return; }
       context = pendingContext; stream = pendingStream;
-      const settings = stream.getAudioTracks()[0].getSettings();
+      const microphoneTrack = stream.getAudioTracks()[0];
+      if (!microphoneTrack || microphoneTrack.readyState !== 'live' || microphoneTrack.muted || context.state !== 'running') throw new Error('声音输入未能保持可用，请重新准备麦克风。');
+      const settings = microphoneTrack.getSettings();
       processing = { echoCancellation: settings.echoCancellation ?? null, noiseSuppression: settings.noiseSuppression ?? null, autoGainControl: settings.autoGainControl ?? null };
       input = context.createMediaStreamSource(stream); worklet = new AudioWorkletNode(context, 'recording-pcm'); mute = context.createGain(); mute.gain.value = 0;
       input.connect(worklet).connect(mute).connect(context.destination);
       worklet.port.onmessage = ({ data }: MessageEvent<unknown>) => {
-        if (disposed || generation !== id || typeof data !== 'object' || data === null) return;
-        const message = data as Record<string, unknown>;
-        if (message.type === 'chunk' && message.samples instanceof Float32Array && typeof message.startFrame === 'number') {
-          if (message.startFrame !== startFrame + sampleCount || sampleCount + message.samples.length > RECORDING_SECONDS * context!.sampleRate) { fail('录音采样出现空档或超出上限，本轮停止。'); return; }
-          chunks.push(message.samples); sampleCount += message.samples.length;
-        } else if (message.type === 'error') fail('录音线程未能按预定时钟开始，请退出 VR 后重新准备。');
-        else if (message.type === 'stopped' && typeof message.frames === 'number' && typeof message.sampleRate === 'number' && typeof message.startFrame === 'number' && typeof message.reason === 'string') {
-          finishAudio({ frames: message.frames, sampleRate: message.sampleRate, startFrame: message.startFrame, reason: message.reason });
-        }
+        if (!disposed && generation === id) capture?.receive(data);
       };
-      stream.getTracks().forEach(track => { track.onended = () => stop('microphone-ended', true); track.onmute = () => stop('microphone-muted', true); });
-      context.onstatechange = () => { if (context?.state !== 'running') { stop('audio-context-interrupted', true); pause(); } };
+      worklet.onprocessorerror = () => { if (!disposed && generation === id) { if (capture) capture.invalid('worklet-error'); else fail('声音线程发生错误，请重新准备麦克风。'); } };
+      stream.getTracks().forEach(track => { track.onended = () => unavailable('microphone-ended'); track.onmute = () => unavailable('microphone-muted'); });
+      context.onstatechange = () => { if (context?.state !== 'running') { unavailable('audio-context-interrupted'); pause(); } };
       publish({ phase: 'ready', message: '麦克风已准备。进入 VR 后，平视前方，先扣一次扳机校准，再扣一次开始。' });
     } catch (error) {
       pendingStream?.getTracks().forEach(t => t.stop()); if (pendingContext && pendingContext !== context) void pendingContext.close().catch(() => {});
       if (!disposed && generation === id) fail(error instanceof DOMException && error.name === 'NotAllowedError' ? '麦克风未获允许。可以重新准备，由你确认浏览器提示。' : error instanceof Error ? error.message : '录音准备失败。');
     }
+  }
+  function unavailable(reason: string) {
+    if (state.phase === 'ready') fail('录制准备已中断，麦克风已关闭。请退出 VR 后重新准备和校准。');
+    else stop(reason, true);
   }
   function register(source: XRInputSource): string {
     let id = sourceIds.get(source);
@@ -184,24 +182,31 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
     if (!latestHead) { publish({ message: '当前没有有效头部追踪，请检查头显定位后再校准。' }); return; }
     try {
       calibration = makeCalibration(latestHead);
-      const c = calibration, x = c.origin[0] - Math.sin(c.yaw) * 2, z = c.origin[2] - Math.cos(c.yaw) * 2;
-      panel.position.set(x, 1.55, z); panel.rotation.y = c.yaw;
+      placePanel(calibration);
       publish({ message: '已记录地面、原点、正前方和头部高度。再次扣扳机开始录制。' });
     } catch (error) { publish({ message: error instanceof Error ? error.message : '校准失败。' }); }
+  }
+  function placePanel(c: Calibration) {
+    panel.position.set(c.origin[0] - Math.sin(c.yaw) * 2, c.headHeight, c.origin[2] - Math.cos(c.yaw) * 2); panel.rotation.y = c.yaw;
   }
   function start() {
     if (!session || !reference || !calibration || !context || !worklet || state.phase !== 'ready') return;
     if (context.state !== 'running') { fail('声音时钟已暂停，请退出 VR 后重新准备麦克风。'); return; }
     const microphone = stream?.getAudioTracks()[0];
-    if (!microphone || microphone.readyState !== 'live' || microphone.muted) { publish({ message: '麦克风已暂停或结束，请退出 VR 后重新准备。' }); return; }
-    frames = []; events = []; chunks = []; sampleCount = 0; stopReason = ''; interrupted = false;
+    if (!microphone || microphone.readyState !== 'live' || microphone.muted) { fail('麦克风已暂停或结束，请退出 VR 后重新准备。'); return; }
+    frames = []; events = [];
     captureCalibration = calibration;
     // A short scheduling lead gives both threads the same exact PCM origin.
     startFrame = Math.ceil((context.currentTime + .15) * context.sampleRate);
-    worklet.port.postMessage({ type: 'start', startFrame, maxFrames: Math.floor(context.sampleRate * RECORDING_SECONDS) });
+    capture = createPcmCapture({ sampleRate: context.sampleRate, startFrame,
+      sendStop: () => { if (!worklet) throw new Error('Audio worklet disconnected'); worklet.port.postMessage({ type: 'stop' }); },
+      onStopping: (reason, abnormal) => {
+        event(abnormal ? 'interrupted' : 'stop', reason);
+        if (abnormal) stopTracks();
+        publish({ phase: 'stopping', message: '正在收齐声音采样；若声音线程没有回复，将保留已收到的有效前半段。' });
+      }, onComplete: finishAudio });
     publish({ phase: 'recording', elapsedMs: 0, frames: 0, message: '正在录制头部、双手和声音；随时扣扳机停止，也会自动在 15 秒停止。' });
-    // Failure watchdog only; playback and recording timestamps use the audio clock.
-    stopTimer = setTimeout(() => stop('capture-watchdog', true), (RECORDING_SECONDS + 2) * 1000);
+    worklet.port.postMessage({ type: 'start', startFrame, maxFrames: Math.floor(context.sampleRate * RECORDING_SECONDS) });
   }
   function selected() {
     if (state.phase === 'ready') { if (calibration) start(); else calibrate(); }
@@ -210,7 +215,14 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
   }
   function inputChanged() { session?.inputSources.forEach(register); event('inputs-change', 'Input source list changed; per-frame IDs are preserved.'); }
   function resetSpace() { stop('reference-space-reset', true); calibration = undefined; publish({ message: '参考空间重设，本轮已中断；下次必须重新校准。' }); }
-  function xrVisibility() { if (session?.visibilityState !== 'visible') stop(`xr-${session?.visibilityState}`, true); }
+  function xrVisibility() { if (session?.visibilityState !== 'visible') unavailable(`xr-${session?.visibilityState}`); }
+  function pageVisibility() {
+    // Immersive XR visibility is authoritative while the headset is rendering.
+    if (!document.hidden || session?.visibilityState === 'visible') return;
+    if (!session && ['ready', 'preparing'].includes(state.phase)) cancelPreparation();
+    else unavailable('page-hidden');
+    pause();
+  }
   function sessionEnded() {
     const wasReady = state.phase === 'ready';
     stop('xr-session-ended', true);
@@ -231,7 +243,7 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
     try {
       const space = await current.requestReferenceSpace('local-floor');
       if (disposed || session !== current) { await current.end().catch(() => {}); return; }
-      reference = space; reference.addEventListener('reset', resetSpace); inputChanged();
+      reference = space; placePrompt = true; reference.addEventListener('reset', resetSpace); inputChanged();
       camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0); await renderer.xr.setSession(current);
       if (disposed || session !== current) { await current.end().catch(() => {}); return; }
       publish();
@@ -276,6 +288,10 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
       if (session && reference && xrFrame) {
         panel.visible = true;
         latestHead = pose(xrFrame.getViewerPose(reference));
+        if (placePrompt && latestHead && state.phase === 'ready') {
+          // Place a fresh prompt ahead of this session without applying calibration early.
+          try { placePanel(makeCalibration(latestHead)); placePrompt = false; } catch { /* Wait for a horizontal viewing direction. */ }
+        }
         const hand = (side: 'left' | 'right') => {
           const matching = [...session!.inputSources].filter(input => input.handedness === side);
           if (matching.length !== 1) return { id: null, pose: null };
@@ -286,7 +302,7 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
         if (state.phase === 'recording' && context) {
           const tMs = (context.currentTime - startFrame / context.sampleRate) * 1000;
           if (tMs >= 0 && tMs <= RECORDING_SECONDS * 1000 && (!frames.length || tMs > frames[frames.length - 1].tMs)) {
-            if (frames.length && tMs - frames[frames.length - 1].tMs > 250) stop('xr-frame-gap', true);
+            if (frames.length && tMs - frames[frames.length - 1].tMs > MAX_RECORDING_FRAME_GAP_MS) stop('xr-frame-gap', true);
             else frames.push({ tMs, predictedDisplayTimeMs: predictedMs, observedPerformanceTimeMs: performance.now(), head: latestHead, leftHand: left.pose, rightHand: right.pose, leftSource: left.id, rightSource: right.id });
           }
           publish({ elapsedMs: Math.max(0, Math.min(RECORDING_SECONDS * 1000, tMs)), frames: frames.length }, false);
@@ -310,7 +326,8 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
   const observer = new ResizeObserver(resize);
   function contextLost(e: Event) { e.preventDefault(); renderer.setAnimationLoop(null); if (state.phase === 'recording') stop('webgl-context-lost', true); else fail('三维画面已中断，请下载已有片段后刷新页面。'); }
   function dispose() {
-    if (disposed) return; disposed = true; generation++; clearTimeout(stopTimer);
+    if (disposed) return; disposed = true; generation++;
+    document.removeEventListener('visibilitychange', pageVisibility);
     observer.disconnect(); renderer.setAnimationLoop(null); renderer.domElement.removeEventListener('webglcontextlost', contextLost);
     releaseMic(); stopSource(); if (context) { context.onstatechange = null; void context.close().catch(() => {}); }
     reference?.removeEventListener('reset', resetSpace);
@@ -322,7 +339,7 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
   }
   try {
     renderer.domElement.setAttribute('role', 'img'); renderer.domElement.setAttribute('aria-label', '真实动作与声音录制检查画面'); renderer.domElement.style.cssText = 'width:100%;height:100%;display:block';
-    host.appendChild(renderer.domElement); renderer.domElement.addEventListener('webglcontextlost', contextLost); setView('front'); resize(); observer.observe(host); renderer.setAnimationLoop(tick); publish();
+    host.appendChild(renderer.domElement); renderer.domElement.addEventListener('webglcontextlost', contextLost); document.addEventListener('visibilitychange', pageVisibility); setView('front'); resize(); observer.observe(host); renderer.setAnimationLoop(tick); publish();
   } catch (error) { dispose(); throw error; }
   return { prepare, cancelPreparation, enterVR, exitVR, calibrate, start, stop: () => stop(), play, pause, setView, importTake, take: () => take, dispose };
 }

@@ -37,6 +37,16 @@ test('truncated PCM, forged sample rate and false duration cannot pass import', 
   const duration = fixture(); duration.durationMs = 300; assert.throws(() => validateRecording(duration));
   const rate = fixture(); const bytes = waveBytes(rate); bytes[24] = 1; rate.audio.wavBase64 = base64Bytes(bytes); assert.throws(() => validateRecording(rate));
 });
+test('retained prefixes, absent frame coverage and unfinished limits cannot claim a clean take', () => {
+  const prefix = fixture(); prefix.events.push({ tMs: 200, type: 'buffered-prefix', detail: 'audio-finalize-timeout' });
+  assert.throws(() => validateRecording(prefix)); prefix.interrupted = true;
+  assert.equal(validateRecording(prefix).durationMs, 200);
+  const limit = fixture(); limit.stopReason = 'limit'; assert.throws(() => validateRecording(limit));
+  const gap = fixture(); gap.durationMs = 500; gap.audio.frames = 4000;
+  gap.audio.wavBase64 = base64Bytes(pcmWave(new Float32Array(4000), 8000));
+  assert.throws(() => validateRecording(gap)); gap.interrupted = true;
+  assert.equal(validateRecording(gap).durationMs, 500);
+});
 test('calibration maps the actor origin and yaw while preserving measured floor height', () => {
   const head = { position: [10, 1.7, 20] as const, orientation: [0, Math.SQRT1_2, 0, Math.SQRT1_2] as const };
   const calibration = makeCalibration(head);

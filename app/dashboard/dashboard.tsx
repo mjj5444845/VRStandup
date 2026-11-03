@@ -41,6 +41,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
   const totals = useMemo(() => summarize(catalog.tasks), [catalog]);
   const windowsVerified = catalog.tasks.find((task) => task.id === 'P05')?.status === 'complete';
   const questVerified = catalog.tasks.find((task) => task.id === 'T03')?.status === 'complete';
+  const m4Ready = catalog.tasks.filter(task => task.stage === 'M4').every(task => ['automated', 'complete'].includes(task.status));
   const filtered = useMemo(() => filterTasks(catalog, filters), [catalog, filters]);
   const visibleStages = catalog.stages.filter((stage) => filtered.some((task) => task.stage === stage.id));
   const allExpanded = visibleStages.length > 0 && visibleStages.every((stage) => expanded.has(stage.id));
@@ -61,7 +62,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
   const cards = [
     { value: totals.mainline, label: '主线任务', note: `另保留 ${totals.reference} 项历史参考`, type: 'total' },
     { value: totals.complete, label: '已完成交付', note: '任务自身已交付，阶段仍单独验收', type: 'complete' },
-    { value: totals.desktop, label: '部分环境已验证', note: '查看任务内的平台、连接方式与待验收项', type: 'desktop' },
+    { value: totals.desktop + totals.automated, label: '开发完成或部分验证', note: `${totals.automated} 项自动检查通过待集中验收；${totals.desktop} 项部分环境已验证`, type: 'desktop' },
     { value: totals.pending, label: '待推进任务', note: `含 ${totals.confirm} 项待确认、${totals.paused} 项已暂缓`, type: 'pending' },
   ];
 
@@ -90,7 +91,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
         <header className={styles.topbar}><span className={styles.breadcrumb}>项目工作台 <span>/</span> 开发总览</span><div><Link className={styles.previewButton} href="/lab">项目工作台<Arrow diagonal /></Link><span className={styles.date}>状态截至 {catalog.updatedAt}</span><Link className={styles.previewButton} href="/spike/replay">打开回放检查<Arrow diagonal /></Link></div></header>
         <section className={styles.hero} aria-labelledby="dashboard-title">
           <p className={styles.eyebrow}>从技术验证，到完整实验</p>
-          <h1 id="dashboard-title">开发进度看板<span className={styles.phaseTag}>当前阶段 M0</span></h1>
+          <h1 id="dashboard-title">开发进度看板<span className={styles.phaseTag}>{m4Ready ? '软件开发至 M4 · 待集中验收' : '技术验证与正式模块开发'}</span></h1>
           <p className={styles.description}>每项任务归属于哪里、为什么要做、完成意味着什么，都在这里。<br className={styles.desktopBreak} />统计按任务条目计算，平台与设备验收分别标注。</p>
           <div className={styles.systemFlow} aria-label="系统主流程">
             {['演员预录动作与声音', '三维演员异步回放', '观众与花字互动', '实验数据与测量'].map((step, i) => <span key={step}><b>{String(i + 1).padStart(2, '0')}</b>{step}{i < 3 && <Arrow />}</span>)}
@@ -102,8 +103,8 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
         <section className={styles.contextGrid} aria-label="当前开发情况">
           <div className={styles.focusCard}>
             <div className={styles.panelEyebrow}><span className={styles.focusDot} />当前进展</div>
-            <h2>{questVerified ? <>Quest 3 连接已恢复，<br />真实录制仍待实现。</> : <>准备网页与条件规则已就绪，<br />设备验收见下方任务。</>}</h2>
-            <p>参与者准备、实验员工作台和独立检查目录已可用；模拟回放与模块分层已验证，正式剧场和实验服务仍待接入。</p>
+            <h2>{m4Ready ? <>软件开发已推进到 M4，<br />实机项目集中验收。</> : <>录制与基础验证已有结果，<br />正式模块继续推进。</>}</h2>
+            <p>正式录制、私密素材整理、会话服务、重连与日志已有独立入口；真实剧场、最终资产、研究确认与设备验收分别记录。</p>
             <div className={styles.focusLinks}><button onClick={() => choose({ stage: 'M0', kind: 'all', status: 'all', query: '' })}>查看技术验证任务<Arrow /></button><button onClick={() => choose({ stage: 'M5', kind: 'art', status: 'all', query: '' })}>模型精修计划 · 7 项<Arrow /></button></div>
           </div>
           <div className={styles.boundaries}>
@@ -132,7 +133,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
               <button className={styles.stageHeading} aria-expanded={isOpen} aria-controls={`stage-${stage.id}`} onClick={() => toggle(stage.id)}>
                 <span className={styles.stageNumber}>{stage.id === 'PREP' ? '准备' : stage.id === 'REF' ? '参考' : stage.id}</span>
                 <span className={styles.stageText}><span className={styles.stageTitle}>{stage.name}<span>{stage.title}</span></span><span className={styles.stagePurpose}>{stage.purpose}</span></span>
-                <span className={styles.stageProgress}><b>{tasks.length} 项任务</b><small>{stage.id === 'REF' ? '不计入主线统计' : `${stats.complete} 已完成 · ${stats.desktop} 部分验证`}</small></span>
+                <span className={styles.stageProgress}><b>{tasks.length} 项任务</b><small>{stage.id === 'REF' ? '不计入主线统计' : `${stats.complete} 已完成 · ${stats.automated} 自动检查通过 · ${stats.desktop} 部分验证`}</small></span>
                 <span className={styles.chevron} aria-hidden="true">{isOpen ? '−' : '＋'}</span>
               </button>
               <div id={`stage-${stage.id}`} className={styles.stageBody} hidden={!isOpen}>{isOpen && tasks.map((task) => <TaskRow key={task.id} task={task} catalog={catalog} />)}</div>

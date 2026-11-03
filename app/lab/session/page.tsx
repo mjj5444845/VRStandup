@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import { SessionConsole } from './session-console';
+export const metadata = { title: '实验室会话控制 · PunchCap' };
+export default function SessionPage() { return <main className="workspace formal"><header className="work-nav"><Link href="/">开发看板</Link><nav><Link href="/lab">准备工作台</Link><Link href="/lab/assets">私密素材库</Link><Link href="/record">演员录制</Link></nav></header><section className="work-hero"><p className="work-eyebrow">M4 / 实验员</p><h1>一份状态，控制两端。</h1><p>当前开放工程预演。使用实验室 3002 服务，导入配置、配对参与者并验证会话流程。正式剧场和问卷界面待后续阶段接入。</p></section><SessionConsole/></main>; }

@@ -46,3 +46,10 @@
 - `checks/recording/pcm-capture.js` 是本项目编写的 AudioWorklet 采样代码，可随源码公开；不包含声音或动作素材，不读取归档。
 - `/spike/record` 使用新建头部方块、双手球体及系统字体绘制的中文提示；没有新增第三方模型、字体或录音素材。
 - 真实 Quest 文件含个人声音与动作，只保存在浏览器下载目录和本机被忽略的 `local_assets/recordings/`；没有复制到公开素材目录。
+
+## M3 正式模块与工程样例
+
+- `recorder/pcm-capture.js` 是本项目的声音工作线程代码，支持 180 秒工程边界；可公开，不包含录音。
+- 录制与复查使用新建几何体和系统字体；候选 GLB 由用户在本机选择，拒绝任意外部资源引用，不自动加入公开素材目录。
+- `study/core/synthetic-take.ts` 生成明确标记的工程动作和节拍；`assets:rehearsal` 将样例写到本机 `local_assets/performances/`，不当作演员或研究证据。
+- 正式原件、动作/WAV 私密片段库、审核工作副本与会话日志仍排除 Git；本轮没有加入第三方模型、字体、动画或演员媒体。

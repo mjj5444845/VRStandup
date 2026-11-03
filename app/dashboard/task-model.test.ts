@@ -26,9 +26,10 @@ test('historical and Mac-only results never count as fully completed mainline ta
     { ...value.tasks[1], status: 'desktop' as const },
     { ...value.tasks[2], status: 'reference' as const },
     { ...value.tasks[3], status: 'paused' as const },
+    { ...value.tasks[4], status: 'automated' as const },
   ];
   const result = summarize(selected);
-  assert.equal(result.mainline, 3); assert.equal(result.complete, 1);
+  assert.equal(result.mainline, 4); assert.equal(result.complete, 1); assert.equal(result.automated, 1);
   assert.equal(result.desktop, 1); assert.equal(result.reference, 1); assert.equal(result.pending, 1);
 });
 test('search combines task ownership and purpose with stage, status and model filters', async () => {

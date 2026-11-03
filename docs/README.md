@@ -11,6 +11,9 @@
 
 ## 项目准备与自动检查
 
+- [M4 启动与预演](guides/15-开发至M4的启动与预演.txt)：正式模块、角色密钥、双端预演及保存路径。
+- [素材整理审核](guides/16-演员素材整理与审核.txt)：原件转换、校验、模型映射、时间线与同步标记。
+- [集中实机验收](project/DEVICE_TESTS.md)：各阶段待测项目及成功标志；[交付范围](project/M4-DELIVERY.md)区分软件、研究与设备结果。
 - [准备页与条件规则](guides/11-准备网页与条件规则.txt)：参与者检查、实验员预览、准备清单和本机下载。
 - [GitHub 跨平台检查](guides/12-GitHub跨平台自动检查.txt)：Mac/Windows 自动检查、结果查看与设备验收区别。
 
@@ -22,6 +25,7 @@
 | --- | --- |
 | [模块边界检查](guides/10-第七个工作-模块边界检查.txt) | `npm run check:boundaries`（本机命令） |
 | [真实动作与声音录制](guides/13-真实动作与声音录制检查.txt) | `/spike/record` |
+| [录制中断与重新开始](guides/14-录制中断与重新开始.txt) | `/spike/record` 第二批 |
 | [三维动作与声音回放](guides/09-第六个工作-三维动作与声音回放.txt) | `/spike/replay` |
 | [三维显示](guides/04-第一个工作-三维显示检查.txt) | `/spike` |
 | [HTTPS 与头显连接](guides/05-第二个工作-HTTPS与头显连接.txt) | `/spike/xr` |
@@ -34,11 +38,13 @@
 - [系统设计](design/SYSTEM_GUIDE.md)：目标架构、模块、研究流程和验收要求。
 - [演员录制与回放](design/PERFORMER_RECORDING.md)：VR 预录动作与声音、三维模型重演及下一项验证。
 - [剧场建模参考](design/SCENE_REFERENCE.md)：参考包位置、空间尺寸、坐标差异及视觉细化顺序。
+- [场景与资产需求](design/ASSET_REQUESTS.md)：需要查找、搬运或生成的模型、声音、花字与授权信息。
 - [前测问卷](research/questionnaire-pre.md) · [后测问卷](research/questionnaire-post.md)：保留原有草稿，尚未确认最终题目。
 - [技术决策](decisions/)：选择 Three.js、归档旧版等决定及其原因。
 
 ## 进度与维护
 
+- [下一步工作](project/NEXT_STEPS.md)：M5 的开发顺序、可先做的部分和需要准备的素材。
 - [任务清单](project/tasks.json)：首页看板的数据来源，逐项记录归属、用途、状态与验收标准。
 - [当前状态](project/STATUS.txt)：总体进度与设备验证情况。
 - [开发计划](project/ROADMAP.md)：从准备环境到完整实验的模块顺序。

@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+const group = process.argv[2], roots = group === 'core' ? ['study/core'] : group === 'formal' ? ['study/web', 'study/xr', 'study/storage', 'study/server', 'study/tools'] : [];
+if (!roots.length) throw new Error('Unknown test group');
+const files = roots.flatMap(root => fs.existsSync(root) ? fs.readdirSync(root, { recursive: true }).filter(file => file.endsWith('.test.ts')).map(file => path.join(root, file)) : []);
+if (!files.length) throw new Error('No tests discovered');
+const coverage = process.argv.includes('--coverage') ? ['--experimental-test-coverage', '--test-coverage-include=study/core/*.ts', '--test-coverage-exclude=**/*.test.ts', '--test-coverage-lines=90'] : [];
+const run = spawnSync(process.execPath, ['--import', 'tsx', ...coverage, '--test', ...files], { stdio: 'inherit' });
+process.exitCode = run.status ?? 1;

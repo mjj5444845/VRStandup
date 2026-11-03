@@ -48,3 +48,8 @@ README.md
 AGENTS.md
 CLAUDE.md
 punchcap-recording-check-*.json
+
+punchcap-take-*.json
+punchcap-session-*.json
+
+study/storage/

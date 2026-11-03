@@ -18,10 +18,10 @@ function fixture(files: Record<string, string>, paths: Record<string, string[]> 
   }
   return { root, check: () => checkBoundaries(root), cleanup: () => rmSync(root, { recursive: true, force: true }) };
 }
-const dirs = { core: 'study/core', xr: 'study/xr', web: 'study/web', server: 'study/server', tools: 'study/tools', participant: 'app/study', console: 'app/lab' };
+const dirs = { core: 'study/core', xr: 'study/xr', web: 'study/web', storage: 'study/storage', server: 'study/server', tools: 'study/tools', participant: 'app/study', console: 'app/lab' };
 
 test('all declared layers allow their own code and only their documented neighbours', () => {
-  const allowed = { core: ['core'], xr: ['xr', 'core'], web: ['web', 'core'], server: ['server', 'core'], tools: ['tools', 'core'], participant: ['participant', 'xr', 'web'], console: ['console', 'web', 'core'] };
+  const allowed = { core: ['core'], xr: ['xr', 'core'], web: ['web', 'core'], storage: ['storage', 'core'], server: ['server', 'storage', 'core'], tools: ['tools', 'storage', 'core'], participant: ['participant', 'xr', 'web'], console: ['console', 'web', 'core'] };
   for (const [from, fromDir] of Object.entries(dirs)) {
     for (const [to, toDir] of Object.entries(dirs)) {
       const f = fixture({ [`${fromDir}/consumer.ts`]: `import { value } from '@/${toDir}/value';`, [`${toDir}/value.ts`]: 'export const value = 1;' });

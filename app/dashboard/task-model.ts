@@ -1,5 +1,6 @@
 export const STATUS = {
   complete: { label: '已完成', description: '这一项交付已完成；不代表所属阶段或整套系统已验收。' },
+  automated: { label: '自动检查通过，待集中验收', description: '软件已实现并通过自动检查；设备、真实素材和研究依据仍按集中验收清单分别确认。' },
   desktop: { label: '部分环境已验证', description: '已有部分平台或连接方式的实测结果；未完成的设备、连接方式与正式场景仍需分别验收。' },
   planned: { label: '待开展', description: '已经进入计划，尚未完成这一项的开发或实际检查。' },
   confirm: { label: '待确认', description: '需要先确认研究依据、素材格式或设备能力，才能落实实现。' },

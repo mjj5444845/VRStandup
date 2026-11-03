@@ -91,3 +91,6 @@ punchcap-recording-check-*.json
 # Browser-local preparation reports.
 punchcap-browser-preparation.json
 punchcap-lab-preparation.json
+
+punchcap-take-*.json
+punchcap-session-*.json

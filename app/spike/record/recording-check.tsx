@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { INITIAL_RECORDING, type RecordingCheck as Controller, type RecordingState } from '@/study/spikes/recording-check';
 import { RECORDING_FILE_BYTES } from '@/study/spikes/recording-rules';
+import { recordingStopLabel } from '@/study/spikes/recording-capture';
 import { inspectXrSupport, xrErrorMessage, type XrSupport } from '@/study/spikes/xr-support';
 import styles from '../replay/replay.module.css';
 
@@ -59,10 +60,12 @@ export function RecordingCheck() {
         <div><dt>动作帧</dt><dd>{state.frames}</dd></div>
         <div><dt>地面与朝向</dt><dd>{state.calibrated ? '已校准' : '待校准'}</dd></div>
         <div><dt>当前 VR</dt><dd>{state.inVR ? '已进入' : '未进入'}</dd></div>
+        <div><dt>麦克风</dt><dd>{state.microphoneActive ? '已开启' : state.phase === 'preparing' ? '准备中' : '已关闭'}</dd></div>
       </dl>
       {summary && <div className={styles.result}>
         <h2>{summary.source === 'test-fixture' ? '测试文件已载入（非真实采集）' : summary.interrupted ? '本轮有中断，需复查' : '片段已保存到本页内存'}</h2>
         <p>{(summary.durationMs / 1000).toFixed(2)} 秒；{summary.frames} 帧；有效头部 {summary.head}、左手 {summary.left}、右手 {summary.right} 帧；其中 {summary.estimated} 帧含设备估算位置。</p>
+        <p>结束原因：{recordingStopLabel(summary.stopReason)}。{summary.bufferedPrefix ? '声音线程未完整收尾，仅保留已收到的连续采样；尾部可能缺失，本轮不能计作完整录制。' : summary.interrupted ? '本轮有中断，需下载复查；重新录制前必须重新准备和校准。' : '声音采样已完整收尾。'}</p>
         <p>声音均方根 {summary.rms.toFixed(5)}。请实际试听；数值不代表录音内容或物理同步通过。</p>
         <div className={styles.buttons}>
           <button disabled={busy || state.inVR} onClick={download}>下载录制文件</button>

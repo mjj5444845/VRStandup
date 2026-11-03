@@ -127,3 +127,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .work-check-grid .work-open { margin-top:auto; padding-top:16px; font-size:12px; }
 @media(max-width:950px) { .work-columns,.work-lab-columns { grid-template-columns:1fr; } .work-side { grid-template-columns:1fr 1fr; align-items:start; } .work-check-grid { grid-template-columns:1fr 1fr; } .work-nav { flex-wrap:wrap; padding:22px 0; gap:14px; } .work-nav nav { gap:10px 20px; } .work-export-row { flex-direction:column; align-items:start; gap:8px; } }
 @media(max-width:600px) { .workspace { padding:0 20px; } .work-nav { min-height:110px; } .work-nav nav { gap:6px 17px; font-size:11px; } .work-hero { padding:32px 0; } .work-card { padding:22px 18px; } .work-side,.work-check-grid,.work-checklist { grid-template-columns:1fr; } .work-condition-tabs { gap:5px; } .work-condition-tabs span { font-size:9px; } .work-form { grid-template-columns:1fr; } .work-footer { flex-direction:column; gap:8px; } .work-section-heading { gap:12px; } .work-section-heading h2 { font-size:17px; } .work-check-row { gap:8px; } .work-check-row p { font-size:11px; } }
+/* Formal lab modules share accessible local forms without changing legacy previews. */
+.formal .work-card { margin-bottom: 24px; }
+.formal label { display: grid; gap: 8px; margin: 18px 0; font-size: 14px; line-height: 1.65; }
+.formal input:not([type="checkbox"]):not([type="range"]), .formal select, .formal textarea { width: 100%; max-width: 720px; border: 1px solid #cbd4c9; border-radius: 8px; background: #fff; color: #263d35; padding: 12px 14px; font: inherit; }
+.formal input[type="range"] { width: 100%; max-width: 720px; }
+.formal label:has(input[type="checkbox"]) { display: flex; align-items: flex-start; gap: 10px; }
+.formal button { margin: 6px 8px 6px 0; padding: 11px 16px; border: 1px solid #769184; border-radius: 8px; background: #eef4eb; color: #234d3c; cursor: pointer; font: inherit; font-size: 14px; }
+.formal button:disabled { opacity: .48; cursor: not-allowed; }
+.formal button:focus-visible, .formal input:focus-visible, .formal textarea:focus-visible, .formal select:focus-visible { outline: 3px solid #86a8ce; outline-offset: 3px; }
+.formal details { margin: 18px 0; line-height: 1.7; }

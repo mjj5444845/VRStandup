@@ -3,6 +3,8 @@ import { interpolateOrientation, type Pose, type Quat, type Vec3 } from './repla
 // Memory and review limits for this disposable capture spike, not study thresholds.
 export const RECORDING_SECONDS = 15;
 export const RECORDING_FILE_BYTES = 12 * 1024 * 1024;
+// Engineering interruption guard, not a motion/audio synchronization criterion.
+export const MAX_RECORDING_FRAME_GAP_MS = 250;
 export type CapturedPose = Pose & { emulatedPosition: boolean };
 export type CapturedFrame = {
   tMs: number; predictedDisplayTimeMs: number; observedPerformanceTimeMs: number;
@@ -23,6 +25,11 @@ export type RecordedTake = {
     processing: { echoCancellation: boolean | null; noiseSuppression: boolean | null; autoGainControl: boolean | null };
   };
 };
+export function hasRecordingFrameGap(frames: readonly Pick<CapturedFrame, 'tMs'>[], durationMs: number): boolean {
+  return frames.length < 2 || frames[0].tMs > MAX_RECORDING_FRAME_GAP_MS
+    || durationMs - frames[frames.length - 1].tMs > MAX_RECORDING_FRAME_GAP_MS
+    || frames.some((frame, i) => i > 0 && frame.tMs - frames[i - 1].tMs > MAX_RECORDING_FRAME_GAP_MS);
+}
 const joints = ['head', 'leftHand', 'rightHand'] as const;
 function object(value: unknown): value is Record<string, unknown> { return typeof value === 'object' && value !== null && !Array.isArray(value); }
 function finite(value: unknown): value is number { return typeof value === 'number' && Number.isFinite(value); }
@@ -110,6 +117,9 @@ export function validateRecording(value: unknown): RecordedTake {
       || typeof event.type !== 'string' || event.type.length > 60 || typeof event.detail !== 'string' || event.detail.length > 200) return fail();
     previous = event.tMs;
   }
+  if ((value.stopReason === 'limit' && value.durationMs !== RECORDING_SECONDS * 1000)
+    || (!value.interrupted && (hasRecordingFrameGap(value.frames as CapturedFrame[], value.durationMs)
+      || value.events.some(e => object(e) && e.type === 'buffered-prefix')))) return fail();
   const take = value as RecordedTake, bytes = waveBytes(take), view = new DataView(bytes.buffer);
   const ascii = (start: number, count: number) => String.fromCharCode(...bytes.subarray(start, start + count));
   if (bytes.length !== 44 + audio.frames * 2 || ascii(0, 4) !== 'RIFF' || ascii(8, 4) !== 'WAVE' || ascii(12, 4) !== 'fmt ' || ascii(36, 4) !== 'data'
@@ -132,7 +142,7 @@ export function sampleRecording(take: RecordedTake, timeMs: number): Record<type
     let p: Pose | null = null;
     if (timeMs === a.tMs) p = a[joint];
     else if (timeMs === b.tMs) p = b[joint];
-    else if (a[joint] && b[joint] && b.tMs - a.tMs <= 250
+    else if (a[joint] && b[joint] && b.tMs - a.tMs <= MAX_RECORDING_FRAME_GAP_MS
       && (joint === 'head' || a[joint === 'leftHand' ? 'leftSource' : 'rightSource'] === b[joint === 'leftHand' ? 'leftSource' : 'rightSource'])) {
       const ratio = (timeMs - a.tMs) / (b.tMs - a.tMs), start = a[joint]!, end = b[joint]!;
       p = { position: [start.position[0] + (end.position[0] - start.position[0]) * ratio, start.position[1] + (end.position[1] - start.position[1]) * ratio, start.position[2] + (end.position[2] - start.position[2]) * ratio], orientation: interpolateOrientation(start.orientation, end.orientation, ratio) };

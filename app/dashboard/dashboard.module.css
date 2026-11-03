@@ -119,6 +119,7 @@
 .badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 4px; padding: 4px 7px; font-size: 10px; font-weight: 500; white-space: nowrap; line-height: 1.4; }
 .statusDot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
 .complete { color: #4b805b; background: #edf5e9; }
+.automated { color: #586f95; background: #edf0f8; }
 .desktop { color: #507d9a; background: #edf3f7; }
 .planned { color: #86917b; background: #f2f4ed; }
 .confirm { color: #ad8650; background: #f9f2e6; }

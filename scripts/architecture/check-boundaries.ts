@@ -7,17 +7,17 @@ const SOURCE = /\.(?:[cm]?[jt]sx?)$/i;
 const TEST = /\.(?:test|spec)\.[cm]?[jt]sx?$/i;
 const PRIVATE = new Set(['archive', 'local_assets', 'data', 'certs', 'raw', 'recordings', 'output', 'backups']);
 const BUILTINS = new Set(builtinModules.map((name) => name.replace(/^node:/, '')));
-const FORMAL = ['core', 'xr', 'web', 'server', 'tools', 'participant', 'console'] as const;
+const FORMAL = ['core', 'xr', 'web', 'storage', 'server', 'tools', 'participant', 'console'] as const;
 type Layer = typeof FORMAL[number] | 'prototype' | 'page' | 'unknown';
 export type Violation = { file: string; line: number; column: number; reason: string; dependency?: string };
 export type BoundaryReport = { files: number; formalFiles: number; violations: Violation[] };
 const ALLOWED: Record<typeof FORMAL[number], readonly Layer[]> = {
   core: ['core'], xr: ['xr', 'core'], web: ['web', 'core'],
-  server: ['server', 'core'], tools: ['tools', 'core'],
+  storage: ['storage', 'core'], server: ['server', 'storage', 'core'], tools: ['tools', 'storage', 'core'],
   participant: ['participant', 'xr', 'web'], console: ['console', 'web', 'core'],
 };
 const PACKAGES: Record<Layer, readonly string[]> = {
-  core: [], xr: ['three'], web: [], server: ['ws'], tools: [],
+  core: [], xr: ['three'], web: [], storage: [], server: ['ws', 'next'], tools: [],
   participant: ['next', 'react', 'react-dom'], console: ['next', 'react', 'react-dom'],
   prototype: [], page: ['next', 'react', 'react-dom'], unknown: [],
 };
@@ -25,7 +25,7 @@ function slash(value: string) { return value.split(path.sep).join('/'); }
 function isFormal(layer: Layer): layer is typeof FORMAL[number] { return FORMAL.some((item) => item === layer); }
 function layerOf(file: string): Layer {
   if (file.startsWith('study/spikes/') || file.startsWith('app/spike/')) return 'prototype';
-  for (const name of ['core', 'xr', 'web', 'server', 'tools'] as const) if (file.startsWith(`study/${name}/`)) return name;
+  for (const name of ['core', 'xr', 'web', 'storage', 'server', 'tools'] as const) if (file.startsWith(`study/${name}/`)) return name;
   if (file.startsWith('app/study/')) return 'participant';
   if (file.startsWith('app/lab/')) return 'console';
   if (file.startsWith('app/')) return 'page';
@@ -97,7 +97,7 @@ export function checkBoundaries(directory: string): BoundaryReport {
       const name = ref.value;
       const builtin = name.replace(/^node:/, '');
       if (BUILTINS.has(builtin) || name.startsWith('node:')) {
-        if (!isTest && !['server', 'tools', 'prototype'].includes(layer)) fail(`${layer} 不能导入 Node.js 系统模块。`);
+        if (!isTest && !['storage', 'server', 'tools', 'prototype'].includes(layer)) fail(`${layer} 不能导入 Node.js 系统模块。`);
         continue;
       }
       const resolved = ts.resolveModuleName(name, file, parsed.options, ts.sys, cache).resolvedModule;
