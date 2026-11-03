@@ -22,8 +22,6 @@ study/config/allocation.json
 
 # Source imports must remain available to the Next.js build.
 # Laboratory processes are not launched by the Vercel deployment.
-spikes/
-tools/
 
 # Local installations, generated results, and development caches.
 node_modules/
