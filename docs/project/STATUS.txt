@@ -44,3 +44,5 @@ Node结构测试对贴图解码使用测试替身，不能证明像素外观或G
 后续工作：docs/project/NEXT_STEPS.md；集中实机：DEVICE_TESTS.md。
 真实原件：local_assets/recordings/；私密素材：local_assets/performances/；实验日志：data/sessions/。
 旧归档保持只读；历史缺失资料和旧参考包、独立原件备份仍需补齐。
+
+补充：工程预演默认位置从后区20号调整到前区1号；实际人物几何射线检查消除前排观众遮挡演员头部。正式参与者座位分配与真实坐姿视线另行确认。

@@ -8,7 +8,7 @@ import type { SceneCallbacks, SceneLoad, ScenePanel } from '../core/scene-interf
 import { waveBytes } from '../core/recording';
 import { samplePrepared } from '../core/sync';
 import { visibleCues } from '../core/timeline';
-import { actorPoint, advanceFlight, releaseVelocity, stretchScale, type Flight } from '../core/theatre';
+import { PREVIEW_SEAT, actorPoint, advanceFlight, releaseVelocity, stretchScale, type Flight } from '../core/theatre';
 import { CLUB_BASE, CLUB_CAPTIONS } from '../core/club-assets';
 import { mappingScale } from './mapping';
 import { buildTheatre } from './theatre-layout';
@@ -151,7 +151,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
   }
   const observer = new ResizeObserver(() => resize());
   function resize() { renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.setSize(Math.max(1, host.clientWidth), Math.max(1, host.clientHeight), false); camera.aspect = host.clientWidth / Math.max(1, host.clientHeight); camera.updateProjectionMatrix(); }
-  function view(index = 20) { const seat = room.seats[index]; if (!seat) throw new Error('座位编号无效。'); room.view(index); rig.position.fromArray(seat.position); camera.position.set(0, 1.2, 0); camera.lookAt(rig.position.x, 1.7, -3.78); }
+  function view(index = PREVIEW_SEAT) { const seat = room.seats[index]; if (!seat) throw new Error('座位编号无效。'); room.view(index); rig.position.fromArray(seat.position); camera.position.set(0, 1.2, 0); camera.lookAt(rig.position.x, 1.7, -3.78); }
   const hidden = () => { if (document.hidden) safePause('网页进入后台。'); }, contextLost = (event: Event) => { event.preventDefault(); safePause('画面资源丢失，请重新加载。'); lost = true; ready = false; renderer.setAnimationLoop(null); publish(); };
   const xrVisibility = () => { if (xr?.visibilityState !== 'visible') safePause('头显被系统界面遮挡。'); }, xrEnd = () => { xr?.removeEventListener('visibilitychange', xrVisibility); xr = null; controllers.forEach(c => { c.visible = false; }); hands.clear(); safePause('已退出 VR。'); };
   async function enterVR() { if (!navigator.xr || xr || xrPending || lost) throw new Error('此时无法进入 VR。'); xrPending = true; let pending: XRSession | null = null; try { pending = await navigator.xr.requestSession('immersive-vr', { requiredFeatures: ['local-floor'], optionalFeatures: ['hand-tracking'] }); if (disposed) { await pending.end(); return; } xr = pending; xr.addEventListener('end', xrEnd, { once: true }); xr.addEventListener('visibilitychange', xrVisibility); await renderer.xr.setSession(xr); } catch (e) { await pending?.end().catch(() => {}); throw e; } finally { xrPending = false; } }

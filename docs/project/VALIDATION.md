@@ -549,3 +549,7 @@ GitHub Pages本地发布包51文件，确认不包含GLB/WAV/TTF/证书密钥。
 此前替代物场景已实际桌面走完练习及四轮；此次换入资产之后的Quest/Mac画面、声音试听、双手、麦克风和正式研究验收继续记在H40–H46及原清单，没有再次要求用户逐轮实机测试。
 
 本机生产服务3002补充检查：26份公开运行文件逐一通过HTTP读取并重算SHA-256；三个系统入口200；两条私密路径404；经认证生成6份club-flow工程素材成功。摘要为output/checks/club-http-smoke.json，真实研究场次未用于测试。
+
+公开接入后的补充几何检查发现后区20号到演员头部的视线被前排HeadSurface遮挡，距离约0.97米。工程默认改为前区1号，并在实际GLB/坐姿动画的射线回归中验证无遮挡；没有改动24座布局或替研究方案分配参与者座位。
+
+上传接入提交e8a067f：GitHub Project checks 41731479187 的 Windows/macOS 两项检查及构建均成功；Pages 41731478852 发布成功；Vercel状态成功。线上/study/demo返回200，26份运行资产经实际下载后字节与SHA-256全部相符（摘要output/checks/club-vercel-smoke.json）。随后预演座位遮挡修复重新通过本机121项统一检查及生产构建，日志club-seat-final-check.log、club-seat-build.log；修复提交的远端结果以对应工作流另记。

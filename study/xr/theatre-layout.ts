@@ -1,6 +1,6 @@
 import { AnimationMixer, Color, DirectionalLight, Group, HemisphereLight, Vector3, type AnimationClip, type Object3D } from 'three';
 import { clone } from 'three/addons/utils/SkeletonUtils.js';
-import { ACTOR_ORIGIN, theatreSeats } from '../core/theatre';
+import { ACTOR_ORIGIN, PREVIEW_SEAT, theatreSeats } from '../core/theatre';
 import { CLUB_BASE, CLUB_MAPPING } from '../core/club-assets';
 import type { Joint, Pose } from '../core/motion';
 import { createMappingDriver } from './mapping';
@@ -10,7 +10,7 @@ type Audience = { root: Object3D; mixer: AnimationMixer; idle: AnimationClip; la
 export function buildTheatre() {
   const root = new Group(), actor = new Group(), seats = theatreSeats(), audience: Object3D[] = [], animated: Audience[] = [], resources: Object3D[] = [];
   root.name = 'SoftClayClub'; actor.position.fromArray(ACTOR_ORIGIN); actor.rotation.y = Math.PI; root.add(actor);
-  let disposed = false, driver: ReturnType<typeof createMappingDriver> | null = null, currentSeat = 20, savedCalls = 0;
+  let disposed = false, driver: ReturnType<typeof createMappingDriver> | null = null, currentSeat = PREVIEW_SEAT, savedCalls = 0;
   const ambient = new HemisphereLight('#fff0d5', '#77806c', 1.25), key = new DirectionalLight('#ffe1b3', 4.5);
   key.position.set(0, 3.3, -2.1); key.target.position.set(0, 1.6, -3.78); root.add(ambient, key, key.target);
   function install(models: ClubModel[]) {

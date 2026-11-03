@@ -2,6 +2,8 @@ import type { Pose, Vec3 } from './motion';
 import { assert, finite, tuple } from './validation';
 export const ROOM = { width: 10.4, depth: 10.4, height: 3.6, stageWidth: 6.4, stageDepth: 2.28, stageHeight: .36, stageZ: -3.78 } as const;
 export const ACTOR_ORIGIN: Vec3 = [0, ROOM.stageHeight, ROOM.stageZ];
+/** Engineering preview seat; formal participant allocation is a separate research decision. */
+export const PREVIEW_SEAT = 1;
 /** New-design seat centres, converted once from (x,y,z) to (x,z,-y). */
 export function theatreSeats() {
   const front = [-1.25, .48].flatMap((z, row) => [-1.55, 1.55].flatMap((x, col) =>
