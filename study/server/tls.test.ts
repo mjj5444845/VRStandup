@@ -8,7 +8,7 @@ import { get } from 'node:https';
 import { WebSocket } from 'ws';
 import { startLabServer } from './http';
 test('HTTPS and WSS require the explicit test CA and the exact secure origin', async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'punchcap-tls-')), certFile = path.join(root, 'cert.pem'), keyFile = path.join(root, 'key.pem');
+  const root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), 'punchcap-tls-')), certFile = path.join(root, 'cert.pem'), keyFile = path.join(root, 'key.pem');
   let running: Awaited<ReturnType<typeof startLabServer>> | undefined;
   try {
     if (process.platform === 'win32') {

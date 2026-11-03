@@ -7,8 +7,8 @@
 - 用户最新明确要求优先；设计细节见 `docs/design/SYSTEM_GUIDE.md`，推进顺序见 `docs/project/ROADMAP.md`。
 - 演员主方案为实验室 VR 动作与声音预录、三维虚拟演员异步回放，见 `docs/design/PERFORMER_RECORDING.md` 与 ADR-0011。不得继续把绿幕视频或二维手部轨迹作为正式演员必需方案。
 - 新系统使用官方 Three.js。Next.js 承载网页和控制台，WebXR 负责头显连接。
-- Mac 用于开发；Windows 11 实验室电脑用于运行。部署不依赖 Vercel 或云服务器。
-- 总体状态记录在 `docs/project/STATUS.txt`，逐项任务与首页看板共用 `docs/project/tasks.json`。任务变化时同步修改当前进展、状态和日期；规划不等于已实现。
+- Mac 用于开发；Windows 11 实验室电脑运行会话与私密数据服务。GitHub Pages 展示开发看板，Vercel 提供面向用户的系统入口；不能把本机服务误标为已经迁移到云端。
+- 总体状态记录在 `docs/project/STATUS.txt`，逐项任务与 GitHub Pages 看板共用 `docs/project/tasks.json`。任务变化时同步修改当前进展、状态和日期；规划不等于已实现。
 - 旧版已经归档，原先的新旧共存、旧文件冻结和五文件追加限制不再适用。
 
 ## 与用户协作

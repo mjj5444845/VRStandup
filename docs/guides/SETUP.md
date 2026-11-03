@@ -39,7 +39,7 @@ HTTPS 检查服务已经实现；本次只用临时测试证书验证，没有�
 ## 上传与部署
 
 “推送”是把代码保存到 GitHub；“部署”是把程序放到运行电脑上。
-当前目标是 Windows 11 实验室电脑，不依赖 Vercel。
+当前对外入口为 Vercel，开发看板为 GitHub Pages；会话和私密数据仍由 Windows 11 实验室电脑运行。具体入口见 [网站说明](17-网站入口与部署.txt)。
 仓库在 2026-10-30 检查时是公开仓库，准备上传的内容要允许他人看到。
 
 | 内容 | 存放位置 | 保存到 GitHub |
@@ -61,11 +61,11 @@ HTTPS 检查服务已经实现；本次只用临时测试证书验证，没有�
 ## 规则写在哪里
 
 - `.gitignore`：让 Git 忽略不应记录的新文件。它不会撤回已经上传的文件，所以推送前仍要核对清单。
-- `.vercelignore`：保留的可选 Vercel 命令行排除规则；Windows 实验室运行不使用它。
-- `vercel.json`：保留的可选 Vercel 配置；不决定本机启动方式。
+- `.vercelignore`：Vercel 上传排除规则；不能排除页面仍导入的源码或任务清单。Windows 实验室运行不使用它。
+- `vercel.json`：用户入口的 Vercel 构建配置，不决定本机实验室进程的启动方式。
 - `tsconfig.json`、`eslint.config.mjs`：让新版检查跳过旧归档，不是上传控制工具。
 
-如果以后选择 Vercel，命令行上传与从 GitHub 自动取源码是不同流程，不能只靠 `.vercelignore`
+Vercel 命令行上传与从 GitHub 自动取源码是不同流程，不能只靠 `.vercelignore`
 保护保密资料。私密内容从一开始就不进入 GitHub。
 
 ## 备份

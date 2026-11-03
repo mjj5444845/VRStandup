@@ -1,0 +1,50 @@
+PunchCap：两个网站入口与实验室服务
+更新：2026-11-03。适用：开发电脑、实验室 Windows 和头显浏览器。
+
+一、网址各做什么
+
+开发看板：https://mjj5444845.github.io/VRStandup/
+供项目负责人查看任务、所属阶段、实际进展、完成标准及下一步。
+看板由 docs/project/tasks.json 生成，更新源码并推送 main 后自动检查、构建和发布；它不是实时设备监控。
+
+用户入口：https://vr-standup.vercel.app/
+首页提供参与者、演员和实验员入口，继续使用原有 Vercel 项目与域名。
+当前可做浏览器准备、演员录制及工程预演，正式剧场/实验仍按 M5–M9 推进。
+
+实验室服务：实验员配置的可信 HTTPS 地址，本机开发默认 http://127.0.0.1:3002。
+保存私密素材、会话与日志，提供实时消息。没有把这部分伪装成已经在 Vercel 运行。
+
+二、用户怎么进入
+
+1. 打开 Vercel 用户入口，选择自己的身份。
+2. 参与者先完成设备准备；演员可在当前浏览器录制并保存本机文件。
+3. 进入场次、会话控制或私密素材库时，填写实验员提供的实验室网址。
+4. 点击进入后，核对已到实验室页面，再输入配对/访问密钥。
+
+入口页不接收实验室密钥，也不代理原始录音/动作。实验室网址不能附带用户名、密码、路径或密钥参数。
+实验室机器及相应服务需开机，头显需能访问它的网络地址；打开 Vercel 不会自动让本机服务对互联网开放。
+遇到 HTTPS 信任警告停止操作，由实验员按既有证书指南处理，不绕过浏览器警告。
+
+三、开发与发布
+
+本机正常构建：npm run check，然后 npm run build。
+本机系统首页为 /；本机开发看板为 /progress。
+Windows PowerShell 使用 npm.cmd；Mac 使用 npm。
+
+GitHub Pages 构建：npm run build:pages。
+输出目录 output/github-pages，仅含看板、页面资源和版本摘要，不发布实验页面、public 媒体、原件或数据。
+项目路径为 /VRStandup/；构建使用 Next 静态导出，不能删除该路径前缀。
+生成过程会使用 Next 构建目录；不要在正在使用相同构建文件的实验室服务运行时重新构建，完成后运行正常构建再启动实验室服务。
+正式发布由 .github/workflows/pages.yml 完成，GitHub 仓库 Pages 的 Source 设置为 GitHub Actions。
+
+Vercel 通过已有 GitHub 连接部署 main，构建命令 npm run build。
+Vercel 上的 /progress 转去 GitHub Pages；会话与私密素材路由转去实验室连接引导。
+.vercelignore 必须保留 app 页面导入的 study 源码和 docs/project/tasks.json。源码在构建中使用，并不表示会被直接公开为静态文件。
+
+四、验证与边界
+
+每批检查两个主页标题、看板搜索与筛选、用户角色链接、连接页地址校验和实验室路由转接。
+核对 GitHub Pages 的 version.json 与本次提交，Vercel 部署使用同一提交。
+确认 /data/、/local_assets/ 和密钥文件直链均无法取得。
+Mac、Windows 自动检查及两个网站的部署结果分别记录；不把公开网页通过当成 Quest 实机验收。
+头显入口集中测试登记为 docs/project/DEVICE_TESTS.md 中 H35。

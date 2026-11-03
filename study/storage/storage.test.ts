@@ -8,7 +8,7 @@ import { demoPlan } from '../core/demo';
 import { listBundles, readBundle, readTake, saveBundle } from './assets';
 import { child, privateRoot } from './private-files';
 test('immutable private bundles roundtrip, separate WAV and reject corruption or path escape', async () => {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'punchcap-assets-'));
+  const dir = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), 'punchcap-assets-'));
   try {
     const plan = demoPlan(), { id, actorId, kind, model, cues, approval, sync } = plan.clips[1], meta = { id, actorId, kind, model, cues, approval, sync }, take = syntheticTake();
     const manifest = await saveBundle(dir, take, meta), loaded = await readBundle(dir, id);
@@ -19,5 +19,16 @@ test('immutable private bundles roundtrip, separate WAV and reject corruption or
     const old = { ...take, schema: 'punchcap-recording-check-v1' }; assert.equal(readTake(old).schema, 'punchcap-take-v1');
     assert.throws(() => readTake({ ...old, durationMs: 16000 }));
     await fs.appendFile(path.join(dir, id, 'audio.wav'), 'broken'); await assert.rejects(readBundle(dir, id), /校验/); assert.equal((await listBundles(dir))[0].valid, false);
+  } finally { await fs.rm(dir, { recursive: true, force: true }); }
+});
+
+test('canonical temporary roots work while redirected roots remain forbidden', async () => {
+  const base = await fs.realpath(os.tmpdir()), dir = await fs.mkdtemp(path.join(base, 'punchcap-paths-'));
+  try {
+    const target = path.join(dir, 'actual'); await fs.mkdir(target);
+    assert.equal(await privateRoot(target), await fs.realpath(target));
+    const alias = path.join(dir, 'redirected'); await fs.symlink(target, alias, process.platform === 'win32' ? 'junction' : 'dir');
+    await assert.rejects(privateRoot(alias), /符号链接/);
+    assert.deepEqual(await fs.readdir(target), []);
   } finally { await fs.rm(dir, { recursive: true, force: true }); }
 });

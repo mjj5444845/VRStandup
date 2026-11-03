@@ -22,7 +22,7 @@ async function peer(port: number, hello: Record<string, unknown>) {
   return { ws, wait, messages, command: async (req: Request) => { ws.send(JSON.stringify(req)); return await wait(m => m.type === 'receipt' && m.id === req.id) as Receipt; }, close: async () => { if (ws.readyState === WebSocket.CLOSED) return; const closed = new Promise<void>(resolve => ws.once('close', () => resolve())); ws.close(); await closed; } };
 }
 test('real two-end session: identity, phase order, outage, resume, dedup, clock and crash-safe restore', async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'punchcap-lab-')), data = path.join(root, 'sessions');
+  const root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), 'punchcap-lab-')), data = path.join(root, 'sessions');
   let running = await startLabServer({ port: 0, dataRoot: data, assetRoot: path.join(root, 'assets'), operatorKey, verifyAssets: false });
   const peers: Awaited<ReturnType<typeof peer>>[] = []; let n = 0;
   const connect = async (hello: Record<string, unknown>) => { const p = await peer(running.port, hello); peers.push(p); return p; };
@@ -63,7 +63,7 @@ test('real two-end session: identity, phase order, outage, resume, dedup, clock 
   } finally { for (const p of peers) await p.close(); await running.close(); await fs.rm(root, { recursive: true, force: true }); }
 });
 test('journal corruption stops recovery without truncating the original', async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'punchcap-journal-')); const running = await startLabServer({ port: 0, dataRoot: root, assetRoot: root, operatorKey, verifyAssets: false });
+  const root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), 'punchcap-journal-')); const running = await startLabServer({ port: 0, dataRoot: root, assetRoot: root, operatorKey, verifyAssets: false });
   const op = await peer(running.port, { role: 'operator', clientId: 'operator', key: operatorKey });
   try {
     await op.wait(m => m.type === 'welcome'); await op.command({ v: 1, type: 'command', id: 'create', clientTimeMs: 0, command: { kind: 'create', sessionId: 'S1', participantId: 'DEMO1', mode: 'rehearsal', plan: demoPlan() } });
@@ -72,7 +72,7 @@ test('journal corruption stops recovery without truncating the original', async 
   } finally { await op.close(); await running.close().catch(() => {}); await fs.rm(root, { recursive: true, force: true }); }
 });
 test('verified local materials support the complete four-round rehearsal over real sockets', async () => {
-  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'punchcap-flow-')), assets = path.join(root, 'assets'), plan = demoPlan();
+  const root = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), 'punchcap-flow-')), assets = path.join(root, 'assets'), plan = demoPlan();
   for (let i = 0; i < plan.clips.length; i++) { const c = plan.clips[i]; plan.clips[i] = await saveBundle(assets, syntheticTake(c.id), { id: c.id, actorId: c.actorId, kind: c.kind, model: c.model, cues: c.cues, approval: c.approval, sync: c.sync }); }
   const running = await startLabServer({ port: 0, dataRoot: path.join(root, 'sessions'), assetRoot: assets, operatorKey });
   const op = await peer(running.port, { role: 'operator', clientId: 'operator', key: operatorKey }); let participant: Awaited<ReturnType<typeof peer>> | undefined, sequence = 0;

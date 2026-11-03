@@ -20,16 +20,15 @@ study/config/allocation.json
 *.p12
 *.pfx
 
-# Laboratory services and offline tools are not part of the public website.
-study/server/
-study/tools/
-study/spikes/
+# Source imports must remain available to the Next.js build.
+# Laboratory processes are not launched by the Vercel deployment.
 spikes/
 tools/
 
 # Local installations, generated results, and development caches.
 node_modules/
 .next/
+.next-pages/
 .vinext/
 .wrangler/
 dist/
@@ -42,8 +41,7 @@ work/
 *.log
 .DS_Store
 
-# Project notes are kept in GitHub, not uploaded by the deployment CLI.
-docs/
+# Tracked project notes contain the task catalog imported by the build.
 README.md
 AGENTS.md
 CLAUDE.md
@@ -51,5 +49,3 @@ punchcap-recording-check-*.json
 
 punchcap-take-*.json
 punchcap-session-*.json
-
-study/storage/

@@ -4,7 +4,14 @@
 
 当前软件已开发到 M4：统一数据规则、演员录制与私密素材库、会话服务、可靠通信、日志和控制台预演。每阶段先自动检查，设备项目留到集中验收；最终研究配置、真实资产、剧场与完整测量界面尚待确认和后续接入。
 
-使用 macOS 开发，目标运行环境为 Windows 11 实验室电脑，无需依赖 Vercel。
+使用 macOS 开发，Windows 11 实验室电脑运行会话与私密数据服务。
+
+## 两个网站入口
+
+- [开发进度看板 · GitHub Pages](https://mjj5444845.github.io/VRStandup/)：任务搜索、阶段进展、验收范围和下一步工作。
+- [用户系统入口 · Vercel](https://vr-standup.vercel.app/)：参与者准备、演员录制、实验员工作台；当前开放准备与工程预演，正式研究尚未开放。
+
+需要实验室服务的页面会先引导填写实验员提供的网址，再进入实验室页面；不在 Vercel 输入实验室访问密钥或上传私密素材。部署与验证方法见 [网站入口说明](docs/guides/17-网站入口与部署.txt)。
 
 ## 本地启动
 
@@ -36,7 +43,7 @@ npm run build
 npm run spike:net
 ```
 
-打开 [开发进度看板](http://127.0.0.1:3001/)、[参与者准备](http://127.0.0.1:3001/study)、[实验员工作台](http://127.0.0.1:3001/lab) 或 [技术检查目录](http://127.0.0.1:3001/checks)。
+打开 [开发进度看板](http://127.0.0.1:3001/progress)、[参与者准备](http://127.0.0.1:3001/study)、[实验员工作台](http://127.0.0.1:3001/lab) 或 [技术检查目录](http://127.0.0.1:3001/checks)。
 独立检查也可以直接打开 [真实动作与声音录制](http://127.0.0.1:3001/spike/record)、[模拟三维动作回放](http://127.0.0.1:3001/spike/replay)、[通信检查](http://127.0.0.1:3001/spike/network)、[音画同步检查](http://127.0.0.1:3001/spike/media) 或 [视频去背景检查](http://127.0.0.1:3001/spike/chroma)。头显局域网访问使用可信 HTTPS；已授权的 USB 调试可转发到头显 localhost，配置与实测范围见 [头显连接指南](docs/guides/05-第二个工作-HTTPS与头显连接.txt)。
 
 ## 项目结构
@@ -63,5 +70,5 @@ npm run spike:net
 - [M4 启动与预演](docs/guides/15-开发至M4的启动与预演.txt) · [素材整理审核](docs/guides/16-演员素材整理与审核.txt) · [集中实机清单](docs/project/DEVICE_TESTS.md)
 - [场景与资产需求](docs/design/ASSET_REQUESTS.md)：优先准备什么、搜索/生成要求与交付格式。
 - [文档目录](docs/README.md)：按用途查找操作说明和设计资料。
-- [任务清单](docs/project/tasks.json)（首页数据来源） · [当前状态](docs/project/STATUS.txt) · [开发计划](docs/project/ROADMAP.md) · [检查记录](docs/project/VALIDATION.md)
+- [任务清单](docs/project/tasks.json)（看板数据来源） · [当前状态](docs/project/STATUS.txt) · [开发计划](docs/project/ROADMAP.md) · [检查记录](docs/project/VALIDATION.md)
 - [系统设计](docs/design/SYSTEM_GUIDE.md) · [演员录制与回放](docs/design/PERFORMER_RECORDING.md) · [剧场建模参考](docs/design/SCENE_REFERENCE.md)

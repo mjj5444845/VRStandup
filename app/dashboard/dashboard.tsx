@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { EMPTY_FILTERS, filterTasks, KINDS, STATUS, summarize, type Catalog, type Filters, type Task, type TaskStatus } from './task-model';
 import styles from './dashboard.module.css';
@@ -11,7 +11,10 @@ function Arrow({ diagonal = false }: { diagonal?: boolean }) {
 function StatusBadge({ status }: { status: TaskStatus }) {
   return <span className={`${styles.badge} ${styles[status]}`}><span className={styles.statusDot} />{STATUS[status].label}</span>;
 }
-function TaskRow({ task, catalog }: { task: Task; catalog: Catalog }) {
+function SystemLink({ href, origin, className, children }: { href: string; origin?: string; className?: string; children: ReactNode }) {
+  return origin ? <a href={`${origin}${href}`} className={className}>{children}</a> : <Link href={href} className={className}>{children}</Link>;
+}
+function TaskRow({ task, catalog, systemOrigin }: { task: Task; catalog: Catalog; systemOrigin?: string }) {
   return (
     <article className={styles.task} id={`task-${task.id}`} aria-label={`${task.id} ${task.title}`}>
       <div className={styles.taskHeading}>
@@ -29,13 +32,13 @@ function TaskRow({ task, catalog }: { task: Task; catalog: Catalog }) {
           <summary>完成标准与前置工作 <span aria-hidden="true">＋</span></summary>
           <div><p><strong>完成标准</strong>{task.acceptance}</p><p><strong>前置工作</strong>{task.dependencies.length ? task.dependencies.map((id) => { const parent = catalog.tasks.find((item) => item.id === id); return `${id} ${parent?.title ?? ''}`; }).join('；') : '可独立准备，无额外任务依赖。'}</p></div>
         </details>
-        {task.route && task.route !== '/' && <Link className={styles.taskLink} href={task.route}>{task.status === 'reference' ? '查看参考页' : task.route === '/lab' || task.route === '/study' || task.route === '/checks' ? '打开项目页面' : task.status === 'planned' ? '查看占位页' : '打开检查页'}<Arrow diagonal /></Link>}
+        {task.route && task.route !== '/' && <SystemLink className={styles.taskLink} href={task.route} origin={systemOrigin}>{task.status === 'reference' ? '查看参考页' : task.route === '/lab' || task.route === '/study' || task.route === '/checks' ? '打开项目页面' : task.status === 'planned' ? '查看占位页' : '打开检查页'}<Arrow diagonal /></SystemLink>}
       </div>
     </article>
   );
 }
 
-export function Dashboard({ catalog }: { catalog: Catalog }) {
+export function Dashboard({ catalog, systemOrigin }: { catalog: Catalog; systemOrigin?: string }) {
   const [filters, setFilters] = useState<Filters>({ ...EMPTY_FILTERS });
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(['M0']));
   const totals = useMemo(() => summarize(catalog.tasks), [catalog]);
@@ -88,7 +91,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
       </aside>
 
       <main className={styles.main}>
-        <header className={styles.topbar}><span className={styles.breadcrumb}>项目工作台 <span>/</span> 开发总览</span><div><Link className={styles.previewButton} href="/lab">项目工作台<Arrow diagonal /></Link><span className={styles.date}>状态截至 {catalog.updatedAt}</span><Link className={styles.previewButton} href="/spike/replay">打开回放检查<Arrow diagonal /></Link></div></header>
+        <header className={styles.topbar}><span className={styles.breadcrumb}>项目工作台 <span>/</span> 开发总览</span><div><SystemLink className={styles.previewButton} href="/" origin={systemOrigin}>系统入口<Arrow diagonal /></SystemLink><span className={styles.date}>状态截至 {catalog.updatedAt}</span><a className={styles.previewButton} href="https://github.com/mjj5444845/VRStandup/blob/main/docs/project/NEXT_STEPS.md">下一步工作<Arrow diagonal /></a></div></header>
         <section className={styles.hero} aria-labelledby="dashboard-title">
           <p className={styles.eyebrow}>从技术验证，到完整实验</p>
           <h1 id="dashboard-title">开发进度看板<span className={styles.phaseTag}>{m4Ready ? '软件开发至 M4 · 待集中验收' : '技术验证与正式模块开发'}</span></h1>
@@ -136,7 +139,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
                 <span className={styles.stageProgress}><b>{tasks.length} 项任务</b><small>{stage.id === 'REF' ? '不计入主线统计' : `${stats.complete} 已完成 · ${stats.automated} 自动检查通过 · ${stats.desktop} 部分验证`}</small></span>
                 <span className={styles.chevron} aria-hidden="true">{isOpen ? '−' : '＋'}</span>
               </button>
-              <div id={`stage-${stage.id}`} className={styles.stageBody} hidden={!isOpen}>{isOpen && tasks.map((task) => <TaskRow key={task.id} task={task} catalog={catalog} />)}</div>
+              <div id={`stage-${stage.id}`} className={styles.stageBody} hidden={!isOpen}>{isOpen && tasks.map((task) => <TaskRow key={task.id} task={task} catalog={catalog} systemOrigin={systemOrigin} />)}</div>
             </section>;
           })}</div>
         </section>

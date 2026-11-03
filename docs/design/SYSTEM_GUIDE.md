@@ -16,9 +16,10 @@
 ## 技术与运行环境
 
 - Three.js 负责剧场、演员、观众和交互；WebXR 负责头显与输入设备。
-- Next.js 承载页面；实验室目标为 Windows 11，开发电脑为 Mac，不依赖 Vercel。
+- Next.js 承载页面；Vercel 提供用户入口，GitHub Pages 发布只读开发看板。开发电脑为 Mac，Windows 11 继续运行实验室会话及私密数据服务。
 - 实验室服务由一个 Node 进程提供 HTTPS 页面、WebSocket 和持久日志。
 - 参与者与控制台通过同源 `/lab-ws` 通信，实验数据由服务端保存。
+- Vercel 上的会话和素材入口先引导进入实验员提供的实验室地址，再进行配对；当前没有将持久日志或私密库部署到 Vercel，也没有开放跨站接口。未来若迁移后台，需另做持久存储与实时服务方案及验收。
 - 当前使用 `lab:start` 启动正式模块，默认本机 3002；工程预演可创建会话，正式研究仍等待 M5–M9、研究确认及设备验收。
 - `/study` 与 `/lab` 保留准备工具；`/study/session`、`/lab/session` 为双端预演；`/record` 为录制复查，`/lab/assets` 为私密素材库。
 - Windows 与 Quest 3 均需独立实测；Mac 结果不能代替。
