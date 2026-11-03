@@ -553,3 +553,7 @@ GitHub Pages本地发布包51文件，确认不包含GLB/WAV/TTF/证书密钥。
 公开接入后的补充几何检查发现后区20号到演员头部的视线被前排HeadSurface遮挡，距离约0.97米。工程默认改为前区1号，并在实际GLB/坐姿动画的射线回归中验证无遮挡；没有改动24座布局或替研究方案分配参与者座位。
 
 上传接入提交e8a067f：GitHub Project checks 41731479187 的 Windows/macOS 两项检查及构建均成功；Pages 41731478852 发布成功；Vercel状态成功。线上/study/demo返回200，26份运行资产经实际下载后字节与SHA-256全部相符（摘要output/checks/club-vercel-smoke.json）。随后预演座位遮挡修复重新通过本机121项统一检查及生产构建，日志club-seat-final-check.log、club-seat-build.log；修复提交的远端结果以对应工作流另记。
+
+接入收尾同时验证实际GLB驱动尊重每片段审核映射的头手偏移，锚点和视线直接使用驱动后骨骼世界坐标；未登记花字在播放前明确拒绝。
+
+最终收尾重新运行统一检查121项通过、核心行覆盖99.75%，生产构建通过；对应本机日志output/checks/club-release-check.log和club-release-build.log。

@@ -61,7 +61,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
     if (loaded?.context.round !== input.context.round) { for (const list of cache.values()) for (const g of list.values()) destroy(g); cache.clear(); }
     loaded = input; const key = contextKey(input.context); glyphs = cache.get(key) ?? new Map(); cache.set(key, glyphs);
     transport = { phase: 'paused', offsetMs: input.offsetMs, anchorS: 0 }; previousMs = input.offsetMs - .001; lastProgress = input.offsetMs; previousFrame = 0;
-    message = '正在载入剧场资产并解码声音。'; publish(); await assetPreparation; if (disposed || id !== generation) return; await audio.load(waveBytes(input.clip.take)); if (disposed || id !== generation) return;
+    message = '正在载入剧场资产并解码声音。'; publish(); await assetPreparation; if (disposed || id !== generation) return; room.configure(input.clip.manifest.model); for (const cue of input.clip.manifest.cues) if ((cue.kind === 'expressive' || cue.kind === 'distancing') && !CLUB_CAPTIONS.some(c => c.id === cue.assetId && c.kind === cue.kind)) throw new Error('未登记的花字资产：' + cue.assetId); await audio.load(waveBytes(input.clip.take)); if (disposed || id !== generation) return;
     ready = true; message = '场景就绪。Soft Clay Club 演员与观众已接入；身体与表情为制作原型。'; publish();
   }
   async function play() { if (!loaded || !ready || lost || disposed) throw new Error('请先载入有效片段。'); const id = generation, anchor = await audio.play(transport.offsetMs); if (id !== generation || disposed) return; transport = startTransport(transport, anchor, loaded.clip.take.durationMs); previousFrame = 0; perfFrames = 0; perfStart = performance.now(); currentReaction = ''; message = '按声音时间播放。'; publish(); }
@@ -130,7 +130,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
         for (const cue of active) {
           const g = glyphs.get(cue.id) ?? createGlyph(cue), pose = cue.anchor === 'stage' ? null : poses[cue.anchor];
           g.mesh.visible = true;
-          if (g.mode === 'free') { if (cue.anchor !== 'stage' && !pose) g.mesh.visible = false; else g.mesh.position.fromArray(actorPoint([(pose?.position[0] ?? 0) * scale + cue.offset[0], (pose?.position[1] ?? 1.8) * scale + cue.offset[1], (pose?.position[2] ?? 0) * scale + cue.offset[2]])); }
+          if (g.mode === 'free') { if (cue.anchor !== 'stage' && !pose) g.mesh.visible = false; else g.mesh.position.copy(cue.anchor === 'stage' ? new Vector3(...actorPoint([cue.offset[0], 1.8 + cue.offset[1], cue.offset[2]])) : room.point(cue.anchor).add(new Vector3(-cue.offset[0], cue.offset[1], -cue.offset[2]))); }
           if (g.mode === 'held') {
             for (const id of g.holders) if (!hands.has(id)) { g.holders.delete(id); held.delete(id); g.stretch = null; emitInteraction(g, 'release'); }
             const points = [...g.holders].flatMap(h => hands.has(h) ? [hands.get(h)!] : []); if (points.length) { const p = points.reduce((sum, v) => sum.add(v), new Vector3()).multiplyScalar(1 / points.length); if (g.lastTime && now > g.lastTime) g.velocity = releaseVelocity(g.last, xyz(p), now - g.lastTime); g.last = xyz(p); g.lastTime = now; g.mesh.position.copy(p); }
@@ -141,7 +141,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
           g.mesh.scale.setScalar(g.scale); g.mesh.lookAt(viewCamera.getWorldPosition(new Vector3())); if (g.presented !== g.mesh.visible) { g.presented = g.mesh.visible; emitInteraction(g, g.presented ? 'show' : 'hide'); }
         }
         if (transport.phase !== 'playing') { renderer.render(scene, camera); return; }
-        if (now - lastSample >= 100) { lastSample = now; samples.push({ elapsedMs: now - epoch, mediaMs: ms, head, actorHead: poses.head ? actorPoint(poses.head.position.map(v => v * scale) as unknown as Vec3) : null, source: renderer.xr.isPresenting ? 'xr' : 'desktop' }); }
+        if (now - lastSample >= 100) { lastSample = now; samples.push({ elapsedMs: now - epoch, mediaMs: ms, head, actorHead: poses.head ? xyz(room.point('head')) : null, source: renderer.xr.isPresenting ? 'xr' : 'desktop' }); }
         if (ms - lastProgress >= 1000) { lastProgress = ms; progress(); }
         previousMs = ms;
         if (ms >= loaded.clip.take.durationMs) { transport = { phase: 'ended', offsetMs: loaded.clip.take.durationMs, anchorS: audio.time() }; audio.pause(); progress(true); message = '片段播放完成，记录已提交。'; publish(); }

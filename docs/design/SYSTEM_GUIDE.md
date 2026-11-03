@@ -1,6 +1,6 @@
 # PunchCap 系统设计与实现指南
 
-更新：2026-11-03。本文描述当前架构与后续目标；软件开发至 M4，设备集中验收见[清单](../project/DEVICE_TESTS.md)，实际程度以[状态记录](../project/STATUS.txt)为准。
+更新：2026-11-03。本文描述当前架构与后续目标；M5–M9工程流程与Soft Clay Club运行场景已接通，设备集中验收见[清单](../project/DEVICE_TESTS.md)，实际程度以[状态记录](../project/STATUS.txt)为准。
 
 ## 系统目标
 
@@ -20,7 +20,7 @@
 - 实验室服务由一个 Node 进程提供 HTTPS 页面、WebSocket 和持久日志。
 - 参与者与控制台通过同源 `/lab-ws` 通信，实验数据由服务端保存。
 - Vercel 上的会话和素材入口先引导进入实验员提供的实验室地址，再进行配对；当前没有将持久日志或私密库部署到 Vercel，也没有开放跨站接口。未来若迁移后台，需另做持久存储与实时服务方案及验收。
-- 当前使用 `lab:start` 启动正式模块，默认本机 3002；工程预演可创建会话，正式研究仍等待 M5–M9、研究确认及设备验收。
+- 当前使用 `lab:start` 启动正式模块，默认本机 3002；工程预演可创建会话，正式研究仍等待真人内容、研究确认及设备验收。
 - `/study` 与 `/lab` 保留准备工具；`/study/session`、`/lab/session` 为双端预演；`/record` 为录制复查，`/lab/assets` 为私密素材库。
 - Windows 与 Quest 3 均需独立实测；Mac 结果不能代替。
 
@@ -157,3 +157,5 @@
 - [WebXR Device API](https://www.w3.org/TR/webxr/)：空间、头显和输入姿态。
 - [WebXR Hand Input Module](https://www.w3.org/TR/webxr-hand-input-1/)：可选手部关节能力，需实际设备验证。
 - [ADR-0011](../decisions/0011-recorded-vr-performer.md)：本轮方案变更及其影响。
+
+当前完整工程流程和公开资产接入范围见[交付说明](../project/FULL-SYSTEM-DELIVERY.md)；本文后续目标与正式验收要求仍保留。

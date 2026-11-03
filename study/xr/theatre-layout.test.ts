@@ -38,6 +38,9 @@ test('actual shipped GLBs load into 24-seat theatre, drive tracked surfaces and 
     const layout = JSON.parse(await fs.readFile(base + 'scene-layout.json', 'utf8')); room.seats.forEach((s, i) => { assert.equal(s.name, layout.seats[i].id); assert.deepEqual(s.position, layout.seats[i].position); });
     const take = syntheticTake(), poses = sampleRecording(take, 1000), scale = mappingScale(room.heightMetres, take.calibration.headHeight); room.apply(poses, scale); room.root.updateMatrixWorld(true);
     const expected = actorPoint(poses.head!.position.map(v => v * scale) as unknown as [number, number, number]); assert.ok(room.actor.getObjectByName('Head')!.getWorldPosition(new Vector3()).distanceTo(new Vector3(...expected)) < 1e-6);
+    room.configure({ ...CLUB_MAPPING, offsets: { ...CLUB_MAPPING.offsets, head: [.1, .2, .3] } }); room.apply(poses, scale);
+    assert.ok(room.point('head').distanceTo(new Vector3(expected[0] - .1, expected[1] + .2, expected[2] - .3)) < 1e-6);
+    assert.throws(() => room.configure({ ...CLUB_MAPPING, modelVersion: 'wrong-model' })); room.configure(CLUB_MAPPING); room.apply(poses, scale);
     room.apply({ ...poses, leftHand: null }, scale); assert.equal(room.actor.getObjectByName('LeftHandSurface')!.visible, false); assert.equal(room.actor.getObjectByName('RightHandSurface')!.visible, true);
     room.apply({ ...poses, head: null }, scale); assert.equal(room.actor.visible, false); room.apply(poses, scale);
     room.reaction(1000, false); const hip = room.audience[0].getObjectByName('Hips')!, first = hip.position.clone(); room.reaction(1800, true); assert.ok(hip.position.distanceTo(first) > .0001);

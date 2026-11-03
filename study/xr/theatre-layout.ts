@@ -3,6 +3,7 @@ import { clone } from 'three/addons/utils/SkeletonUtils.js';
 import { ACTOR_ORIGIN, PREVIEW_SEAT, theatreSeats } from '../core/theatre';
 import { CLUB_BASE, CLUB_MAPPING } from '../core/club-assets';
 import type { Joint, Pose } from '../core/motion';
+import type { Mapping } from '../core/materials';
 import { createMappingDriver } from './mapping';
 import { disposeClub, instanceScenery, parseClubModel } from './club-loader';
 export type ClubModel = Awaited<ReturnType<typeof parseClubModel>>;
@@ -40,6 +41,11 @@ export function buildTheatre() {
     if (!driver) throw new Error('演员模型尚未载入。'); const validity = driver.apply(poses, scale); actor.visible = validity.head;
     for (const joint of ['head', 'leftHand', 'rightHand'] as const) { const surface = actor.getObjectByName(`${joint === 'head' ? 'Head' : joint === 'leftHand' ? 'LeftHand' : 'RightHand'}Surface`); if (surface) surface.visible = validity[joint]; }
   }
+  function configure(mapping: Mapping) {
+    if (!driver || mapping.modelId !== CLUB_MAPPING.modelId || mapping.modelVersion !== CLUB_MAPPING.modelVersion) throw new Error('需要已载入的 Soft Clay Club v1 演员。');
+    driver.reset(); driver = createMappingDriver(actor, mapping);
+  }
+  function point(joint: Joint) { if (!driver) throw new Error('演员模型尚未载入。'); return actor.getObjectByName(driver.mapping.nodes[joint])!.getWorldPosition(new Vector3()); }
   function reaction(timeMs: number, active: boolean) {
     for (let i = 0; i < animated.length; i++) { const a = animated[i], clip = active ? a.laugh : a.idle;
       a.mixer.stopAllAction(); a.mixer.clipAction(clip).play(); a.mixer.setTime((timeMs / 1000 + i * .173) % clip.duration);
@@ -47,5 +53,5 @@ export function buildTheatre() {
   }
   function view(index: number) { if (!seats[index]) throw new Error('座位编号无效。'); currentSeat = index; audience.forEach((a, i) => { a.visible = i !== index; }); }
   function dispose() { if (disposed) return; disposed = true; animated.forEach(a => { a.mixer.stopAllAction(); a.mixer.uncacheRoot(a.root); }); disposeClub([root, ...resources]); audience.length = 0; animated.length = 0; }
-  return { root, actor, audience, seats, background: new Color('#e5dbc9'), load, apply, reaction, view, dispose, get savedCalls() { return savedCalls; }, heightMetres: CLUB_MAPPING.heightMetres };
+  return { root, actor, audience, seats, background: new Color('#e5dbc9'), load, apply, configure, point, reaction, view, dispose, get savedCalls() { return savedCalls; }, get heightMetres() { return driver?.mapping.heightMetres ?? CLUB_MAPPING.heightMetres; } };
 }
