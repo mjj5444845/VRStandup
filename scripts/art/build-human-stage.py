@@ -2,9 +2,16 @@
 import bpy
 import json
 import math
+import argparse
+import sys
 from pathlib import Path
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parents[2]
+parser=argparse.ArgumentParser()
+parser.add_argument('--output',default='local_assets/models/human-v3/club-stage-review.blend')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+output=ROOT/args.output
+output.parent.mkdir(parents=True,exist_ok=True)
 BASE=ROOT/'public/study/club/v1'
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
 bpy.ops.import_scene.gltf(filepath=str(BASE/'models/scene-empty.glb'))
@@ -44,5 +51,5 @@ for area in bpy.context.screen.areas if bpy.context.screen else []:
     if area.type=='VIEW_3D':
         area.spaces.active.region_3d.view_distance=15;area.spaces.active.region_3d.view_location=(0,0,1)
         area.spaces.active.shading.type='MATERIAL'
-bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'local_assets/models/human-v3/club-stage-review.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(output))
 print('EDITABLE_STAGE_COMPLETE',len(bpy.context.scene.objects))

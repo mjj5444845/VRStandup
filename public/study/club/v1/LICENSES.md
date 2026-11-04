@@ -13,3 +13,5 @@
 源包：`local_assets/collections/soft-clay-club/v1/`。导出脚本仅复制明确白名单，不会将整个源包、生成工具、下载记录或原始声音加入网页。
 
 历史：2026-11-03 Clay v2是本项目制作的连续曲面人物；用户后续否决其外观，2026-11-04已由上述Mixamo改编人物替换。因此旧版“没有第三方人体”的描述不适用于当前人物文件。源件与制作命令见 docs/design/AVATAR_SCENE_REVISION.md。
+
+2026-11-04场景精修：新增平台、踏步、边缘条与舞台前沿由本项目 `scripts/art/polish-club.py` 在Blender生成，合入既有场景；既有第三方人物、纹理、音频条款不变。网上VR作品仅作为设计参考，没有复制其资产。新副本路径 `local_assets/models/scene-polish-v4/`，不是历史原始源包。

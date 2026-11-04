@@ -5,8 +5,8 @@
   "files": [
     {
       "file": "models/scene-empty.glb",
-      "bytes": 8239980,
-      "sha256": "ed1b71365098dd7bbd24818a86450728cdd54cfa92a970fbe4fcec46e0873063"
+      "bytes": 8291580,
+      "sha256": "cb3a63610eb94fafc940365312dec9c75cace84263cf1f146d24fed693b19e8d"
     },
     {
       "file": "models/actor.glb",
@@ -125,13 +125,13 @@
     },
     {
       "file": "scene-layout.json",
-      "bytes": 2948,
-      "sha256": "72b1046bde6deabd104176f26eb8eb30facb734c039f9d59225fd496ec6e6f48"
+      "bytes": 2939,
+      "sha256": "ead060c2a73e85b65232aa8943d40abb2214517910b7ba29b05dcfe995f2402c"
     },
     {
       "file": "lighting.json",
-      "bytes": 693,
-      "sha256": "33ea5f74aef5545c807a3104031a913437e67e6d3e3f9ecb886cb576aef9688c"
+      "bytes": 830,
+      "sha256": "861912cdee439bdc74a5fefbfd16fde4173ce5a29935d1803865ccd31fd40713"
     }
   ],
   "graphics": [

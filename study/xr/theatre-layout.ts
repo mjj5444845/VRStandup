@@ -1,4 +1,5 @@
-import { AnimationMixer, Color, DataTexture, DirectionalLight, Group, HemisphereLight, InstancedMesh, LinearFilter, Matrix4, MeshBasicMaterial, PlaneGeometry, Quaternion, Vector3, type AnimationClip, type Object3D } from 'three';
+import { AnimationMixer, Color, DataTexture, DirectionalLight, Group, HemisphereLight, InstancedMesh, LinearFilter, Matrix4, MeshBasicMaterial, PlaneGeometry, Quaternion, SpotLight, Vector3, type AnimationClip, type Object3D } from 'three';
+import { CLUB_LIGHTING } from '../core/club-lighting';
 import { clone } from 'three/addons/utils/SkeletonUtils.js';
 import { ACTOR_ORIGIN, PREVIEW_SEAT, theatreSeats } from '../core/theatre';
 import { CLUB_BASE, CLUB_MAPPING } from '../core/club-assets';
@@ -15,16 +16,32 @@ export function buildTheatre() {
   root.name = 'SoftClayClub'; actor.position.fromArray(ACTOR_ORIGIN); actor.rotation.y = Math.PI; root.add(actor);
   let human: ReturnType<typeof createHumanDriver> | null=null, actorMixer: AnimationMixer | null=null, actorClips: AnimationClip[]=[];
   let disposed = false, driver: ReturnType<typeof createMappingDriver> | null = null, arms: ReturnType<typeof createArmEstimate> | null = null, torso: ReturnType<typeof createTorsoEstimate> | null = null, currentSeat = PREVIEW_SEAT, savedCalls = 0;
-  const ambient = new HemisphereLight('#fff0d5', '#77806c', 1.25), key = new DirectionalLight('#ffe1b3', 4.5);
-  key.position.set(0, 3.3, -2.1); key.target.position.set(0, 1.6, -3.78); root.add(ambient, key, key.target);
+  const light = CLUB_LIGHTING;
+  const ambient = new HemisphereLight(light.ambient.sky, light.ambient.ground, light.ambient.intensity);
+  const fill = new DirectionalLight(light.fill.colour, light.fill.intensity);
+  fill.position.fromArray(light.fill.position); root.add(ambient, fill, fill.target);
+  for (const preset of light.spots) {
+    const spot = new SpotLight(preset.colour, preset.intensity, light.distance, light.angle, light.penumbra, light.decay);
+    spot.name = preset.name; spot.position.fromArray(preset.position); spot.target.position.fromArray(preset.target);
+    root.add(spot, spot.target);
+  }
   // Soft contact patches ground static seating without an extra real-time shadow pass on Quest.
   const pixels = new Uint8Array(64*64*4);
-  for (let y=0;y<64;y++) for(let x=0;x<64;x++) { const i=(y*64+x)*4,r=Math.hypot((x-31.5)/31.5,(y-31.5)/31.5); pixels.set([45,34,23,Math.round(Math.max(0,1-r)**2*80)],i); }
+  for (let y=0;y<64;y++) for(let x=0;x<64;x++) { const i=(y*64+x)*4,r=Math.hypot((x-31.5)/31.5,(y-31.5)/31.5); pixels.set([45,34,23,Math.round(Math.max(0,1-r)**2*light.contactOpacity)],i); }
   const contactTexture = new DataTexture(pixels,64,64); contactTexture.magFilter=contactTexture.minFilter=LinearFilter;contactTexture.needsUpdate=true;
-  const contact = new InstancedMesh(new PlaneGeometry(1,1),new MeshBasicMaterial({map:contactTexture,transparent:true,depthWrite:false,toneMapped:false}),25);contact.name='SoftContactShadows';
+  const contact = new InstancedMesh(new PlaneGeometry(1,1),new MeshBasicMaterial({map:contactTexture,transparent:true,depthWrite:false,toneMapped:false}),34);contact.name='SoftContactShadows';
   const ground = new Quaternion().setFromAxisAngle(new Vector3(1,0,0),-Math.PI/2);
   seats.forEach((s,i)=>contact.setMatrixAt(i,new Matrix4().compose(new Vector3(s.position[0],.004,s.position[2]-.06),ground,new Vector3(.82,.9,1))));
-  contact.setMatrixAt(24,new Matrix4().compose(new Vector3(0,.369,-3.78),ground,new Vector3(.62,.5,1)));contact.instanceMatrix.needsUpdate=true;root.add(contact);
+  contact.setMatrixAt(24,new Matrix4().compose(new Vector3(0,.369,-3.78),ground,new Vector3(.62,.5,1)));
+  // Furniture contact patches share one draw call with seat/performer patches.
+  const patches = [
+    [-1.55,.004,-1.25,1.1,1.1], [1.55,.004,-1.25,1.1,1.1],
+    [-1.55,.004,.48,1.1,1.1], [1.55,.004,.48,1.1,1.1],
+    [4.53,.004,-1.4,.65,1.3], [0,.004,4.72,1.6,.8],
+    [-2.95,.361,-4.13,.55,.65], [2.95,.361,-4.13,.55,.65], [1.15,.369,-3.65,.45,.45],
+  ];
+  patches.forEach(([x,y,z,w,d],i)=>contact.setMatrixAt(25+i,new Matrix4().compose(new Vector3(x,y,z),ground,new Vector3(w,d,1))));
+  contact.instanceMatrix.needsUpdate=true;root.add(contact);
   function install(models: ClubModel[]) {
     if (disposed) { disposeClub(models.map(m => m.scene)); throw new Error('场景已经关闭。'); }
     if (driver || models.length !== 7) throw new Error('场景模型清单无效或重复安装。');
@@ -66,5 +83,5 @@ export function buildTheatre() {
   }
   function view(index: number) { if (!seats[index]) throw new Error('座位编号无效。'); currentSeat = index; audience.forEach((a, i) => { a.visible = i !== index; }); }
   function dispose() { if (disposed) return; disposed = true;actorMixer?.stopAllAction();actorMixer?.uncacheRoot(actor); animated.forEach(a => { a.mixer.stopAllAction(); a.mixer.uncacheRoot(a.root); }); disposeClub([root, ...resources]); audience.length = 0; animated.length = 0; }
-  return { root, actor, audience, seats, background: new Color('#e5dbc9'), load, apply, authored, configure, point, reaction, view, dispose, get savedCalls() { return savedCalls; }, get heightMetres() { return driver?.mapping.heightMetres ?? CLUB_MAPPING.heightMetres; } };
+  return { root, actor, audience, seats, background: new Color(light.background), load, apply, authored, configure, point, reaction, view, dispose, get savedCalls() { return savedCalls; }, get heightMetres() { return driver?.mapping.heightMetres ?? CLUB_MAPPING.heightMetres; } };
 }

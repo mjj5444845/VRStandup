@@ -67,3 +67,9 @@
 ## 2026-11-04 人体结构 v3（当前）
 
 用户否决v2外观后，按要求拆解旧项目Mixamo人体及动作。当前演员Ch23、五观众Ch07/Ch31/Ch21/Ch23/Ch02，连续人体、分离手指、65骨架，保留脸部/头发纹理并重绘服装材质；人物来源已变更，不能沿用v2“原创网格”声明。依据、使用方式见 [来源许可](club/v1/LICENSES.md)。新增内置imagegen墙面插画两张、场景内六幅，书架移到壁灯之间。运行GLB自包含，逐文件大小/哈希见manifest。编辑源件在本机 local_assets/models/human-v3/。
+
+## 2026-11-04 场景精修 v4
+
+`club/v1/models/scene-empty.glb` 新增本项目通过Blender脚本制作的侧翼平台、踏步、边缘条和舞台前沿细节；修改既有表面色彩、物品位置与座位错位，保留原贴图/几何及人体来源。学习Demeo、Moss、Job Simulator的空间组织，未导入它们的模型、纹理或音频。新增几何可作为本项目运行内容使用，未另授独立资产许可。灯光统一来源 `study/core/club-lighting.ts`；大小和哈希见manifest。
+
+新可编辑副本与精修前运行基线在本机 `local_assets/models/scene-polish-v4/`；本次Mac没有历史human-v3原始制作目录，不能把新导入的整场工程描述成历史源包恢复。流程见 [精修计划](../../docs/design/SCENE_POLISH_PLAN.md)。

@@ -4,12 +4,28 @@ export const ROOM = { width: 10.4, depth: 10.4, height: 3.6, stageWidth: 6.4, st
 export const ACTOR_ORIGIN: Vec3 = [0, ROOM.stageHeight, ROOM.stageZ];
 /** Engineering preview seat; formal participant allocation is a separate research decision. */
 export const PREVIEW_SEAT = 1;
+// Small engineering sightline adjustments; not a change to formal participant allocation.
+// Checked against shipped audience meshes at 1.1/1.2/1.3m eyes, idle and laugh samples.
+export const SEAT_STAGGER: Readonly<Record<string, readonly [number, number]>> = {
+  Table_3_Chair_1: [-2.74, .6],
+  Table_4_Chair_3: [2.39, .65],
+  Rear_R1_C1: [-2.48, 2.51],
+  Rear_R1_C2: [-1.488, 2.66],
+  Rear_R2_C1: [-2.18, 3.62],
+  Rear_R2_C3: [-.296, 3.62],
+  Rear_R2_C4: [.346, 3.62],
+  Rear_R2_C5: [1.038, 3.62],
+  Rear_R2_C6: [1.98, 3.67],
+};
 /** New-design seat centres, converted once from (x,y,z) to (x,z,-y). */
 export function theatreSeats() {
   const front = [-1.25, .48].flatMap((z, row) => [-1.55, 1.55].flatMap((x, col) =>
     [[-.79, .17], [0, .84], [.79, .17]].map(([dx, dz], i) => ({ name: `Table_${row * 2 + col + 1}_Chair_${i + 1}`, table: row * 2 + col, position: [Number((x + dx).toFixed(3)), 0, Number((z + dz).toFixed(3))] as Vec3 }))));
   const back = [2.56, 3.62].flatMap((z, row) => [-2.23, -1.338, -.446, .446, 1.338, 2.23].map((x, col) => ({ name: `Rear_R${row + 1}_C${col + 1}`, table: -1, position: [x, 0, z] as Vec3 })));
-  return [...front, ...back].map((seat, id) => ({ ...seat, id }));
+  return [...front, ...back].map((seat, id) => {
+    const stagger = SEAT_STAGGER[seat.name];
+    return { ...seat, position: stagger ? [stagger[0], 0, stagger[1]] as Vec3 : seat.position, id };
+  });
 }
 export function onStage(p: Vec3) { return Math.abs(p[0]) <= ROOM.stageWidth / 2 && Math.abs(p[2] - ROOM.stageZ) <= ROOM.stageDepth / 2; }
 export function add(a: Vec3, b: Vec3): Vec3 { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }

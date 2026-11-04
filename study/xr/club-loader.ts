@@ -17,6 +17,10 @@ export function instanceScenery(root: Object3D) {
   root.updateMatrixWorld(true); const inverse = new Matrix4().copy(root.matrixWorld).invert(), batches = new Map<BufferGeometry, Map<Material, Mesh[]>>();
   root.traverse(node => {
     if (!(node instanceof Mesh) || 'isSkinnedMesh' in node || Array.isArray(node.material)) return;
+    // Keep cutaway walls/ceiling in their authored hierarchy for the inspection camera.
+    for (let parent: Object3D | null = node; parent && parent !== root; parent = parent.parent) {
+      if (/^Room(LeftWall|RightWall|BackWall|FrontWall|Ceiling)$/.test(parent.name)) return;
+    }
     const byMaterial = batches.get(node.geometry) ?? new Map<Material, Mesh[]>(); batches.set(node.geometry, byMaterial);
     const list = byMaterial.get(node.material) ?? []; list.push(node); byMaterial.set(node.material, list);
   });

@@ -1,0 +1,13 @@
+/** Authored visual parameters, not calibrated photometry or headset performance approval. */
+export const CLUB_LIGHTING = {
+  revision: 'scene-polish-v4',
+  background: '#bbb7aa',
+  ambient: { sky: '#f1eee4', ground: '#666858', intensity: 1.15 },
+  fill: { colour: '#e5edf4', intensity: .55, position: [0, 3.4, 2] },
+  spots: [
+    { name: 'StageWarmKey', colour: '#ffe5ca', intensity: 38, position: [-2.7, 3.12, -2.8], target: [0, 1.3, -3.78] },
+    { name: 'StageSoftFill', colour: '#e8edf2', intensity: 24, position: [2.7, 3.12, -2.8], target: [0, 1.4, -3.78] },
+  ],
+  distance: 7, angle: .68, penumbra: 1, decay: 2,
+  contactOpacity: 110,
+} as const;
