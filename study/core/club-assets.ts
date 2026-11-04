@@ -2,7 +2,7 @@ import type { Mapping } from './materials';
 export const CLUB_BASE = '/study/club/v1';
 export const CLUB_SOUNDS = ['laugh-soft', 'laugh-short', 'laugh-burst', 'applause-short', 'applause-medium', 'applause-long'] as const;
 export const CLUB_MAPPING: Mapping = {
-  id: 'soft-clay-actor-head-hands-v1', modelId: 'actor', modelVersion: 'v1-candidate', heightMetres: 1.605,
+  id: 'soft-clay-human-grip-v3', modelId: 'actor', modelVersion: 'v3-human-candidate', heightMetres: 1.605,
   nodes: { head: 'Head', leftHand: 'LeftHand', rightHand: 'RightHand' },
   offsets: { head: [0, 0, 0], leftHand: [0, 0, 0], rightHand: [0, 0, 0] },
   approval: { status: 'draft', reviewer: '', reviewedAt: '', basis: '' },

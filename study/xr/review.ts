@@ -48,7 +48,7 @@ export function createReview(host: HTMLElement, audio: PlaybackAudio, changed: (
     if (lost) throw new Error('三维画面已丢失，请刷新。'); pause(); if (take) mappingScale(mapping.heightMetres, take.calibration.headHeight); const id = ++modelGeneration, loaded = await loadActor(bytes, mapping);
     if (disposed || lost || id !== modelGeneration) { loaded.dispose(); return; }
     pause(); if (actor) { scene.remove(actor.scene); actor.dispose(); } root.visible = false; actor = loaded; driver = loaded.driver;
-    if (mapping.modelId === 'actor' && mapping.modelVersion === 'v1-candidate') loaded.scene.rotation.y = Math.PI;
+    if (mapping.modelId === 'actor' && ['v1-candidate','v3-human-candidate'].includes(mapping.modelVersion)) loaded.scene.rotation.y = Math.PI;
     scene.add(loaded.scene); publish('模型已载入：头手位置来自记录，连接的手臂为显示估算；未采集全身或手指，缺失时隐藏模型。');
   }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);

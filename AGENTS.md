@@ -91,3 +91,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+当前人物版本（2026-11-04）已变为Mixamo旧人体改编，源件 local_assets/models/human-v3/。v2外观被用户否决；不得再声称当前人物网格全原创或有3个面部形变。保持grip测量代理和可见手腕分离，v3-human-candidate映射不自动接收旧工作副本。详细制作/来源见AVATAR_SCENE_REVISION.md。

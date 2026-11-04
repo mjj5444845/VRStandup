@@ -7,11 +7,13 @@ import type { Mapping } from '../core/materials';
 import { createMappingDriver } from './mapping';
 import { disposeClub, instanceScenery, parseClubModel } from './club-loader';
 import { createArmEstimate, createTorsoEstimate } from './estimated-arms';
+import { createHumanDriver, hasHumanRig } from './human-driver';
 export type ClubModel = Awaited<ReturnType<typeof parseClubModel>>;
 type Audience = { root: Object3D; mixer: AnimationMixer; idle: AnimationClip; laugh: AnimationClip; mode: string };
 export function buildTheatre() {
   const root = new Group(), actor = new Group(), seats = theatreSeats(), audience: Object3D[] = [], animated: Audience[] = [], resources: Object3D[] = [];
   root.name = 'SoftClayClub'; actor.position.fromArray(ACTOR_ORIGIN); actor.rotation.y = Math.PI; root.add(actor);
+  let human: ReturnType<typeof createHumanDriver> | null=null, actorMixer: AnimationMixer | null=null, actorClips: AnimationClip[]=[];
   let disposed = false, driver: ReturnType<typeof createMappingDriver> | null = null, arms: ReturnType<typeof createArmEstimate> | null = null, torso: ReturnType<typeof createTorsoEstimate> | null = null, currentSeat = PREVIEW_SEAT, savedCalls = 0;
   const ambient = new HemisphereLight('#fff0d5', '#77806c', 1.25), key = new DirectionalLight('#ffe1b3', 4.5);
   key.position.set(0, 3.3, -2.1); key.target.position.set(0, 1.6, -3.78); root.add(ambient, key, key.target);
@@ -28,7 +30,8 @@ export function buildTheatre() {
     if (driver || models.length !== 7) throw new Error('场景模型清单无效或重复安装。');
     resources.push(...models.map(m => m.scene)); const scenery = models[0].scene;
     for (const seat of seats) { const node = scenery.getObjectByName(seat.name); if (!node || node.position.distanceTo(new Vector3(...seat.position)) > .001) throw new Error(`座位与场景不一致：${seat.name}`); }
-    savedCalls = instanceScenery(scenery); root.add(scenery); actor.add(models[1].scene); driver = createMappingDriver(actor, CLUB_MAPPING); arms = createArmEstimate(actor); torso = createTorsoEstimate(actor);
+    savedCalls = instanceScenery(scenery); root.add(scenery); actor.add(models[1].scene); driver = createMappingDriver(actor, CLUB_MAPPING);
+    if(hasHumanRig(actor))human=createHumanDriver(actor,CLUB_MAPPING);else{arms=createArmEstimate(actor);torso=createTorsoEstimate(actor);}actorMixer=new AnimationMixer(actor);actorClips=models[1].animations;
     for (const seat of seats) {
       const template = models[2 + seat.id % 5], character = clone(template.scene), mixer = new AnimationMixer(character);
       const idle = template.animations.find(a => a.name === 'seated-idle'), laugh = template.animations.find(a => a.name === 'laugh');
@@ -47,20 +50,21 @@ export function buildTheatre() {
     try { install(models); } catch (e) { dispose(); throw e; }
   }
   function apply(poses: Record<Joint, Pose | null>, scale: number, estimatedArms = true) {
-    if (!driver) throw new Error('演员模型尚未载入。'); torso?.reset(); arms?.reset(); driver.reset(); if (estimatedArms) { torso?.apply(poses,scale,driver.mapping); arms?.apply(poses, scale, driver.mapping); } const validity = driver.apply(poses, scale); actor.visible = validity.head;
+    if (!driver) throw new Error('演员模型尚未载入。'); actorMixer?.stopAllAction();if(human){const validity=human.apply(poses,scale);actor.visible=validity.head;return;}torso?.reset(); arms?.reset(); driver.reset(); if (estimatedArms) { torso?.apply(poses,scale,driver.mapping); arms?.apply(poses, scale, driver.mapping); } const validity = driver.apply(poses, scale); actor.visible = validity.head;
     for (const joint of ['head', 'leftHand', 'rightHand'] as const) { const surface = actor.getObjectByName(`${joint === 'head' ? 'Head' : joint === 'leftHand' ? 'LeftHand' : 'RightHand'}Surface`); if (surface) surface.visible = validity[joint]; }
   }
   function configure(mapping: Mapping) {
     if (!driver || mapping.modelId !== CLUB_MAPPING.modelId || mapping.modelVersion !== CLUB_MAPPING.modelVersion) throw new Error('需要已载入的 Soft Clay Club v1 演员。');
-    torso?.reset(); arms?.reset(); driver.reset(); driver = createMappingDriver(actor, mapping);
+    human?.reset();torso?.reset(); arms?.reset(); driver.reset(); driver = createMappingDriver(actor, mapping);if(human)human=createHumanDriver(actor,mapping);
   }
   function point(joint: Joint) { if (!driver) throw new Error('演员模型尚未载入。'); return actor.getObjectByName(driver.mapping.nodes[joint])!.getWorldPosition(new Vector3()); }
+  function authored(name:string,time:number){if(!actorMixer)return;const clip=actorClips.find(a=>a.name===name);if(!clip)throw Error('动作不存在');human?.reset();actorMixer.stopAllAction();actorMixer.clipAction(clip).play();actorMixer.setTime(time%clip.duration);actor.visible=true;for(const name of ['HeadSurface','LeftHandSurface','RightHandSurface']){const surface=actor.getObjectByName(name);if(surface)surface.visible=true;}}
   function reaction(timeMs: number, active: boolean) {
     for (let i = 0; i < animated.length; i++) { const a = animated[i], clip = active ? a.laugh : a.idle;
       if (a.mode !== clip.name) { a.mixer.stopAllAction(); a.mixer.clipAction(clip).play(); a.mode = clip.name; } a.mixer.setTime((timeMs / 1000 + i * .173) % clip.duration);
     }
   }
   function view(index: number) { if (!seats[index]) throw new Error('座位编号无效。'); currentSeat = index; audience.forEach((a, i) => { a.visible = i !== index; }); }
-  function dispose() { if (disposed) return; disposed = true; animated.forEach(a => { a.mixer.stopAllAction(); a.mixer.uncacheRoot(a.root); }); disposeClub([root, ...resources]); audience.length = 0; animated.length = 0; }
-  return { root, actor, audience, seats, background: new Color('#e5dbc9'), load, apply, configure, point, reaction, view, dispose, get savedCalls() { return savedCalls; }, get heightMetres() { return driver?.mapping.heightMetres ?? CLUB_MAPPING.heightMetres; } };
+  function dispose() { if (disposed) return; disposed = true;actorMixer?.stopAllAction();actorMixer?.uncacheRoot(actor); animated.forEach(a => { a.mixer.stopAllAction(); a.mixer.uncacheRoot(a.root); }); disposeClub([root, ...resources]); audience.length = 0; animated.length = 0; }
+  return { root, actor, audience, seats, background: new Color('#e5dbc9'), load, apply, authored, configure, point, reaction, view, dispose, get savedCalls() { return savedCalls; }, get heightMetres() { return driver?.mapping.heightMetres ?? CLUB_MAPPING.heightMetres; } };
 }

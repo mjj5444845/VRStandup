@@ -583,3 +583,11 @@ Blender 5.2.3 LTS 重制六个人物并导出实际运行GLB；保存人物可�
 证据留在 output/art-review/：check-final.log、formal-gestures.log、before.png、front/side/back/portrait/seated/room/top.png、blender-actor.png。布料轮廓、面部审美及真实Quest极端动作/手腕偏移/性能仍需人机验收，未标记通过。
 
 本轮普通生产构建和GitHub Pages静态看板构建通过；本机实验室服务已重启载入新版本。Pages仍仅发布看板，不包含人物GLB、音频或Blender原件。日志：output/art-review/build.log、pages-build.log。
+
+## 2026-11-04 人体结构 v3 与墙面返修
+
+130项统一自动检查通过（8架构/1部署/47独立检查/3看板/35核心/36正式层），生产与Pages看板构建通过。正式层加强为：五种观众全部坐姿/聆听/笑/鼓掌逐段几何接触；实际grip代理与可见腕部75毫米偏移和坐标轴；独立五指骨链、权重和连续变形；越界保持骨长、反复跳转无累积；新人体拒绝旧v1映射；书架/画框与壁灯相交，以及观众到右墙灯具的实际射线无遮挡。坐垫10毫米容差仍仅为工程检查，不构成人体工学标准。
+
+新版PC页在浏览器截图检查人物脸部、五指、动作切换/连续播放/暂停和场景。演员面部采用完整源件1024贴图；Blender工程已保留真实导出骨架和动作。证据 output/art-review-v3/ 下的 check-final.log、theatre-test-final.log、build.log、pages-build.log、portrait.png、hands.png、room.png 和 blender-actor.png。Node纹理解码是结构测试替身，不能据此宣称纹理像素或Quest帧率通过。
+
+当前运行26文件共56651798字节，来源已更新为Mixamo改编人体和内置生成墙画。v2外观被用户否决，v3仍待审美/真实Quest确认；原始录制未改写，不把预设动画算作真人全身或手指实录。

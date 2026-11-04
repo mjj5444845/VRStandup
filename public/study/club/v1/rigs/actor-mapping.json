@@ -1,7 +1,7 @@
 {
-  "id": "soft-clay-actor-head-hands-v1",
+  "id": "soft-clay-human-grip-v3",
   "modelId": "actor",
-  "modelVersion": "v1-candidate",
+  "modelVersion": "v3-human-candidate",
   "heightMetres": 1.605,
   "nodes": {
     "head": "Head",

@@ -9,7 +9,7 @@ import { waveBytes } from '../core/recording';
 import { samplePrepared } from '../core/sync';
 import { visibleCues } from '../core/timeline';
 import { PREVIEW_SEAT, actorPoint, advanceFlight, releaseVelocity, stretchScale, type Flight } from '../core/theatre';
-import { CLUB_BASE, CLUB_CAPTIONS, CLUB_SOUNDS } from '../core/club-assets';
+import { CLUB_BASE, CLUB_CAPTIONS, CLUB_SOUNDS, CLUB_MAPPING } from '../core/club-assets';
 import { fixedSeatRig } from '../core/viewer';
 import { desktopView } from '../core/desktop-view';
 import { mappingScale } from './mapping';
@@ -62,7 +62,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
   }
   function safePause(reason: string) { message = reason; pause(true); }
   async function load(input: SceneLoad) {
-    if (lost || disposed) throw new Error('三维画面不可用，请重新加载。'); if (input.exercise && (input.clip.take.source !== 'test-fixture' || input.clip.manifest.kind !== 'practice' || !input.clip.manifest.id.startsWith('device-'))) throw new Error('持续花字仅限独立设备练习，不适用于实验片段。'); if (input.clip.manifest.model.modelId !== 'actor' || input.clip.manifest.model.modelVersion !== 'v1-candidate') throw new Error('本场景要求 Soft Clay Club v1 演员映射，请先在素材库整理模型。'); const id = ++generation; pause(); ready = false; samples = [];
+    if (lost || disposed) throw new Error('三维画面不可用，请重新加载。'); if (input.exercise && (input.clip.take.source !== 'test-fixture' || input.clip.manifest.kind !== 'practice' || !input.clip.manifest.id.startsWith('device-'))) throw new Error('持续花字仅限独立设备练习，不适用于实验片段。'); if (input.clip.manifest.model.modelId !== 'actor' || input.clip.manifest.model.modelVersion !== CLUB_MAPPING.modelVersion) throw new Error('本场景要求新版人体映射，请在素材库用新版模型重新准备工作副本；原始录制不需要重录。'); const id = ++generation; pause(); ready = false; samples = [];
     for (const g of glyphs.values()) { g.mesh.visible = false; if (g.mode === 'held') { g.mode = 'free'; g.holders.clear(); } } held.clear();
     if (loaded?.context.round !== input.context.round) { for (const list of cache.values()) for (const g of list.values()) destroy(g); cache.clear(); }
     loaded = input; const key = contextKey(input.context); glyphs = cache.get(key) ?? new Map(); cache.set(key, glyphs);

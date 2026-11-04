@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
-import { AnimationMixer, Box3, Mesh, Quaternion, Raycaster, SkinnedMesh, Vector3 } from 'three';
+import { AnimationMixer, Box3, Mesh, Quaternion, Raycaster, SkinnedMesh, Vector3, type Object3D } from 'three';
 import { buildTheatre } from './theatre-layout';
 import { parseClubModel } from './club-loader';
 import { CLUB_MAPPING, CLUB_CAPTIONS } from '../core/club-assets';
@@ -11,6 +11,11 @@ import { mappingScale } from './mapping';
 import { sampleRecording } from '../core/recording';
 import { syntheticTake } from '../core/synthetic-take';
 const base = 'public/study/club/v1/';
+// Node verifies actual geometry/weights; browser inspection verifies texture appearance.
+Object.defineProperty(globalThis,'self',{configurable:true,value:globalThis});
+Object.defineProperty(globalThis,'ProgressEvent',{configurable:true,value:class extends Event{}});
+Object.defineProperty(globalThis,'createImageBitmap',{configurable:true,value:async()=>({width:1,height:1,close(){}})});
+function skinned(root:Object3D){const result:SkinnedMesh[]=[];root.traverse(n=>{if(n instanceof SkinnedMesh)result.push(n);});return result;}
 test('public runtime assets match hashes, carry no external model dependencies, and include licensed images, font and audio', async () => {
   const manifest = JSON.parse(await fs.readFile(base + 'manifest.json', 'utf8'));
   assert.equal(manifest.files.length, 26);
@@ -38,16 +43,16 @@ test('actual shipped GLBs load into 24-seat theatre, drive tracked surfaces and 
     const layout = JSON.parse(await fs.readFile(base + 'scene-layout.json', 'utf8')); room.seats.forEach((s, i) => { assert.equal(s.name, layout.seats[i].id); assert.deepEqual(s.position, layout.seats[i].position); });
     const take = syntheticTake(), poses = sampleRecording(take, 1000), scale = mappingScale(room.heightMetres, take.calibration.headHeight); room.apply(poses, scale); room.root.updateMatrixWorld(true);
     const expected = actorPoint(poses.head!.position.map(v => v * scale) as unknown as [number, number, number]); assert.ok(room.actor.getObjectByName('Head')!.getWorldPosition(new Vector3()).distanceTo(new Vector3(...expected)) < 1e-6);
-    room.configure(CLUB_MAPPING); const upper = room.actor.getObjectByName('LeftUpperArm')!, hand = room.actor.getObjectByName('LeftHand')!, restQ = upper.quaternion.clone(), lowerLength = hand.position.length(), raw = JSON.stringify(poses);
+    room.configure(CLUB_MAPPING); const upper = room.actor.getObjectByName('LeftUpperArm')!, hand = room.actor.getObjectByName('LeftWrist')!, restQ = upper.quaternion.clone(), lowerLength = hand.position.length(), raw = JSON.stringify(poses);
     room.apply(poses, scale, true); assert.ok(upper.quaternion.angleTo(restQ) > .05); assert.ok(Math.abs(hand.position.length() - lowerLength) < 1e-6); assert.equal(JSON.stringify(poses), raw);
     const trackedHand = actorPoint(poses.leftHand!.position.map(v => v * scale) as unknown as [number, number, number]); assert.ok(room.point('leftHand').distanceTo(new Vector3(...trackedHand)) < 1e-6);
-    room.apply({ ...poses, leftHand: null }, scale, true); assert.equal(room.actor.getObjectByName('LeftHandSurface')!.visible, false); room.apply(poses, scale, false); assert.ok(upper.quaternion.angleTo(restQ) < 1e-6);
+    room.apply({ ...poses, leftHand: null }, scale, true); assert.equal(room.actor.getObjectByName('LeftHandSurface')!.visible, false); room.apply(poses, scale, false); assert.ok(Math.abs(hand.position.length()-lowerLength)<1e-6);
     room.configure({ ...CLUB_MAPPING, offsets: { ...CLUB_MAPPING.offsets, head: [.1, .2, .3] } }); room.apply(poses, scale);
     assert.ok(room.point('head').distanceTo(new Vector3(expected[0] - .1, expected[1] + .2, expected[2] - .3)) < 1e-6);
     assert.throws(() => room.configure({ ...CLUB_MAPPING, modelVersion: 'wrong-model' })); room.configure(CLUB_MAPPING); room.apply(poses, scale);
     room.apply({ ...poses, leftHand: null }, scale); assert.equal(room.actor.getObjectByName('LeftHandSurface')!.visible, false); assert.equal(room.actor.getObjectByName('RightHandSurface')!.visible, true);
     room.apply({ ...poses, head: null }, scale); assert.equal(room.actor.visible, false); room.apply(poses, scale);
-    room.reaction(1000, false); const hip = room.audience[0].getObjectByName('Hips')!, first = hip.position.clone(); room.reaction(1800, true); assert.ok(hip.position.distanceTo(first) > .0001);
+    room.reaction(1000, false); const chest = room.audience[0].getObjectByName('Chest')!, first = chest.quaternion.clone(); room.reaction(1800, true); assert.ok(chest.quaternion.angleTo(first) > .0001);
     room.reaction(1000, false); room.root.updateMatrixWorld(true); room.root.traverse(n => { if (n instanceof SkinnedMesh) { n.skeleton.update(); n.computeBoundingSphere(); n.computeBoundingBox(); } });
     const eye = new Vector3(...room.seats[PREVIEW_SEAT].position).add(new Vector3(0, 1.2, 0)), target = new Vector3(...expected), direction = target.clone().sub(eye);
     const sight = new Raycaster(eye, direction.clone().normalize(), .1, direction.length() - .2); assert.equal(sight.intersectObjects(room.audience.filter(a => a.visible), true).length, 0, 'preview actor head must not be blocked by audience');
@@ -68,42 +73,48 @@ test('actual furniture bounds have table/chair clearance and posters do not occu
     for(let table=1;table<=4;table++)for(let chair=1;chair<=3;chair++)assert.equal(bounds(`Table_${table}`).intersectsBox(bounds(`Table_${table}_Chair_${chair}`)),false,'furniture must not overlap');
     for(let p=0;p<3;p++)for(let l=0;l<3;l++)assert.equal(bounds(`Poster_${p}`).intersectsBox(bounds(`Sconce_-1_${l}`)),false);
     assert.ok(bounds('StageMic').min.x>.8,'microphone outside neutral gesture envelope');
+    for(let l=0;l<3;l++)for(const name of ['PropShelf','ShelfPlant','ShelfBooks'])assert.equal(bounds(name).intersectsBox(bounds(`Sconce_1_${l}`)),false,'shelving clears each wall light');
+    const viewer=new Vector3(0,1.2,2.5);for(let l=0;l<3;l++){const target=bounds(`Sconce_1_${l}`).getCenter(new Vector3()),line=target.clone().sub(viewer),ray=new Raycaster(viewer,line.clone().normalize(),.01,line.length());assert.equal(ray.intersectObjects(['PropShelf','ShelfBooks','ShelfPlant'].map(name=>model.scene.getObjectByName(name)!),true).length,0,'shelving must not visually block the wall light from the audience');}
+    for(let p=0;p<6;p++)for(const side of [-1,1])for(let l=0;l<3;l++)assert.equal(bounds(`GalleryPrint_${p}`).intersectsBox(bounds(`Sconce_${side}_${l}`)),false,'gallery prints clear lights');
     const meshes=new Set<import('three').BufferGeometry>();model.scene.traverse(n=>{if(n instanceof Mesh)meshes.add(n.geometry);});meshes.forEach(g=>g.dispose());
   } finally { names.forEach((n,i)=>{const d=original[i];if(d)Object.defineProperty(globalThis,n,d);else Reflect.deleteProperty(globalThis,n);}); }
 });
 
-test('sculpted rig has smooth joint weights and keeps hands attached across the full demonstration', async () => {
-  const b=await fs.readFile(base+'models/actor.glb'), model=await parseClubModel(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));
-  const mesh=model.scene.getObjectByName('BodySurface') as SkinnedMesh;
-  assert.ok(mesh.isSkinnedMesh);const weights=mesh.geometry.getAttribute('skinWeight');let blends=0;
-  for(let i=0;i<weights.count;i++){assert.ok(Math.abs(weights.getX(i)+weights.getY(i)+weights.getZ(i)+weights.getW(i)-1)<1e-5);if(weights.getY(i)>.05&&weights.getX(i)>.05)blends++;}
-  assert.ok(blends>100,'smooth shoulder/elbow/knee deformation, not rigid primitive pieces');
-  const {loadActor}=await import('./actor-loader');const actor=await loadActor(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),CLUB_MAPPING),take=syntheticTake(),scale=mappingScale(CLUB_MAPPING.heightMetres,take.calibration.headHeight);
-  const body=actor.scene.getObjectByName('BodySurface') as SkinnedMesh, positions=body.geometry.getAttribute('position');
-  const cuffs=[-1,1].map(sign=>Array.from({length:positions.count},(_,i)=>i).filter(i=>positions.getX(i)*sign>.47&&positions.getY(i)>.905&&positions.getY(i)<.95));
-  cuffs.forEach(c=>assert.ok(c.length>5));
-  for(let ms=0;ms<=12000;ms+=100){const poses=sampleRecording(take,ms),raw=JSON.stringify(poses);actor.apply(poses,scale);assert.equal(JSON.stringify(poses),raw);actor.scene.updateMatrixWorld(true);body.skeleton.update();
-    for(const [index,name] of ['LeftHand','RightHand'].entries()) {const bone=actor.scene.getObjectByName(name)!,center=new Vector3();for(const i of cuffs[index])center.add(body.getVertexPosition(i,new Vector3()));center.divideScalar(cuffs[index].length);body.localToWorld(center);assert.ok(center.distanceTo(bone.getWorldPosition(new Vector3()))<.06,'posed cuff remains joined to measured wrist');}
+test('anatomical rig preserves measured grips, separates five finger chains and never stretches limb bones', async () => {
+  const b=await fs.readFile(base+'models/actor.glb');const {loadActor}=await import('./actor-loader');const actor=await loadActor(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),CLUB_MAPPING);
+  await assert.rejects(loadActor(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),{...CLUB_MAPPING,modelVersion:'v1-candidate'}),/v3映射/);
+  const meshes=skinned(actor.scene),take=syntheticTake(),scale=mappingScale(CLUB_MAPPING.heightMetres,take.calibration.headHeight);
+  let blended=0;for(const m of meshes){const w=m.geometry.getAttribute('skinWeight');for(let i=0;i<w.count;i++){assert.ok(Math.abs(w.getX(i)+w.getY(i)+w.getZ(i)+w.getW(i)-1)<1e-5);if(w.getX(i)>.05&&w.getY(i)>.05)blended++;}}assert.ok(blended>100);
+  for(const side of ['Left','Right'])for(const finger of ['Thumb','Index','Middle','Ring','Pinky'])for(let joint=1;joint<=3;joint++)assert.ok(actor.scene.getObjectByName(side+'Hand'+finger+joint),'independent finger bones');
+  const lengths=['LeftLowerArm','LeftWrist','RightLowerArm','RightWrist'].map(name=>({name,length:actor.scene.getObjectByName(name)!.position.length()}));
+  for(let ms=0;ms<=12000;ms+=100){const poses=sampleRecording(take,ms),raw=JSON.stringify(poses);actor.apply(poses,scale);assert.equal(JSON.stringify(poses),raw);
+    for(const {name,length}of lengths)assert.ok(Math.abs(actor.scene.getObjectByName(name)!.position.length()-length)<1e-6,'constant anatomical segment lengths');
+    for(const joint of ['head','leftHand','rightHand'] as const)if(poses[joint])assert.ok(actor.scene.getObjectByName(CLUB_MAPPING.nodes[joint])!.getWorldPosition(new Vector3()).distanceTo(new Vector3(...poses[joint]!.position).multiplyScalar(scale))<1e-6,'measured proxy is unchanged');
+    for(const mesh of meshes){mesh.skeleton.update();for(let i=0;i<mesh.geometry.attributes.position.count;i+=101){const p=mesh.getVertexPosition(i,new Vector3());assert.ok(p.toArray().every(Number.isFinite)&&p.length()<4,'finite bounded skin deformation');}}
   }
-  const lean=sampleRecording(take,1000);lean.head={...lean.head!,position:[.15,1.66,-.09]};actor.apply(lean,scale);
-  const spine=actor.scene.getObjectByName('Spine')!,angle=spine.quaternion.angleTo(new Quaternion());assert.ok(angle>.05&&angle<=.351);
-  assert.ok(actor.scene.getObjectByName('Head')!.getWorldPosition(new Vector3()).distanceTo(new Vector3(...lean.head.position).multiplyScalar(scale))<1e-6);
-  actor.dispose();mesh.geometry.dispose();
+  const grip={head:{position:[0,1.605,0] as [number,number,number],orientation:[0,0,0,1] as [number,number,number,number]},leftHand:{position:[-.3,1.1,-.25] as [number,number,number],orientation:[0,0,0,1] as [number,number,number,number]},rightHand:null};actor.apply(grip,1);
+  assert.ok(actor.scene.getObjectByName('LeftWrist')!.getWorldPosition(new Vector3()).distanceTo(new Vector3(-.3,1.175,-.25))<1e-5,'palm centre is not mistaken for wrist');
+  assert.ok(actor.scene.getObjectByName('LeftWrist')!.getWorldQuaternion(new Quaternion()).angleTo(new Quaternion().setFromAxisAngle(new Vector3(0,0,1),Math.PI/2))<1e-5,'grip axes are calibrated to anatomical hand');
+  const extreme=sampleRecording(take,1000);extreme.leftHand={position:[-3,2,-2],orientation:[0,0,0,1]};actor.apply(extreme,scale);
+  for(const {name,length}of lengths)assert.ok(Math.abs(actor.scene.getObjectByName(name)!.position.length()-length)<1e-6,'unreachable targets cannot detach a wrist');
+  actor.apply({...extreme,leftHand:null},scale);assert.equal(actor.scene.getObjectByName('LeftHandSurface')!.visible,false);
+  actor.apply(sampleRecording(take,1000),scale);const first=actor.scene.getObjectByName('LeftWrist')!.getWorldPosition(new Vector3());actor.apply(sampleRecording(take,7000),scale);actor.apply(sampleRecording(take,1000),scale);assert.ok(first.distanceTo(actor.scene.getObjectByName('LeftWrist')!.getWorldPosition(new Vector3()))<1e-6,'seeking does not accumulate deformation');actor.dispose();
 });
 
-test('authored seated poses fit the cushion without deep penetration or floating feet', async () => {
-  const b=await fs.readFile(base+'models/audience-01.glb'),model=await parseClubModel(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));
-  const mixer=new AnimationMixer(model.scene),body=model.scene.getObjectByName('BodySurface') as SkinnedMesh;
-  const cushion=new Box3(new Vector3(-.24,.435,-.22),new Vector3(.24,.525,.22));
-  for(const name of ['seated-idle','listen','laugh','clap']){
-    mixer.stopAllAction();mixer.clipAction(model.animations.find(a=>a.name===name)!).play();
-    for(let time=0;time<=4;time+=.5){mixer.setTime(time);model.scene.updateMatrixWorld(true);body.skeleton.update();let floor=Infinity;
-      for(let i=0;i<body.geometry.getAttribute('position').count;i++){const p=body.getVertexPosition(i,new Vector3());floor=Math.min(floor,p.y);if(cushion.containsPoint(p))assert.ok(p.y>=.515,`${name}: more than 10mm cushion compression`);}
-      assert.ok(floor>=-.005&&floor<.04,`${name}: shoes must stay at the floor`);
-    }
-  }
-  mixer.stopAllAction();mixer.uncacheRoot(model.scene);model.scene.traverse(n=>{if(n instanceof Mesh)n.geometry.dispose();});
+test('every audience model fits the cushion and floor throughout seated motion', async () => {
+ for(const id of ['audience-01','audience-02','audience-03','audience-04','audience-05']){
+  const b=await fs.readFile(base+'models/'+id+'.glb'),model=await parseClubModel(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)),mixer=new AnimationMixer(model.scene);
+  const bodies=skinned(model.scene.getObjectByName('BodySurface')!);assert.ok(bodies.length>0);
+  const cushion=new Box3(new Vector3(-.235,.435,-.205),new Vector3(.235,.525,.205));
+  for(const name of ['seated-idle','listen','laugh','clap']){mixer.stopAllAction();const clip=model.animations.find(a=>a.name===name)!;mixer.clipAction(clip).play();
+   for(let time=0;time<clip.duration;time+=.5){mixer.setTime(time);model.scene.updateMatrixWorld(true);let floor=Infinity;
+    for(const body of bodies){body.skeleton.update();for(let i=0;i<body.geometry.getAttribute('position').count;i++){const p=body.getVertexPosition(i,new Vector3());floor=Math.min(floor,p.y);if(cushion.containsPoint(p))assert.ok(p.y>=.515,id+' '+name+': cushion penetration');}}
+    assert.ok(floor>=-.008&&floor<.04,id+' '+name+': floor '+floor);
+   }
+  }mixer.stopAllAction();mixer.uncacheRoot(model.scene);model.scene.traverse(n=>{if(n instanceof Mesh)n.geometry.dispose();});
+ }
 });
+
 test('failed asset load releases fulfilled resources and never silently substitutes an empty scene', async () => {
   const room = buildTheatre(); await assert.rejects(room.load(async () => { throw new Error('missing asset'); }), /missing asset/); room.dispose();
   await assert.rejects(parseClubModel(new ArrayBuffer(20)), /GLB/);

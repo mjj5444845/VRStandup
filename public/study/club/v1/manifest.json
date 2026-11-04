@@ -5,38 +5,38 @@
   "files": [
     {
       "file": "models/scene-empty.glb",
-      "bytes": 1981404,
-      "sha256": "9cdbdcf63d102fd5df26651a4e375e4b66dc8e63cd05bce96d5a845b77694c2b"
+      "bytes": 8239980,
+      "sha256": "ed1b71365098dd7bbd24818a86450728cdd54cfa92a970fbe4fcec46e0873063"
     },
     {
       "file": "models/actor.glb",
-      "bytes": 1292136,
-      "sha256": "f20c1adeb8f661ab2beeede67524afbec4576f6bf0c692797639ac84ce1a902d"
+      "bytes": 7603124,
+      "sha256": "e7dc80dc976c58330de55fafdd7ff2da099a46cac0552844c80c81ec7ee4b63e"
     },
     {
       "file": "models/audience-01.glb",
-      "bytes": 1340736,
-      "sha256": "33d60141cb17b3e31c8d863b48bd8be5d2100aa604ad76d7027d1bac6ba626ea"
+      "bytes": 3237136,
+      "sha256": "b5d3711a5ddd3d466fa5c3f544dd49d84143e024cd5f178b78c2846ded24420e"
     },
     {
       "file": "models/audience-02.glb",
-      "bytes": 1292164,
-      "sha256": "37a623f6dbe2027a1d118819d21dfd0b29633d4cf6954248d115b24dc2ea5685"
+      "bytes": 3345872,
+      "sha256": "f47a0b2340c274aa1fe55e3df9e5f40a7c450660b976c57c76fbe4c3f9a439ea"
     },
     {
       "file": "models/audience-03.glb",
-      "bytes": 1299264,
-      "sha256": "93b9fd95c374458aefcd203989c1151d87c88930f906eaedbb6e7641385bb331"
+      "bytes": 3583164,
+      "sha256": "d00a01234a9d8454322354ed6e7651fec9869c5944e35b297d5a6460a7702b82"
     },
     {
       "file": "models/audience-04.glb",
-      "bytes": 1292156,
-      "sha256": "98578b49232ba143f3d68079c43f04c2254422dc9328c4a34ba2d35757ebb142"
+      "bytes": 3320620,
+      "sha256": "33f1fe50d2b02ceb614a5e2251287d29a6cc725e18f367af520a3e0db398f49e"
     },
     {
       "file": "models/audience-05.glb",
-      "bytes": 1340736,
-      "sha256": "8aca438f1a09a4ed45ac304fdb7b6bb4edc60d61043677b084187833c8604525"
+      "bytes": 4905012,
+      "sha256": "4e72516c7d765cd3ae3943be1b1b46a75a43e530a0d30ce9fb71a00fca770ccc"
     },
     {
       "file": "graphics/expressive-wow.png",
@@ -121,7 +121,7 @@
     {
       "file": "rigs/actor-mapping.json",
       "bytes": 491,
-      "sha256": "984967da56947102631c2197b903565aa82a38f99d5f30704bb4adce42f8a6de"
+      "sha256": "a32eb6da6048e15d8c484656d9418e0d76be61ec91dd4f932b22fc9e6c2235bc"
     },
     {
       "file": "scene-layout.json",
@@ -296,5 +296,5 @@
       "approval": "candidate; listening and study suitability pending"
     }
   ],
-  "sculptRevision": "clay-v2-2026-11-04"
+  "sculptRevision": "anatomical-v3-2026-11-04"
 }
