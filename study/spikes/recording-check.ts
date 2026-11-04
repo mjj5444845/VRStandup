@@ -148,7 +148,7 @@ export function createRecordingCheck(host: HTMLElement, onChange: (state: Record
       const microphoneTrack = stream.getAudioTracks()[0];
       if (!microphoneTrack || microphoneTrack.readyState !== 'live' || microphoneTrack.muted || context.state !== 'running') throw new Error('声音输入未能保持可用，请重新准备麦克风。');
       const settings = microphoneTrack.getSettings();
-      processing = { echoCancellation: settings.echoCancellation ?? null, noiseSuppression: settings.noiseSuppression ?? null, autoGainControl: settings.autoGainControl ?? null };
+      processing = { echoCancellation: typeof settings.echoCancellation === 'boolean' ? settings.echoCancellation : null, noiseSuppression: settings.noiseSuppression ?? null, autoGainControl: settings.autoGainControl ?? null };
       input = context.createMediaStreamSource(stream); worklet = new AudioWorkletNode(context, 'recording-pcm'); mute = context.createGain(); mute.gain.value = 0;
       input.connect(worklet).connect(mute).connect(context.destination);
       worklet.port.onmessage = ({ data }: MessageEvent<unknown>) => {

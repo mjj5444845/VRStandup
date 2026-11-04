@@ -81,3 +81,5 @@ Vercel 命令行上传与从 GitHub 自动取源码是不同流程，不能只�
 - [npm 按版本清单安装](https://docs.npmjs.com/cli/v10/commands/npm-ci/)
 - [Git 忽略规则](https://git-scm.com/docs/gitignore)
 - [Vercel 排除规则](https://vercel.com/docs/deployments/vercel-ignore)
+
+2026-11-04更新：Next.js 16.4.5、React 19.3.1、Three.js 0.187.0、ws 8.22.1；TypeScript使用支持编译器API的6.0.3，ESLint保留插件支持的9系列。间接依赖定向修复及兼容理由见[系统更新](../project/SYSTEM_UPDATE.md)。本轮安装审计0项；设备结果另行验证。

@@ -28,7 +28,7 @@ export function createRecorderAudio(): RecorderAudio {
       if (generation !== id) { pending.getTracks().forEach(t => t.stop()); return; }
       stream = pending; const track = stream.getAudioTracks()[0];
       if (!track || track.readyState !== 'live' || track.muted || audio.state !== 'running') throw new Error('麦克风或声音时钟不可用。');
-      const s = track.getSettings(); processing = { echoCancellation: s.echoCancellation ?? null, noiseSuppression: s.noiseSuppression ?? null, autoGainControl: s.autoGainControl ?? null };
+      const s = track.getSettings(); processing = { echoCancellation: typeof s.echoCancellation === 'boolean' ? s.echoCancellation : null, noiseSuppression: s.noiseSuppression ?? null, autoGainControl: s.autoGainControl ?? null };
       input = audio.createMediaStreamSource(stream); node = new AudioWorkletNode(audio, 'recording-pcm'); mute = audio.createGain(); mute.gain.value = 0;
       input.connect(node).connect(mute).connect(audio.destination);
       const lost = (reason: string) => { if (generation !== id) return; if (capture) capture.stop(reason, true); else { release(); unavailable(reason); } };

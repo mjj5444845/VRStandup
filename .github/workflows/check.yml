@@ -15,7 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest]
+        # The latest ARM pool could not acquire a runner for the previous release.
+        os: [macos-26-intel, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     env:

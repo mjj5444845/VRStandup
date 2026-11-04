@@ -607,3 +607,17 @@ Blender 5.2.3 LTS 重制六个人物并导出实际运行GLB；保存人物可�
 用户随后明确要求“精修完了上传”，本批在以上检查通过后提交并通过现有GitHub/Vercel流程上传；远端检查与上线结果以该提交对应的Actions和Vercel记录为准，不能借用此前部署的成功状态。Windows实验室本机、Quest舒适度/双眼画面/真实刷新率、连续真实表演和花字可见性，以及用户美术认可均待分别验收。离散射线通过不能保证任意眼高、头部运动、全身或花字一直无遮挡。
 
 补充浏览器自动操作验收：24座 × 三种工程眼高共72次选择全部正确显示对应状态；日志 `browser-controls.json`。最终检查页捕获的浏览器错误/警告为空（`browser-log.json`）；另保存 `portrait.png` 核对新灯光下的人物面部。该检查验证控件切换及运行状态，不代表72个画面的像素审美全部获准。
+
+## 2026-11-04 系统更新与软件收尾（Mac）
+
+基线检查：本机HEAD与origin/main均为d3c9652；工作区已有花字概念、协议与筛选计划，保留后纳入本次公开文档。上次Project checks 41875384304：Windows成功、macOS因ARM运行器容量不足未获分配而取消；Vercel与Pages成功。不能将整体工作流记为通过。本轮改用官方macos-26-intel；没有删减测试。
+
+更新内容与兼容选择见[SYSTEM_UPDATE](SYSTEM_UPDATE.md)：Next16.4.5、React19.3.1、Three0.187.0、ws8.22.1、TypeScript6.0.3与配套类型。ESLint保留react插件支持的9系列；minimatch11.0.4限定覆盖typescript-estree依赖。npm audit为0项，未执行强制降级。
+
+统一检查137项、0失败（8架构、1部署、47独立检查、3看板、38核心、40正式层）；核心行覆盖99.80%。新增提示单正反测试、素材列表边界校验和线上核验反例。原有几何/视线/资源释放、实际WS/HTTP/TLS、四轮问卷、回应限制、录音校验、备份及恢复测试全部保留通过。本机公开26资产为56,703,526字节，SHA-256与清单相符。生产与Pages构建均通过；检查Pages后重新生产构建再启动，避免静态导出内部缓存带入/VRStandup前缀。
+
+浏览器使用最终生产包：/lab/captions模板缺项提示、补充工程语义、编辑后检查失效及重新检查通过，已触发报告下载；未独立读取下载文件。/study/scene-review真实画面显示正常。/study/demo从前测、12秒练习、A/B/D/C四轮、六份问卷走到终态，页面完整性报告通过，明确未录制麦克风且非研究结果。浏览器警告/错误日志为空。截图与日志保存在output/system-update/，不公开。
+
+当前网络直接读取Vercel仍报unable to get local issuer certificate；system:verify正确失败，未关闭HTTPS验证。上传后部署与远端检查以对应Git提交的Actions/Vercel为准，线上资产实取未通过时不得冒充成功。Windows实验室本机、Quest双眼/刷新率/舒适度、真实演员/声音/时机、研究批准、独立介质和预实验仍待实际验收。
+
+证据：output/system-update/check.log、build.log、build-final.log、pages-build.log、npm-audit.json、assets-local.json、deployment-before.log、caption-workbench.png、scene-r187.png、engineering-complete.png和browser-log.json；CI配置调整后的复查另存check-final.log和build-release.log。
