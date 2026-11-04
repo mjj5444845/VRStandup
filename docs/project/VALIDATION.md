@@ -5,6 +5,7 @@
 ## 2026-11-04：当前实验室Windows构建与素材版本修复
 
 发布补充：112f0c3已推送；[Vercel部署日志](https://vercel.com/jeffreys-projects-5c3b34d8/vr-standup/2oS43UMp4fBVseKLNVCmcF4uXDT4)明确报找不到/vercel/path0/.next/routes-manifest.json，线上仍为旧版本。补充vercel.json的outputDirectory=.next-lab，与实际系统构建目录一致；[官方配置说明](https://vercel.com/docs/project-configuration/vercel-json)允许仓库配置覆盖输出目录。回归直接比较Vercel收集目录与Next实际构建目录，补配置前失败。最终验证必须针对补充提交，旧112f0c3的构建状态不作发布成功证据。
+目录修复b0f7be7部署成功，但线上build.json的dirty=true使严格核验正确失败，未将部署状态替代版本核验。Vercel安装命令明确为npm ci，避免默认安装改写锁文件；若仍有改动，构建日志只输出已跟踪源码路径用于定位，不输出未跟踪私密文件名，不放宽dirty检查。
 
 环境为本机D:\VRStandup、Windows 11、Node 22.22.2、npm 10.9.7；基线b2ce53e。以下本机修复验证完成时尚未提交；随后用户授权提交、推送并核验GitHub及线上。发布核验须使用新提交完整SHA、干净线上构建标记、26文件实取校验和浏览器画面，结果保存在本机output/windows-release/并对应GitHub检查记录；不能从本段本机结果推定线上通过。
 

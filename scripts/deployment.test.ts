@@ -23,6 +23,7 @@ test('Pages export cannot overwrite the laboratory production build', () => {
   assert.notEqual(lab.build, pages.destination);
   assert.equal(lab.basePath, '');
   assert.equal(pages.basePath, '/VRStandup');
-  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')) as { outputDirectory?: string };
+  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')) as { outputDirectory?: string; installCommand?: string };
   assert.equal(vercel.outputDirectory, lab.build, 'Vercel must collect the same directory that the application builds');
+  assert.equal(vercel.installCommand, 'npm ci', 'Cloud installs must preserve the checked lockfile');
 });
