@@ -2,7 +2,7 @@ import type { Evidence } from './execution';
 import type { ConditionId } from './conditions';
 import type { Quat } from './motion';
 import { assert, object, finite } from './validation';
-import { engineeringClip } from './engineering';
+import { engineeringClip, engineeringClipId } from './engineering';
 import { base64Bytes, pcmWave, validateRecording } from './recording';
 import { validateCues } from './materials';
 export const DEVICE_TEST_VERSION = '2026-11-03-device-v1';
@@ -75,7 +75,7 @@ export function validateDeviceReport(input: unknown) {
 }
 /** Long, repeatable exercise windows remove any requirement to react within a few seconds. */
 export function deviceClip(id: string, condition: ConditionId = 'D') {
-  assert(/^[a-z-]{1,50}$/.test(id), '练习编号无效。'); const base = engineeringClip('club-flow-main1'), durationMs = 60000, rate = 8000, samples = new Float32Array(rate * durationMs / 1000);
+  assert(/^[a-z-]{1,50}$/.test(id), '练习编号无效。'); const base = engineeringClip(engineeringClipId('main1')), durationMs = 60000, rate = 8000, samples = new Float32Array(rate * durationMs / 1000);
   for (let i = 0; i < samples.length; i++) if (i % (rate * 2) < rate * .05) samples[i] = .08 * Math.sin(i / rate * 440 * 2 * Math.PI);
   const clipId = `device-${id}-${condition}`, frames = Array.from({ length: 6001 }, (_, i) => ({ ...base.take.frames[i % 1200], tMs: i * 10, predictedDisplayTimeMs: i * 10, observedPerformanceTimeMs: i * 10 }));
   const take = validateRecording({ ...base.take, id: clipId, durationMs, frames, audio: { ...base.take.audio, sampleRate: rate, frames: samples.length, wavBase64: base64Bytes(pcmWave(samples, rate)) } });

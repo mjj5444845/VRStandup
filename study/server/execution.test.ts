@@ -39,8 +39,8 @@ test('complete integrated system uses checked media, protected captures, two res
     const answers = async () => { const timing = s.stage === 'pre-questionnaire' ? 'pre' : s.stage === 'post-questionnaire' ? 'post' : 'round', q = plan.questionnaires.find(q => q.timing === timing)!; assert.ok((await capture({ kind: 'answers', questionnaireId: q.id, version: q.version, round: s.roundIndex, answers: timing === 'round' ? { 'demo-rating': 7 } : { placeholder: 1 } })).ok); };
     const finish = async () => { assert.ok((await capture({ kind: 'media', context: mediaContext(s)!, positionMs: 12000, ended: true })).ok); };
     await answers();
-    assert.equal((await fetch(`${base}/api/run/clip?clip=club-flow-practice`, { headers: { ...headers, 'x-punchcap-client': 'wrong' } })).status, 400);
-    const clipResponse = await fetch(`${base}/api/run/clip?clip=club-flow-practice`, { headers }); assert.equal(clipResponse.status, 200); const clip = await clipResponse.json(); assert.equal(clip.take.id, 'club-flow-practice');
+    assert.equal((await fetch(`${base}/api/run/clip?clip=${plan.practiceClipId}`, { headers: { ...headers, 'x-punchcap-client': 'wrong' } })).status, 400);
+    const clipResponse = await fetch(`${base}/api/run/clip?clip=${plan.practiceClipId}`, { headers }); assert.equal(clipResponse.status, 200); const clip = await clipResponse.json(); assert.equal(clip.take.id, plan.practiceClipId);
     assert.equal((await fetch(`${base}/api/run/clip?clip=private-extra`, { headers })).status, 400);
     await finish();
     for (let round = 0; round < 4; round++) {

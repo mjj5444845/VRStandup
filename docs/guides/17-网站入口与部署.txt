@@ -34,7 +34,7 @@ Windows PowerShell 使用 npm.cmd；Mac 使用 npm。
 GitHub Pages 构建：npm run build:pages。
 输出目录 output/github-pages，仅含看板、页面资源和版本摘要，不发布实验页面、public 媒体、原件或数据。
 项目路径为 /VRStandup/；构建使用 Next 静态导出，不能删除该路径前缀。
-生成过程会使用 Next 构建目录；不要在正在使用相同构建文件的实验室服务运行时重新构建，完成后运行正常构建再启动实验室服务。
+实验室/普通系统构建使用 .next-lab；Pages 内部构建使用 .next、静态导出到 .next-pages，二者互不覆盖。运行 build 前先停止实验室服务，完成后再启动；单独 build:pages 不再破坏实验室构建。
 正式发布由 .github/workflows/pages.yml 完成，GitHub 仓库 Pages 的 Source 设置为 GitHub Actions。
 
 Vercel 通过已有 GitHub 连接部署 main，构建命令 npm run build。

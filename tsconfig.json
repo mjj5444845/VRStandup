@@ -37,6 +37,8 @@
     "**/*.tsx",
     "**/*.d.ts",
     ".next/types/**/*.ts",
+    ".next-lab/types/**/*.ts",
+    ".next-lab/dev/types/**/*.ts",
     ".next-pages/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"

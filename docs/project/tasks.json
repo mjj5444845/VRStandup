@@ -140,7 +140,7 @@
       "title": "Windows 11 实验室运行验收",
       "purpose": "在目标实验室电脑实际安装、构建并打开页面。",
       "outcome": "确认程序确实能离开开发 Mac，在实验室运行。",
-      "current": "用户指定当前 D:\\VRStandup 所在 Windows 11 为实验室机器；已按锁文件安装，完成检查、生产构建、服务启动及浏览器页面验证。",
+      "current": "2026-11-04：以当前D:\\VRStandup实验室Windows为准；139项检查、系统/Pages构建通过。系统.next-lab与Pages内部.next隔离，785构建文件未被覆盖；13入口、29个JS/CSS、26公开素材和20私密片段核验通过，保留14旧片段、新建6个v3合成副本。实际浏览器结果见VALIDATION.md；Quest另测。",
       "acceptance": "按 Windows 说明安装、构建和启动，并保存实际结果。",
       "dependencies": [
         "P04"
@@ -443,7 +443,7 @@
       "title": "维护当前自动检查与构建",
       "purpose": "持续检查类型、代码规范和已实现验证的逻辑。",
       "outcome": "已有功能修改后能及时发现回归。",
-      "current": "2026-11-04：依赖更新、版本及公开资产核验、花字提示单和素材响应校验纳入本批检查；结果见VALIDATION.md。",
+      "current": "2026-11-04：139项自动检查通过，新增Next实际构建目录隔离及新版工程副本保留旧素材/拒绝错配测试。完整双端、设备练习、版本与公开资产检查继续通过；Windows运行和构建结果见VALIDATION.md。",
       "acceptance": "每次代码变更执行检查和构建，失败不得记为通过。",
       "dependencies": [
         "P01"
@@ -473,7 +473,7 @@
       "title": "Mac 与 Windows 自动检查",
       "purpose": "建立两种系统的持续检查与构建流程。",
       "outcome": "提交前后都能发现平台差异。",
-      "current": "2026-11-04：d3c9652的Windows通过，macOS因ARM运行器容量不足未获得机器而取消。本批改用官方macos-26-intel与windows-latest，保留全部测试和构建步骤；远端结果以本批提交为准。",
+      "current": "2026-11-04：b2ce53e的Mac首次取代码时取消，重跑后Mac与Windows均成功（Actions 41901648758）。本轮构建隔离/素材版本修复已通过139项本机检查，用户授权提交推送；新提交远端结果按对应Actions及output/windows-release/证据另核验，不以旧提交通过代替。",
       "acceptance": "GitHub 的 macOS 与 Windows 两个运行器实际完成检查与构建并记录结果；实验室目标电脑另由 P05 验收。",
       "dependencies": [
         "E01",

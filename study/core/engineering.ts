@@ -3,6 +3,7 @@ import { createSession, type Session } from './session';
 import { syntheticTake } from './synthetic-take';
 import { validateCues } from './materials';
 import { CLUB_MAPPING } from './club-assets';
+export function engineeringClipId(id: string) { return `club-flow-${CLUB_MAPPING.modelVersion}-${id}`; }
 /** Original substitute content, never an approved questionnaire, actor or allocation. */
 export function engineeringPlan() {
   const plan = demoPlan(); plan.id = 'integrated-engineering-club-v1';
@@ -15,10 +16,10 @@ export function engineeringPlan() {
   ], clip.durationMs);
   plan.questionnaires[1].questions = [{ id: 'demo-rating', kind: 'number', prompt: '工程样例评分：请任选 0–10，检验评分保存（非研究量表）', min: 0, max: 10, required: true }];
   plan.questionnaires[2].questions.push({ id: 'demo-comment', kind: 'text', prompt: '可选：记录本次预演的问题（非研究题目）', maxLength: 1000, required: false });
-  for (const clip of plan.clips) { clip.id = `club-flow-${clip.id}`; clip.takeId = clip.id; clip.model = structuredClone(CLUB_MAPPING); }
-  plan.practiceClipId = `club-flow-${plan.practiceClipId}`;
-  for (const a of plan.assignments) for (const r of a.rounds) r.clipId = `club-flow-${r.clipId}`;
-  plan.responses = Object.fromEntries(Object.entries(plan.responses).map(([key, list]) => [`club-flow-${key}`, list.map(id => `club-flow-${id}`)]));
+  for (const clip of plan.clips) { clip.id = engineeringClipId(clip.id); clip.takeId = clip.id; clip.model = structuredClone(CLUB_MAPPING); }
+  plan.practiceClipId = engineeringClipId(plan.practiceClipId);
+  for (const a of plan.assignments) for (const r of a.rounds) r.clipId = engineeringClipId(r.clipId);
+  plan.responses = Object.fromEntries(Object.entries(plan.responses).map(([key, list]) => [engineeringClipId(key), list.map(engineeringClipId)]));
   return plan;
 }
 export function engineeringSession(): Session {

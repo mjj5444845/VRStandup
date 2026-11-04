@@ -26,6 +26,7 @@ study/config/allocation.json
 # Local installations, generated results, and development caches.
 node_modules/
 .next/
+.next-lab/
 .next-pages/
 .vinext/
 .wrangler/

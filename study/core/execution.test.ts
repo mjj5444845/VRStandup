@@ -23,7 +23,7 @@ test('integrated practice and four rounds require real media and versioned answe
       for (const action of ['show', 'grab', 'stretch', 'release', 'hide'] as const) capture({ kind: 'interaction', context: c, cueId: kind, atMs, action, target: 'self', scale: 1, position: [0, 1, 0] });
       if (condition === 'D') {
         for (const action of ['attach', 'throw', 'land'] as const) capture({ kind: 'interaction', context: c, cueId: kind, atMs: 5000, action, target: 'self', scale: 1, position: [0, 0, 0], outcome: 'floor' });
-        act('respond', 'club-flow-response'); assert.equal(s.execution!.responseMs, 0); assert.equal(mediaContext(s)!.phase, 'response');
+        act('respond', s.plan.responses[c.clipId][0]); assert.equal(s.execution!.responseMs, 0); assert.equal(mediaContext(s)!.phase, 'response');
         capture({ kind: 'media', context: mediaContext(s)!, positionMs: 2000, ended: false }); finish(); assert.equal(s.positionMs, 5000);
       }
     }
@@ -33,14 +33,14 @@ test('integrated practice and four rounds require real media and versioned answe
   }
   answers(); assert.equal(s.stage, 'completed'); assert.equal(s.execution!.answers.length, 6);
   assert.throws(() => applyEvidence(s, { kind: 'interruption', reason: 'late' }, now));
-  assert.ok(engineeringClip('club-flow-main1').take.frames.length); assert.throws(() => engineeringClip('unknown')); assert.equal(engineeringPlan().clips.length, 6);
+  assert.ok(engineeringClip(s.plan.assignments[0].rounds[0].clipId).take.frames.length); assert.throws(() => engineeringClip('unknown')); assert.equal(engineeringPlan().clips.length, 6);
 });
 test('capture validation rejects wrong phases, lost readiness, corrupt poses and condition bypasses', () => {
   const s = engineeringSession(); assert.equal(validateExecution(s.execution).kind, 'integrated'); assert.throws(() => validateExecution({}));
   assert.throws(() => applyEvidence({ ...s, connected: false }, { kind: 'interruption', reason: 'x' }, 1));
   assert.throws(() => applyEvidence(s, { kind: 'answers', questionnaireId: 'missing', version: 'draft', round: 0, answers: {} }, 1));
   const practice = { ...s, stage: 'practice' as const }, context = mediaContext(practice)!;
-  assert.equal(contextKey(context), '0:practice:club-flow-practice:0');
+  assert.equal(contextKey(context), `0:practice:${s.plan.practiceClipId}:0`);
   for (const positionMs of [-1, 13000]) assert.throws(() => applyEvidence(practice, { kind: 'media', context, positionMs, ended: true }, 1));
   assert.throws(() => applyEvidence(practice, { kind: 'media', context, positionMs: 2, ended: true }, 1));
   assert.throws(() => applyEvidence(practice, { kind: 'media', context: { ...context, round: 2 }, positionMs: 2, ended: false }, 1));

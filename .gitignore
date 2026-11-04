@@ -13,6 +13,7 @@
 
 # build output
 /.next/
+/.next-lab/
 /.next-pages/
 /.vinext/
 /out/

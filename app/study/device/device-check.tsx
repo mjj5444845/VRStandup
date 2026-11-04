@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { DEVICE_STEPS, DEVICE_TEST_VERSION, deviceClip, deviceProgress, deviceObservations, deviceReport, deviceRequirements, observeDevice, orientationDistance, validateDeviceReport, engineeringClip, inspectBrowser, verifyPublicAssets, type DeviceStep, type DeviceObservations, type DeviceDecision } from '@/study/web/device-api';
+import { DEVICE_STEPS, DEVICE_TEST_VERSION, deviceClip, deviceProgress, deviceObservations, deviceReport, deviceRequirements, observeDevice, orientationDistance, validateDeviceReport, engineeringClip, engineeringClipId, inspectBrowser, verifyPublicAssets, type DeviceStep, type DeviceObservations, type DeviceDecision } from '@/study/web/device-api';
 import { initialSceneInfo, type SceneInfo, type ScenePanel, type RunClip } from '@/study/web/runtime-api';
 import { createSceneAudio } from '@/study/web/scene-audio';
 import { createMeasurementRecorder, type AudioSegment } from '@/study/web/measurement-audio';
@@ -43,7 +43,7 @@ export function DeviceCheck() {
           if (evidence.kind === 'orientation') for (const sample of evidence.samples) if (sample.source === 'xr' && sample.head) { firstHead.current ??= sample.head.orientation; const angle = orientationDistance(firstHead.current, sample.head.orientation); if (angle > observed.current.headTurnDegrees) update(s => ({ ...s, headTurnDegrees: angle })); }
           if (evidence.kind === 'media') { recorder.mark({ elapsedMs: 0, context: evidence.context, mediaMs: evidence.positionMs }); if (evidence.ended && stepRef.current === 'microphone') recorder.stop('test-duration-limit'); }
           if (evidence.kind === 'interaction' && evidence.action === 'land' && evidence.outcome === 'stage' && stepRef.current === 'response' && evidence.context.phase === 'practice' && active.current?.context.clipId === evidence.context.clipId) {
-            if (responsesStarted.current < 2) { responsesStarted.current++; mainMs.current = evidence.atMs; main.current = active.current; const response = engineeringClip('club-flow-response'), context = { round: 0, phase: 'response' as const, clipId: response.manifest.id, response: responsesStarted.current };
+            if (responsesStarted.current < 2) { responsesStarted.current++; mainMs.current = evidence.atMs; main.current = active.current; const response = engineeringClip(engineeringClipId('response')), context = { round: 0, phase: 'response' as const, clipId: response.manifest.id, response: responsesStarted.current };
               void Promise.resolve().then(() => load.current({ clip: response, context, condition: 'D' })).catch(error => setNotice(String(error))); return true;
             }
             if (evidence.source === 'xr') update(s => ({ ...s, blockedThird: s.blockedThird + 1 }));

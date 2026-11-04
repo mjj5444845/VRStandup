@@ -1,7 +1,7 @@
 export { DEVICE_STEPS, DEVICE_TEST_VERSION, deviceClip, deviceObservations, deviceReport, deviceRequirements, observeDevice, orientationDistance, validateDeviceReport } from '../core/device-test';
 export type { DeviceStep, DeviceObservations, DeviceDecision } from '../core/device-test';
 export { CLUB_BASE, CLUB_CAPTIONS } from '../core/club-assets';
-export { engineeringClip } from '../core/engineering';
+export { engineeringClip, engineeringClipId } from '../core/engineering';
 export { inspectBrowser } from './browser-check';
 export { verifyPublicAssets } from './asset-preflight';
 import type { DeviceObservations, DeviceStep } from '../core/device-test';
