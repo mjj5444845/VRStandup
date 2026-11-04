@@ -4,6 +4,8 @@
 
 ## 2026-11-04：当前实验室Windows构建与素材版本修复
 
+发布补充：112f0c3已推送；[Vercel部署日志](https://vercel.com/jeffreys-projects-5c3b34d8/vr-standup/2oS43UMp4fBVseKLNVCmcF4uXDT4)明确报找不到/vercel/path0/.next/routes-manifest.json，线上仍为旧版本。补充vercel.json的outputDirectory=.next-lab，与实际系统构建目录一致；[官方配置说明](https://vercel.com/docs/project-configuration/vercel-json)允许仓库配置覆盖输出目录。回归直接比较Vercel收集目录与Next实际构建目录，补配置前失败。最终验证必须针对补充提交，旧112f0c3的构建状态不作发布成功证据。
+
 环境为本机D:\VRStandup、Windows 11、Node 22.22.2、npm 10.9.7；基线b2ce53e。以下本机修复验证完成时尚未提交；随后用户授权提交、推送并核验GitHub及线上。发布核验须使用新提交完整SHA、干净线上构建标记、26文件实取校验和浏览器画面，结果保存在本机output/windows-release/并对应GitHub检查记录；不能从本段本机结果推定线上通过。
 
 GitHub红叉/取消标记与素材故障分开核对：[Actions 41901648758](https://github.com/mjj5444845/VRStandup/actions/runs/41901648758)初次Windows全通过，Mac在取代码阶段取消，未运行项目测试，旧Mac日志返回404，无法进一步认定取消原因。单独重跑Mac后，两平台检查与构建均成功；这只覆盖远端b2ce53e，不包含本轮尚未提交的修复。Pages及Vercel基线部署成功。

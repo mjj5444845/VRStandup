@@ -38,6 +38,7 @@ GitHub Pages 构建：npm run build:pages。
 正式发布由 .github/workflows/pages.yml 完成，GitHub 仓库 Pages 的 Source 设置为 GitHub Actions。
 
 Vercel 通过已有 GitHub 连接部署 main，构建命令 npm run build。
+仓库 vercel.json 的 outputDirectory 为 .next-lab，须与 Next 系统构建目录同步；若仍按默认 .next 收集，将报找不到 routes-manifest.json，不能把本机 build 通过当成部署成功。
 Vercel 上的 /progress 转去 GitHub Pages；会话与私密素材路由转去实验室连接引导。
 .vercelignore 必须保留 app 页面导入的 study 源码和 docs/project/tasks.json。源码在构建中使用，并不表示会被直接公开为静态文件。
 

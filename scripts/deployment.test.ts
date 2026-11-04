@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { spawnSync, execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 test('Vercel ignore rules retain application source and the shared task catalog', () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
   const source = execFileSync('git', ['ls-files', '-c', '-o', '--exclude-standard', '--', 'app', 'study', 'scripts', 'docs/project/tasks.json'], { cwd: root, encoding: 'utf8' }).split(/\r?\n/).filter(p => /\.(?:tsx?|mjs|css|json)$/.test(p));
@@ -22,4 +23,6 @@ test('Pages export cannot overwrite the laboratory production build', () => {
   assert.notEqual(lab.build, pages.destination);
   assert.equal(lab.basePath, '');
   assert.equal(pages.basePath, '/VRStandup');
+  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')) as { outputDirectory?: string };
+  assert.equal(vercel.outputDirectory, lab.build, 'Vercel must collect the same directory that the application builds');
 });
