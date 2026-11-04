@@ -4,12 +4,47 @@ import { spawnSync, execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
+import fs from 'node:fs/promises';
+import os from 'node:os';
 test('Vercel ignore rules retain application source and the shared task catalog', () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
   const source = execFileSync('git', ['ls-files', '-c', '-o', '--exclude-standard', '--', 'app', 'study', 'scripts', 'docs/project/tasks.json'], { cwd: root, encoding: 'utf8' }).split(/\r?\n/).filter(p => /\.(?:tsx?|mjs|css|json)$/.test(p));
   assert.ok(source.includes('study/spikes/xr-support.ts') && source.includes('docs/project/tasks.json'));
   const result = spawnSync('git', ['-c', `core.excludesfile=${path.join(root, '.vercelignore')}`, 'check-ignore', '--no-index', '--stdin'], { cwd: root, input: source.join('\n') + '\n', encoding: 'utf8' });
   assert.equal(result.status, 1, `Build sources are excluded: ${result.stdout}\n${result.stderr}`);
+});
+
+test('build identity permits only declared Vercel omissions and still detects real source changes', async () => {
+  const temp = await fs.realpath(os.tmpdir()), root = await fs.mkdtemp(path.join(temp, 'punchcap-build-identity-'));
+  const script = fileURLToPath(new URL('./stamp-build.mjs', import.meta.url));
+  const git = (args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  try {
+    await fs.writeFile(path.join(root, '.gitignore'), '.env*\n!.env.example\n/public/study/build.json\n');
+    await fs.writeFile(path.join(root, '.vercelignore'), 'README.md\n.env*\n');
+    await fs.writeFile(path.join(root, 'README.md'), 'Public instructions');
+    await fs.writeFile(path.join(root, '.env.example'), 'PUBLIC_EXAMPLE=1');
+    await fs.writeFile(path.join(root, 'source.ts'), 'export const value = 1;');
+    git(['init', '--quiet']); git(['add', '.']);
+    git(['-c', 'user.name=Build Test', '-c', 'user.email=build-test@example.invalid', 'commit', '--quiet', '-m', 'fixture']);
+    const revision = git(['rev-parse', 'HEAD']);
+    const stamp = async (provider: boolean, expected = revision) => {
+      execFileSync(process.execPath, [script], { cwd: root, env: { ...process.env, VERCEL: provider ? '1' : '0', VERCEL_GIT_COMMIT_SHA: expected }, stdio: 'pipe' });
+      return JSON.parse(await fs.readFile(path.join(root, 'public/study/build.json'), 'utf8')) as { revision: string; dirty: boolean };
+    };
+    assert.equal((await stamp(false)).dirty, false);
+    await fs.unlink(path.join(root, 'README.md')); await fs.unlink(path.join(root, '.env.example'));
+    assert.equal((await stamp(false)).dirty, true);
+    assert.equal((await stamp(true)).dirty, false);
+    assert.equal((await stamp(true, 'b'.repeat(40))).dirty, true);
+    await fs.writeFile(path.join(root, 'source.ts'), 'export const value = 2;');
+    assert.equal((await stamp(true)).dirty, true);
+    await fs.writeFile(path.join(root, 'source.ts'), 'export const value = 1;');
+    await fs.writeFile(path.join(root, 'untracked.ts'), 'export {};');
+    assert.equal((await stamp(true)).dirty, true);
+  } finally {
+    assert.equal(path.dirname(root), temp);
+    await fs.rm(root, { recursive: true, force: true });
+  }
 });
 
 test('Pages export cannot overwrite the laboratory production build', () => {
