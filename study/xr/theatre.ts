@@ -76,7 +76,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
     if (!entry) throw new Error('未登记的花字资产：' + cue.assetId);
     const texture = captionTextures.get(entry.id); if (!texture) throw new Error('花字图片尚未载入。');
     const image = texture.image as { width: number; height: number }, aspect = image.width / image.height;
-    const mesh = new Mesh(new PlaneGeometry(.9, .9 / aspect), new MeshBasicMaterial({ map: texture, side: DoubleSide, transparent: true, depthWrite: false })); scene.add(mesh);
+    const mesh = new Mesh(new PlaneGeometry(.9, .9 / aspect), new MeshBasicMaterial({ map: texture, side: DoubleSide, transparent: true, depthWrite: false, toneMapped: false })); scene.add(mesh);
     const g: Glyph = { cue, mesh, texture, presented: false, mode: 'free', holders: new Set(), scale: 1, stretch: null, flight: null, velocity: [0, 0, 0], last: [0, 0, 0], lastTime: 0 }; glyphs.set(cue.id, g); return g;
   }
   function destroy(g: Glyph) { for (const [id, value] of held) if (value === g) held.delete(id); scene.remove(g.mesh); g.mesh.geometry.dispose(); g.mesh.material.dispose(); }

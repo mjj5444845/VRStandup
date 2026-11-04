@@ -569,3 +569,7 @@ GitHub Pages本地发布包51文件，确认不包含GLB/WAV/TTF/证书密钥。
 Windows本轮统一自动检查127项（8架构、1部署、47检查页、3看板、35核心、33正式层），核心行覆盖99.79%，函数100%；最终日志与构建结果见output/checks/device-final-check.log及本批发布日志。Node图片解码测试替身和服务模拟不代表实际Quest图形或麦克风通过。本轮没有新写真实研究会话。
 
 最终发布检查：output/checks/device-publish-check.log 为127项全通过，核心行99.79%、分支98.18%、函数100%。生产、Pages和模拟Vercel构建均通过，恢复本机配置后的构建日志为device-lab-build.log。Pages发布包53文件，不含GLB/WAV/TTF/证书或密钥。实际Quest的12项结果尚未产生，需由用户在公开设备页操作和下载。
+
+本批已在内置浏览器实际运行/study/device：26份文件校验完成、PC播放约75FPS/90次绘制、抓取/放大/挂载与方向键转头、可选手臂开关正常，控制台无错误；头显检查仍待测。实际截图发现中文面板颜色偏淡，修正Canvas的sRGB及界面/花字材质的色调映射，避免场景曝光影响原始文字颜色。
+
+浏览器真实下载验证完成：生成12项总报告，重新读取并校验后complete=false、XR进入次数0、audioIncluded=false；PC记录未被误判成头显通过。摘要保留在output/checks/device-browser-report-summary.json。c39c708的远端Mac/Windows检查和构建已通过，Vercel部署成功。中文面板色彩修正后再次通过127项统一检查和生产构建（device-contrast-check.log、device-contrast-build.log）。
