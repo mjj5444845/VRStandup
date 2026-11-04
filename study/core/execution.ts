@@ -12,7 +12,7 @@ export type Evidence =
   | { kind: 'answers'; questionnaireId: string; version: string; round: number; answers: Record<string, string | number> }
   | { kind: 'orientation'; context: MediaContext; samples: OrientationSample[] }
   | { kind: 'performance'; context: MediaContext; frames: number; elapsedMs: number; refreshHz: number | null; source: 'desktop' | 'xr' }
-  | { kind: 'interaction'; context: MediaContext; cueId: string; atMs: number; action: 'show' | 'hide' | 'grab' | 'release' | 'stretch' | 'throw' | 'attach' | 'land'; target: 'self'; scale: number; position: Vec3; outcome?: 'stage' | 'floor' | 'outside' }
+  | { kind: 'interaction'; context: MediaContext; cueId: string; atMs: number; action: 'show' | 'hide' | 'grab' | 'release' | 'stretch' | 'throw' | 'attach' | 'land'; target: 'self'; scale: number; position: Vec3; outcome?: 'stage' | 'floor' | 'outside'; source?: 'desktop' | 'xr'; inputCount?: number }
   | { kind: 'interruption'; reason: string };
 export function validateExecution(value: unknown): Execution {
   assert(object(value) && value.kind === 'integrated' && finite(value.practiceMs) && value.practiceMs >= 0 && finite(value.responseMs) && value.responseMs >= 0 && Array.isArray(value.answers) && value.answers.every(v => text(v, 100)) && new Set(value.answers).size === value.answers.length && typeof value.audioRequired === 'boolean', '完整流程记录无效。');
@@ -36,6 +36,7 @@ export function validateEvidence(input: unknown): Evidence {
     } else if (input.kind === 'interaction') assert(id(input.cueId) && finite(input.atMs) && input.atMs >= 0 && ['show', 'hide', 'grab', 'release', 'stretch', 'throw', 'attach', 'land'].includes(String(input.action)) && input.target === 'self' && finite(input.scale) && input.scale >= INTERACTION_LIMITS.minScale && input.scale <= INTERACTION_LIMITS.maxScale && tuple(input.position, 3) && (input.outcome === undefined || ['stage', 'floor', 'outside'].includes(String(input.outcome))), '交互记录无效。');
     else throw new Error('未知的数据记录类型。');
   }
+  if (input.kind === 'interaction') assert((input.source === undefined || input.source === 'desktop' || input.source === 'xr') && (input.inputCount === undefined || Number.isInteger(input.inputCount) && finite(input.inputCount) && input.inputCount >= 0 && input.inputCount <= 2), '交互输入来源无效。');
   return input as Evidence;
 }
 export function mediaContext(s: Session): MediaContext | null {

@@ -6,6 +6,7 @@ import path from 'node:path';
 import { WebSocket } from 'ws';
 import { startLabServer } from './http';
 import { prepareEngineering } from '../storage/engineering';
+import { restoreBackup } from '../storage/backup';
 import { readJournal } from '../storage/journal';
 import { saveBundle } from '../storage/assets';
 import { syntheticTake } from '../core/synthetic-take';
@@ -66,7 +67,7 @@ test('complete integrated system uses checked media, protected captures, two res
     const backup = await (await fetch(`${base}/api/lab/backup?session=integrated`, { method: 'POST', headers: operatorHeaders })).json(); assert.equal(backup.verified, true); assert.equal(backup.independentStorageVerified, false);
     const original = await readJournal(data, 'integrated'); assert.ok(original.length > 35);
     await participant.close(); participant = undefined; await op.close(); op = undefined; await running.close(); running = undefined;
-    const restore = path.join(root, 'restore'); await fs.mkdir(restore); await fs.cp(path.join(backups, backup.id), path.join(restore, 'integrated'), { recursive: true }); assert.equal((await readJournal(restore, 'integrated')).at(-1)!.snapshot.stage, 'completed');
+    const restore = path.join(root, 'restore'); await restoreBackup(path.join(backups, backup.id), restore); assert.equal((await readJournal(restore, 'integrated')).at(-1)!.snapshot.stage, 'completed');
     running = await startLabServer({ port: 0, dataRoot: restore, assetRoot: assets, operatorKey }); assert.equal(running.lab.sessions()[0].stage, 'completed');
     await fs.appendFile(path.join(restore, 'integrated', 'measurement-audio/recording-0/audio.bin'), 'broken');
     assert.equal((await fetch(`http://127.0.0.1:${running.port}/api/lab/report?session=integrated`, { headers: operatorHeaders })).status, 400);

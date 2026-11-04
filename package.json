@@ -32,7 +32,9 @@
     "assets:rehearsal": "node --import tsx study/tools/assets-cli.ts rehearsal",
     "lab:start": "node --import tsx study/server/cli.ts",
     "lab:dev": "node --import tsx study/server/cli.ts --dev",
-    "assets:sync": "node --import tsx study/tools/assets-cli.ts sync"
+    "assets:sync": "node --import tsx study/tools/assets-cli.ts sync",
+    "prebuild": "node scripts/stamp-build.mjs",
+    "lab:backup": "node --import tsx study/tools/backup-cli.ts"
   },
   "dependencies": {
     "next": "16.4.3",

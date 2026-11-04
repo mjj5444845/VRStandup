@@ -10,7 +10,8 @@ export { validateAnswers } from '../core/plan';
 export type { Session, ActionKind } from '../core/session';
 export type { Evidence, MediaContext } from '../core/execution';
 export type { Questionnaire } from '../core/plan';
-export type { ScenePanel, RunClip } from '../core/scene-interface';
+export type { ScenePanel, SceneInfo, RunClip } from '../core/scene-interface';
+export { initialSceneInfo } from '../core/scene-interface';
 export type RunIdentity = { sessionId: string; key: string; clientId: string };
 export function runHeaders(identity: RunIdentity) { return { Authorization: `Bearer ${identity.key}`, 'x-punchcap-session': identity.sessionId, 'x-punchcap-client': identity.clientId }; }
 export async function loadPrivateClip(identity: RunIdentity, id: string): Promise<RunClip> {

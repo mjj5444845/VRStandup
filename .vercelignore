@@ -51,3 +51,7 @@ punchcap-run-*.json
 punchcap-report-*.json
 punchcap-report-*.csv
 punchcap-measurement-*
+
+# Generated public revision marker and local device reports.
+/public/study/build.json
+punchcap-device-test-*.json

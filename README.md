@@ -74,3 +74,5 @@ npm run spike:net
 - [系统设计](docs/design/SYSTEM_GUIDE.md) · [演员录制与回放](docs/design/PERFORMER_RECORDING.md) · [剧场建模参考](docs/design/SCENE_REFERENCE.md)
 
 完整工程流程与已接入资产的当前说明见 [交付范围](docs/project/FULL-SYSTEM-DELIVERY.md) 和 [运行指南](docs/guides/18-完整系统与场景预演.txt)。
+
+集中设备检查与PC复查：[Quest测试指南](docs/guides/19-Quest集中测试.txt)；私密副本：[备份校验与恢复](docs/guides/20-备份校验与恢复.txt)。

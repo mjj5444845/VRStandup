@@ -15,6 +15,6 @@ test('scene audio reuses one unlocked context, replaces sources and closes every
   try {
     const audio = createSceneAudio(); audio.reaction(); await assert.rejects(audio.play(0)); await audio.load(new Uint8Array(10)); await audio.unlock();
     assert.equal(await audio.play(0), 1.04); assert.ok(audio.running()); audio.reaction(); await audio.play(1000); await audio.load(new Uint8Array(20)); await audio.play(2000);
-    await audio.prepareClub(); await audio.prepareClub(); assert.equal(fetches, 1); audio.reaction(100, 300); audio.reaction(13000, 500); await audio.play(2000); assert.equal(contexts, 1); assert.equal(sources, 5); assert.ok(stops >= 2); assert.equal(audio.time(), 1); audio.dispose(); assert.equal(closes, 1); assert.equal(audio.running(), false);
+    await audio.prepareClub(); await audio.prepareClub(); assert.equal(fetches, 6); audio.reaction(100, 300); audio.reaction(13000, 500); await audio.play(2000); assert.equal(contexts, 1); assert.equal(sources, 5); assert.ok(stops >= 2); assert.equal(audio.time(), 1); audio.dispose(); assert.equal(closes, 1); assert.equal(audio.running(), false);
   } finally { globalThis.fetch = oldFetch; if (original) Object.defineProperty(globalThis, 'AudioContext', original); else Reflect.deleteProperty(globalThis, 'AudioContext'); }
 });

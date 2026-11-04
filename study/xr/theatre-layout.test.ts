@@ -38,6 +38,10 @@ test('actual shipped GLBs load into 24-seat theatre, drive tracked surfaces and 
     const layout = JSON.parse(await fs.readFile(base + 'scene-layout.json', 'utf8')); room.seats.forEach((s, i) => { assert.equal(s.name, layout.seats[i].id); assert.deepEqual(s.position, layout.seats[i].position); });
     const take = syntheticTake(), poses = sampleRecording(take, 1000), scale = mappingScale(room.heightMetres, take.calibration.headHeight); room.apply(poses, scale); room.root.updateMatrixWorld(true);
     const expected = actorPoint(poses.head!.position.map(v => v * scale) as unknown as [number, number, number]); assert.ok(room.actor.getObjectByName('Head')!.getWorldPosition(new Vector3()).distanceTo(new Vector3(...expected)) < 1e-6);
+    room.configure(CLUB_MAPPING); const upper = room.actor.getObjectByName('LeftUpperArm')!, hand = room.actor.getObjectByName('LeftHand')!, restQ = upper.quaternion.clone(), lowerLength = hand.position.length(), raw = JSON.stringify(poses);
+    room.apply(poses, scale, true); assert.ok(upper.quaternion.angleTo(restQ) > .05); assert.ok(Math.abs(hand.position.length() - lowerLength) < 1e-6); assert.equal(JSON.stringify(poses), raw);
+    const trackedHand = actorPoint(poses.leftHand!.position.map(v => v * scale) as unknown as [number, number, number]); assert.ok(room.point('leftHand').distanceTo(new Vector3(...trackedHand)) < 1e-6);
+    room.apply({ ...poses, leftHand: null }, scale, true); assert.equal(room.actor.getObjectByName('LeftHandSurface')!.visible, false); room.apply(poses, scale); assert.ok(upper.quaternion.angleTo(restQ) < 1e-6);
     room.configure({ ...CLUB_MAPPING, offsets: { ...CLUB_MAPPING.offsets, head: [.1, .2, .3] } }); room.apply(poses, scale);
     assert.ok(room.point('head').distanceTo(new Vector3(expected[0] - .1, expected[1] + .2, expected[2] - .3)) < 1e-6);
     assert.throws(() => room.configure({ ...CLUB_MAPPING, modelVersion: 'wrong-model' })); room.configure(CLUB_MAPPING); room.apply(poses, scale);
