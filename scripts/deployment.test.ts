@@ -24,6 +24,8 @@ test('build identity permits only declared Vercel omissions and still detects re
     await fs.writeFile(path.join(root, 'README.md'), 'Public instructions');
     await fs.writeFile(path.join(root, '.env.example'), 'PUBLIC_EXAMPLE=1');
     await fs.writeFile(path.join(root, 'source.ts'), 'export const value = 1;');
+    const configuration = { framework: 'nextjs', outputDirectory: '.next-lab' };
+    await fs.writeFile(path.join(root, 'vercel.json'), JSON.stringify(configuration, null, 2) + '\n');
     git(['init', '--quiet']); git(['add', '.']);
     git(['-c', 'user.name=Build Test', '-c', 'user.email=build-test@example.invalid', 'commit', '--quiet', '-m', 'fixture']);
     const revision = git(['rev-parse', 'HEAD']);
@@ -36,6 +38,11 @@ test('build identity permits only declared Vercel omissions and still detects re
     assert.equal((await stamp(false)).dirty, true);
     assert.equal((await stamp(true)).dirty, false);
     assert.equal((await stamp(true, 'b'.repeat(40))).dirty, true);
+    await fs.writeFile(path.join(root, 'vercel.json'), JSON.stringify({ outputDirectory: '.next-lab', framework: 'nextjs' }));
+    assert.equal((await stamp(true)).dirty, false);
+    await fs.writeFile(path.join(root, 'vercel.json'), JSON.stringify({ ...configuration, outputDirectory: 'wrong' }));
+    assert.equal((await stamp(true)).dirty, true);
+    await fs.writeFile(path.join(root, 'vercel.json'), JSON.stringify(configuration, null, 2) + '\n');
     await fs.writeFile(path.join(root, 'source.ts'), 'export const value = 2;');
     assert.equal((await stamp(true)).dirty, true);
     await fs.writeFile(path.join(root, 'source.ts'), 'export const value = 1;');
