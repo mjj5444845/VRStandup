@@ -35,7 +35,7 @@ export function createReview(host: HTMLElement, audio: PlaybackAudio, changed: (
         else if (!audio.running()) pause('声音已被暂停，请手动继续。');
         else { previous = raw; if (position() >= take.durationMs) { transport = { phase: 'ended', offsetMs: take.durationMs, anchorS: audio.time() }; audio.pause(); publish('回放结束。请复查缺失/估算标记及实际音质。'); } }
       }
-      const validity = driver.apply(sampleRecording(take, position()), actor ? mappingScale(driver.mapping.heightMetres, take.calibration.headHeight) : 1);
+      const poses = sampleRecording(take, position()), validity = actor ? actor.apply(poses, mappingScale(driver.mapping.heightMetres, take.calibration.headHeight)) : driver.apply(poses, 1);
       if (actor) actor.scene.visible = Object.values(validity).every(Boolean);
       if (performance.now() - last > 150) { last = performance.now(); publish(transport.phase === 'playing' ? '正在回放' : transport.phase === 'ended' ? '回放结束' : '已载入或暂停'); }
     }
@@ -47,7 +47,9 @@ export function createReview(host: HTMLElement, audio: PlaybackAudio, changed: (
   async function model(bytes: ArrayBuffer, mapping: Mapping) {
     if (lost) throw new Error('三维画面已丢失，请刷新。'); pause(); if (take) mappingScale(mapping.heightMetres, take.calibration.headHeight); const id = ++modelGeneration, loaded = await loadActor(bytes, mapping);
     if (disposed || lost || id !== modelGeneration) { loaded.dispose(); return; }
-    pause(); if (actor) { scene.remove(actor.scene); actor.dispose(); } root.visible = false; actor = loaded; driver = loaded.driver; scene.add(loaded.scene); publish('模型已载入：直接头手驱动供检查；缺失时隐藏模型，未推算的身体不代表实录。');
+    pause(); if (actor) { scene.remove(actor.scene); actor.dispose(); } root.visible = false; actor = loaded; driver = loaded.driver;
+    if (mapping.modelId === 'actor' && mapping.modelVersion === 'v1-candidate') loaded.scene.rotation.y = Math.PI;
+    scene.add(loaded.scene); publish('模型已载入：头手位置来自记录，连接的手臂为显示估算；未采集全身或手指，缺失时隐藏模型。');
   }
   renderer.domElement.addEventListener('webglcontextlost', contextLost);
   function dispose() { if (disposed) return; disposed = true; generation++; modelGeneration++; actor?.dispose(); audio.dispose(); observer.disconnect(); document.removeEventListener('visibilitychange', hidden); renderer.domElement.removeEventListener('webglcontextlost', contextLost); renderer.setAnimationLoop(null); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); grid.geometry.dispose(); (Array.isArray(grid.material) ? grid.material : [grid.material]).forEach(m => m.dispose()); renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove(); }

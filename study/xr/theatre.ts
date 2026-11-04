@@ -25,7 +25,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
   const lineGeometry = new BufferGeometry().setFromPoints([new Vector3(), new Vector3(0, 0, -8)]), lineMaterial = new LineBasicMaterial({ color: '#f8f3c5' });
   let loaded: SceneLoad | null = null, glyphs = new Map<string, Glyph>(), transport: Transport = { ...INITIAL_TRANSPORT }, ready = false, disposed = false, generation = 0, previousMs = -1, previousFrame = 0, lastPublish = 0, lastProgress = 0, lastSample = 0;
   let samples: OrientationSample[] = [], message = '准备场景与声音。', xr: XRSession | null = null, xrPending = false, lost = false, fps = 0, frames = 0, frameStart = performance.now();
-  let estimatedArms = false;
+  let estimatedArms = true;
   let currentSeat = PREVIEW_SEAT, xrAligned = false, xrCounted = false;
   let xrEntries = 0, xrExits = 0, headTracked = false, panelLower = false; let inputTracking = { left: false, right: false };
   let looking: { id: number; x: number; y: number; yaw: number; pitch: number } | null = null;
@@ -135,7 +135,7 @@ export function createTheatre(host: HTMLElement, audio: PlaybackAudio & { reacti
     if (loaded && assetsReady) {
       if (transport.phase === 'playing') perfFrames++;
       if (transport.phase === 'playing' && (elapsed > 250 || !audio.running())) { transport = { phase: 'paused', offsetMs: Math.max(0, previousMs), anchorS: audio.time() }; audio.pause(); message = elapsed > 250 ? '画面停顿超过保护间隔，已停在最后可靠进度。' : '声音时钟中断。'; progress(); callbacks.interrupted(message); }
-      const ms = position(), poses = samplePrepared(loaded.clip.take, loaded.clip.manifest, ms); const scale = mappingScale(room.heightMetres, loaded.clip.take.calibration.headHeight); room.apply(poses, scale, estimatedArms && loaded.clip.take.source === 'test-fixture');
+      const ms = position(), poses = samplePrepared(loaded.clip.take, loaded.clip.manifest, ms); const scale = mappingScale(room.heightMetres, loaded.clip.take.calibration.headHeight); room.apply(poses, scale, estimatedArms);
       const laugh = loaded.clip.manifest.cues.some(c => c.kind === 'laugh' && c.atMs <= ms && ms < c.endMs); room.reaction(ms, laugh);
       if (transport.phase === 'playing') {
         const reaction = loaded.clip.manifest.cues.find(c => c.kind === 'laugh' && c.atMs <= ms && ms < c.endMs); if (reaction && reaction.id !== currentReaction) audio.reaction?.(ms - reaction.atMs, reaction.endMs - ms, reaction.assetId); currentReaction = reaction?.id ?? '';

@@ -573,3 +573,13 @@ Windows本轮统一自动检查127项（8架构、1部署、47检查页、3看�
 本批已在内置浏览器实际运行/study/device：26份文件校验完成、PC播放约75FPS/90次绘制、抓取/放大/挂载与方向键转头、可选手臂开关正常，控制台无错误；头显检查仍待测。实际截图发现中文面板颜色偏淡，修正Canvas的sRGB及界面/花字材质的色调映射，避免场景曝光影响原始文字颜色。
 
 浏览器真实下载验证完成：生成12项总报告，重新读取并校验后complete=false、XR进入次数0、audioIncluded=false；PC记录未被误判成头显通过。摘要保留在output/checks/device-browser-report-summary.json。c39c708的远端Mac/Windows检查和构建已通过，Vercel部署成功。中文面板色彩修正后再次通过127项统一检查和生产构建（device-contrast-check.log、device-contrast-build.log）。
+
+## 2026-11-03 Clay v2 人物/空间返修
+
+Blender 5.2.3 LTS 重制六个人物并导出实际运行GLB；保存人物可编辑源件、带骨架人物和整场工程。网页 /study/scene-review 七视角截图与连续动作已检查，无浏览器错误。原分块模型的结构测试不等于美术验收，本次不沿用该结论。
+
+`npm.cmd run check` 130项通过：8架构、1部署、47独立检查、3看板、35核心、36正式层。新增实际桌椅/海报壁灯碰撞、混合蒙皮权重、全片袖口随腕/原始姿态不变、头部侧移时躯干连接、四种坐姿动作的坐垫压入与脚底高度检查。坐垫允许10毫米软接触工程容差，不作为人体工学/舒适度标准。
+
+证据留在 output/art-review/：check-final.log、formal-gestures.log、before.png、front/side/back/portrait/seated/room/top.png、blender-actor.png。布料轮廓、面部审美及真实Quest极端动作/手腕偏移/性能仍需人机验收，未标记通过。
+
+本轮普通生产构建和GitHub Pages静态看板构建通过；本机实验室服务已重启载入新版本。Pages仍仅发布看板，不包含人物GLB、音频或Blender原件。日志：output/art-review/build.log、pages-build.log。

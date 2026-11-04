@@ -20,6 +20,8 @@
 - 资料矛盾时指出具体差异。研究分配、问卷和阈值缺少依据时不能自行编造。
 - 未经用户要求，不提交、推送、发布、改变仓库公开状态或改动其他项目的配置。
 
+当前视觉返修：用户要求用本机 Blender 修正人物与场景。编辑源件在 `local_assets/models/clay-avatar-v2/`；保持原始源包，按实际截图与网格接触核对，不把结构测试通过写成审美或实机验收。制作/复现说明见 `docs/design/AVATAR_SCENE_REVISION.md`。
+
 ## 历史与素材
 
 - `archive/legacy-2026-10-30/` 是只读历史资料；不清理其内容，不改写其中的规则、素材或清单。
@@ -79,3 +81,13 @@
 - 应用自带和个人全局技能不属于本仓库清理范围。
 - 以后若出现失效规则或技能，先核对适用范围与引用，再删除陈旧内容并修复相关说明。
 - 操作说明写清适用电脑、准备条件、逐条步骤、成功标志、常见问题和验证状态。
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

@@ -9,3 +9,5 @@
 - `manifest.json` 逐文件登记字节数及 SHA-256；来源、处理和时长记录在 audio 字段。模型映射保留 draft，公开展示不改变研究审核状态。
 
 源包：`local_assets/collections/soft-clay-club/v1/`。导出脚本仅复制明确白名单，不会将整个源包、生成工具、下载记录或原始声音加入网页。
+
+2026-11-03 Clay v2：六个人物在本机 Blender 重制连续衣物、头面、发型和手掌；沿用本项目原骨架与动作，并重写自然垂手站姿。仍为本项目原创辅助制作，没有引入第三方人物网格。源件与制作命令见 docs/design/AVATAR_SCENE_REVISION.md；原始概念图不嵌入运行模型。

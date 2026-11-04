@@ -7,7 +7,7 @@ export const PREVIEW_SEAT = 1;
 /** New-design seat centres, converted once from (x,y,z) to (x,z,-y). */
 export function theatreSeats() {
   const front = [-1.25, .48].flatMap((z, row) => [-1.55, 1.55].flatMap((x, col) =>
-    [[-.61, .17], [0, .66], [.61, .17]].map(([dx, dz], i) => ({ name: `Table_${row * 2 + col + 1}_Chair_${i + 1}`, table: row * 2 + col, position: [Number((x + dx).toFixed(3)), 0, Number((z + dz).toFixed(3))] as Vec3 }))));
+    [[-.79, .17], [0, .84], [.79, .17]].map(([dx, dz], i) => ({ name: `Table_${row * 2 + col + 1}_Chair_${i + 1}`, table: row * 2 + col, position: [Number((x + dx).toFixed(3)), 0, Number((z + dz).toFixed(3))] as Vec3 }))));
   const back = [2.56, 3.62].flatMap((z, row) => [-2.23, -1.338, -.446, .446, 1.338, 2.23].map((x, col) => ({ name: `Rear_R${row + 1}_C${col + 1}`, table: -1, position: [x, 0, z] as Vec3 })));
   return [...front, ...back].map((seat, id) => ({ ...seat, id }));
 }

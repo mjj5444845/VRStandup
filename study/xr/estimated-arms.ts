@@ -2,6 +2,24 @@ import { Quaternion, Vector3, type Object3D } from 'three';
 import type { Mapping } from '../core/materials';
 import type { Joint, Pose } from '../core/motion';
 import { solveArm } from '../core/arm-ik';
+/** A bounded visual lean connects the neck to lateral head motion; never capture data. */
+export function createTorsoEstimate(root: Object3D) {
+  const spine = root.getObjectByName('Spine'); if (!spine) throw new Error('躯干骨架缺失。');
+  const rest = spine.quaternion.clone();
+  function reset() { spine!.quaternion.copy(rest); root.updateMatrixWorld(true); }
+  function apply(poses: Record<Joint, Pose | null>, scale: number, mapping: Mapping) {
+    if (!poses.head) return;
+    const target = root.localToWorld(new Vector3(...poses.head.position).multiplyScalar(scale).add(new Vector3(...mapping.offsets.head)));
+    const origin = spine!.getWorldPosition(new Vector3()), direction = target.sub(origin);
+    if (direction.length() < .1) return;
+    const world = spine!.getWorldQuaternion(new Quaternion()), up = new Vector3(0,1,0).applyQuaternion(world);
+    const delta = new Quaternion().setFromUnitVectors(up,direction.normalize()), angle = new Quaternion().angleTo(delta);
+    // Twenty degrees is a display deformation bound, not a research or tracking threshold.
+    if (angle > .35) delta.slerp(new Quaternion(),1-.35/angle);
+    spine!.quaternion.copy(spine!.parent!.getWorldQuaternion(new Quaternion()).invert().multiply(delta).multiply(world));root.updateMatrixWorld(true);
+  }
+  return { reset, apply };
+}
 export function createArmEstimate(root: Object3D) {
   const arms = (['Left', 'Right'] as const).map((side, index) => {
     const upper = root.getObjectByName(`${side}UpperArm`), lower = root.getObjectByName(`${side}LowerArm`), hand = root.getObjectByName(`${side}Hand`);

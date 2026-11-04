@@ -59,3 +59,7 @@
 用户授权接入并上传已制作资产。公开工作副本在[club/v1](club/v1/manifest.json)，26个文件共50,714,642字节；7个自包含GLB、8张花字PNG、6工作WAV、Noto Sans SC原字体及OFL、布局/照明和草稿映射。逐文件SHA-256在清单中，详细[来源与许可](club/v1/LICENSES.md)。原创模型与图形随项目公开可访问，未擅自另指定开放模型许可；字体OFL、人群工作音效CC0各依原条款。
 
 运行时使用完整无人物场景，再独立加入演员与五种观众；已确认样椅在场景中复用24次。原始源包、源件及预览仍在local_assets，不公开真人录音/动作。人群声音来源方标为AI生成；工程表演使用syntheticTake动作/节拍，不能当真人研究证据。正式演员只支持Soft Clay Club v1候选映射，身体与表情仍为制作原型。
+
+## 2026-11-03 Clay v2 修订
+
+演员与五种观众经 Blender 重做连续曲面和混合蒙皮；场景18个摆放点调整并同步24座表。来源/许可不变；本机编辑源件 local_assets/models/clay-avatar-v2/，制作与验收记录见 docs/design/AVATAR_SCENE_REVISION.md。美术修订由运行 manifest 的 sculptRevision 与逐文件哈希标记，真实录制保持私密。

@@ -5,38 +5,38 @@
   "files": [
     {
       "file": "models/scene-empty.glb",
-      "bytes": 1981236,
-      "sha256": "89fde7cfaa61a96fd217b10008f9b80a2a6ced31066b5a318922a806847c8074"
+      "bytes": 1981404,
+      "sha256": "9cdbdcf63d102fd5df26651a4e375e4b66dc8e63cd05bce96d5a845b77694c2b"
     },
     {
       "file": "models/actor.glb",
-      "bytes": 4312872,
-      "sha256": "5754f997a9dba861d398e6041723168d98c6e743084ef5cda0da351b1ff8b1e3"
+      "bytes": 1292136,
+      "sha256": "f20c1adeb8f661ab2beeede67524afbec4576f6bf0c692797639ac84ce1a902d"
     },
     {
       "file": "models/audience-01.glb",
-      "bytes": 4422708,
-      "sha256": "7b7df25f29a8f0515af9322f926f01ba3a6766432dd53d926bb7bec06a496b26"
+      "bytes": 1340736,
+      "sha256": "33d60141cb17b3e31c8d863b48bd8be5d2100aa604ad76d7027d1bac6ba626ea"
     },
     {
       "file": "models/audience-02.glb",
-      "bytes": 4422708,
-      "sha256": "8ffd14ce9ca6e47dcc274f8b9a91c8d9a0d8edd9b06f9075812e5f418c3d699e"
+      "bytes": 1292164,
+      "sha256": "37a623f6dbe2027a1d118819d21dfd0b29633d4cf6954248d115b24dc2ea5685"
     },
     {
       "file": "models/audience-03.glb",
-      "bytes": 4422700,
-      "sha256": "7a01b440ace35a144ae83f5acf4f2995ada2ecfd73f8ca4c85614a89d7fc35d9"
+      "bytes": 1299264,
+      "sha256": "93b9fd95c374458aefcd203989c1151d87c88930f906eaedbb6e7641385bb331"
     },
     {
       "file": "models/audience-04.glb",
-      "bytes": 4312880,
-      "sha256": "a427963e374867c836a77ee06d74d6af054dc34b2e1adcfbf108b9484b336fc2"
+      "bytes": 1292156,
+      "sha256": "98578b49232ba143f3d68079c43f04c2254422dc9328c4a34ba2d35757ebb142"
     },
     {
       "file": "models/audience-05.glb",
-      "bytes": 4422712,
-      "sha256": "14ed766601da53bc43a954d7f1597064281456e8778ac0ff8a68bdeecaaf88ea"
+      "bytes": 1340736,
+      "sha256": "8aca438f1a09a4ed45ac304fdb7b6bb4edc60d61043677b084187833c8604525"
     },
     {
       "file": "graphics/expressive-wow.png",
@@ -125,8 +125,8 @@
     },
     {
       "file": "scene-layout.json",
-      "bytes": 2884,
-      "sha256": "a0a9c8a6b39633c3f1b1b0f493ce27e1d945481a40010641e9eb50fb37e64d9f"
+      "bytes": 2948,
+      "sha256": "72b1046bde6deabd104176f26eb8eb30facb734c039f9d59225fd496ec6e6f48"
     },
     {
       "file": "lighting.json",
@@ -295,5 +295,6 @@
       "license": "CC0-1.0",
       "approval": "candidate; listening and study suitability pending"
     }
-  ]
+  ],
+  "sculptRevision": "clay-v2-2026-11-04"
 }
